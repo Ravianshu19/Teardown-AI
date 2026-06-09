@@ -58,18 +58,320 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
+// ── Database and Auth Implementation ──
+const fs = require('fs');
+const DB_FILE = path.join(__dirname, 'database.json');
+
+// Helper to load/save database
+function loadDB() {
+  if (!fs.existsSync(DB_FILE)) {
+    fs.writeFileSync(DB_FILE, JSON.stringify({ users: {} }, null, 2));
+  }
+  try {
+    return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  } catch (e) {
+    console.error('Error reading JSON database, resetting:', e);
+    return { users: {} };
+  }
+}
+
+function saveDB(data) {
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+  } catch (e) {
+    console.error('Error saving JSON database:', e);
+  }
+}
+
+// Secure hashing using PBKDF2
+function hashPassword(password, salt) {
+  const crypto = require('crypto');
+  return crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+}
+
+// Register User
+app.post('/api/register', (req, res) => {
+  const crypto = require('crypto');
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'Name, email, and password are required.' });
+  }
+
+  const db = loadDB();
+  const lowerEmail = email.toLowerCase().trim();
+  
+  if (db.users[lowerEmail]) {
+    return res.status(400).json({ error: 'Email already registered.' });
+  }
+
+  const salt = crypto.randomBytes(16).toString('hex');
+  const passwordHash = hashPassword(password, salt);
+  const token = crypto.randomBytes(24).toString('hex');
+
+  db.users[lowerEmail] = {
+    name,
+    email: lowerEmail,
+    passwordHash,
+    salt,
+    token,
+    reports: [],
+    plan: 'Free',
+    credits: 10,
+    maxCreds: 10,
+    team: [
+      { initials: name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2), name: name + ' (Admin)', role: 'admin', tears: 0, lastActive: 'Online now', col: 'ic-g' }
+    ]
+  };
+
+  saveDB(db);
+  res.json({ token, name, email: lowerEmail, plan: 'Free', credits: 10, maxCreds: 10, team: db.users[lowerEmail].team });
+});
+
+// Login User
+app.post('/api/login', (req, res) => {
+  const crypto = require('crypto');
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required.' });
+  }
+
+  const db = loadDB();
+  const lowerEmail = email.toLowerCase().trim();
+  const user = db.users[lowerEmail];
+
+  if (!user) {
+    return res.status(400).json({ error: 'Invalid email or password.' });
+  }
+
+  const checkHash = hashPassword(password, user.salt);
+  if (checkHash !== user.passwordHash) {
+    return res.status(400).json({ error: 'Invalid email or password.' });
+  }
+
+  const token = crypto.randomBytes(24).toString('hex');
+  user.token = token;
+  saveDB(db);
+
+  res.json({
+    token,
+    name: user.name,
+    email: user.email,
+    plan: user.plan || 'Free',
+    credits: user.credits !== undefined ? user.credits : 10,
+    maxCreds: user.maxCreds || 10,
+    team: user.team || [
+      { initials: user.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2), name: user.name + ' (Admin)', role: 'admin', tears: 0, lastActive: 'Online now', col: 'ic-g' }
+    ]
+  });
+});
+
+// Validate Session
+app.get('/api/session', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No authorization token provided.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid or expired session.' });
+  }
+
+  res.json({
+    name: user.name,
+    email: user.email,
+    plan: user.plan || 'Free',
+    credits: user.credits !== undefined ? user.credits : 10,
+    maxCreds: user.maxCreds || 10,
+    team: user.team || [
+      { initials: user.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2), name: user.name + ' (Admin)', role: 'admin', tears: 0, lastActive: 'Online now', col: 'ic-g' }
+    ]
+  });
+});
+
+// Get User Reports
+app.get('/api/reports', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  res.json({ reports: user.reports || [] });
+});
+
+// Save User Report
+app.post('/api/reports', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  const report = req.body;
+  if (!report || !report.name) {
+    return res.status(400).json({ error: 'Invalid report data.' });
+  }
+
+  if (!report.id) {
+    const crypto = require('crypto');
+    report.id = Date.now().toString() + '_' + crypto.randomBytes(4).toString('hex');
+  }
+  report.ts = report.ts || Date.now();
+  report.date = report.date || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  // Decrement user credit
+  if (user.credits === undefined) user.credits = 10;
+  if (user.credits > 0 && user.plan !== 'Team') { // Team tier has unlimited mock credits (9999)
+    user.credits--;
+  }
+
+  // Increment tears count for admin in team
+  user.team = user.team || [
+    { initials: user.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2), name: user.name + ' (Admin)', role: 'admin', tears: 0, lastActive: 'Online now', col: 'ic-g' }
+  ];
+  const admin = user.team.find(m => m.role === 'admin');
+  if (admin) {
+    admin.tears = (admin.tears || 0) + 1;
+  }
+
+  user.reports = (user.reports || []).filter(r => r.id !== report.id && r.name !== report.name);
+  user.reports.unshift(report);
+
+  saveDB(db);
+  res.json({ success: true, report, credits: user.credits });
+});
+
+// Delete User Report
+app.delete('/api/reports/:id', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  const reportId = req.params.id;
+  user.reports = (user.reports || []).filter(r => r.id !== reportId);
+  saveDB(db);
+
+  res.json({ success: true });
+});
+
 // Verify Razorpay payment server-side (call this from your frontend after payment success)
 app.post('/api/verify-payment', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
   const crypto = require('crypto');
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, plan } = req.body;
+  
+  if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !plan) {
+    return res.status(400).json({ error: 'Missing signature details or plan.' });
+  }
+
   const body = razorpay_order_id + '|' + razorpay_payment_id;
   const expected = crypto.createHmac('sha256', RZP_SEC).update(body).digest('hex');
   if (expected === razorpay_signature) {
-    // Payment is verified — activate the user's subscription in your database here
-    res.json({ verified: true, payment_id: razorpay_payment_id });
+    const normalizedPlan = plan.toLowerCase();
+    user.plan = normalizedPlan === 'pro' ? 'Pro' : 'Team';
+    user.credits = normalizedPlan === 'pro' ? 500 : 9999;
+    user.maxCreds = user.credits;
+    saveDB(db);
+    
+    res.json({ verified: true, plan: user.plan, credits: user.credits, maxCreds: user.maxCreds });
   } else {
-    res.status(400).json({ verified: false, error: 'Signature mismatch' });
+    res.status(400).json({ verified: false, error: 'Signature verification failed' });
   }
+});
+
+// Invite Team Member
+app.post('/api/team/invite', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  const { email } = req.body;
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'A valid email is required.' });
+  }
+
+  user.team = user.team || [
+    { initials: user.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2), name: user.name + ' (Admin)', role: 'admin', tears: 0, lastActive: 'Online now', col: 'ic-g' }
+  ];
+
+  const lowerEmail = email.toLowerCase().trim();
+  const exists = user.team.some(m => m.name.toLowerCase() === lowerEmail);
+  if (exists) {
+    return res.status(400).json({ error: 'Member already in team.' });
+  }
+
+  const cols = ['ic-b', 'ic-o', 'ic-g'];
+  user.team.push({
+    initials: lowerEmail[0].toUpperCase(),
+    name: lowerEmail,
+    role: 'member',
+    tears: 0,
+    lastActive: 'Invited',
+    col: cols[user.team.length % 3]
+  });
+
+  saveDB(db);
+  res.json({ success: true, team: user.team });
+});
+
+// Delete Team Member
+app.delete('/api/team/:email', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+  const token = authHeader.split(' ')[1];
+  const db = loadDB();
+  const user = Object.values(db.users).find(u => u.token === token);
+  if (!user) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  const targetEmail = req.params.email.toLowerCase().trim();
+  user.team = (user.team || []).filter(m => m.role === 'admin' || m.name.toLowerCase() !== targetEmail);
+
+  saveDB(db);
+  res.json({ success: true, team: user.team });
 });
 
 // Health check
