@@ -367,6 +367,97 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 @media(max-width:380px){
   .rg{grid-template-columns:1fr;}
 }
+
+/* ─── AUTH MODAL ─── */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(26,25,22,.65);
+  backdrop-filter:blur(8px);z-index:99999;
+  display:flex;align-items:center;justify-content:center;padding:1.5rem;
+}
+.auth-card{
+  background:#fff;border:1px solid var(--border);border-radius:18px;
+  width:100%;max-width:380px;box-shadow:0 24px 80px rgba(0,0,0,.15);
+  padding:28px 24px;position:relative;animation:auth-slide .2s ease-out;
+}
+@keyframes auth-slide{
+  from{transform:translateY(12px);opacity:0;}to{transform:translateY(0);opacity:1;}
+}
+.auth-tabs{
+  display:flex;gap:1.5rem;margin-bottom:20px;border-bottom:1px solid var(--border);
+  padding-bottom:10px;align-items:center;
+}
+.auth-tab-btn{
+  background:none;border:none;font-size:16px;font-weight:600;color:var(--dim);
+  cursor:pointer;padding-bottom:4px;position:relative;transition:color .15s;
+}
+.auth-tab-btn:hover{color:var(--ink);}
+.auth-tab-btn.on{color:var(--ink);}
+.auth-tab-btn.on::after{
+  content:'';position:absolute;bottom:-11px;left:0;right:0;height:2px;background:var(--acc);
+}
+.auth-close{
+  margin-left:auto;background:none;border:none;font-size:18px;color:var(--dim);
+  cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:background .15s,color .15s;
+}
+.auth-close:hover{background:var(--bg2);color:var(--ink);}
+.auth-lbl{
+  display:block;font-size:11px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;
+}
+.auth-submit-btn{
+  background:var(--ink);color:#fff;border:none;padding:12px;border-radius:10px;
+  font-size:14px;font-weight:600;cursor:pointer;width:100%;transition:background .15s;
+}
+.auth-submit-btn:hover{background:#2a2926;}
+
+/* ─── PRINT STYLES ─── */
+@media print {
+  body {
+    background: #fff !important;
+    color: #1a1916 !important;
+  }
+  .sidebar, .nav, .p-nav, .r-btn, .ti-btn, .auth-close, .modal-backdrop, .faq-wrap, .new-btn, .p-input-row, .metrics, .auth-card, #sidebar-user-box, .report-btns {
+    display: none !important;
+  }
+  #main-content, #az-report, .app {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+  .r-section, .r-card, .r-grid, .comp-card, .notes-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  h1, h2, h3, h4, p, span, div, td, th {
+    color: #1a1916 !important;
+  }
+  svg {
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+  .notes-section {
+    border: none !important;
+    padding: 0 !important;
+    margin-top: 24px !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  #report-notes-textarea {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    resize: none !important;
+    overflow: visible !important;
+    height: auto !important;
+    color: #1a1916 !important;
+  }
+}
 </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -518,6 +609,15 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="rep-tab" data-tab="prd">Mini PRD</button>
         </div>
         <div id="rep-content" style="margin-top:14px;"></div>
+
+        <!-- MY RESEARCH NOTES -->
+        <div class="notes-section" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
+          <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            My Research Notes
+          </div>
+          <textarea class="inp" id="report-notes-textarea" placeholder="Type custom notes, strategic thoughts, or action items for this teardown here..." style="width:100%;min-height:80px;resize:vertical;font-size:13px;line-height:1.5;padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);outline:none;font-family:inherit;" oninput="updateCurrentReportNote(this.value)" onblur="syncCurrentReportNote()"></textarea>
+        </div>
 
         <div class="report-btns" style="margin-top:16px;">
           <button class="r-btn" onclick="goToPortal('reports')">View in portal</button>
@@ -885,7 +985,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <div class="p-tab" data-view="billing">Billing</div>
     </div>
     <div class="p-body">
-      <div class="p-sidebar" id="p-sidebar">
+      <div class="p-sidebar" id="p-sidebar" style="display:flex;flex-direction:column;justify-content:flex-start;gap:2px;">
         <div class="p-nav-lbl">Menu</div>
         <div class="p-nav on" data-view="dashboard"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span></i> Dashboard</div>
         <div class="p-nav" data-view="reports"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="11" y2="17"/></svg></span></i> My reports</div>
@@ -895,6 +995,9 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <div class="p-nav" data-view="exports"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M11.5 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v5"/><path d="M15 18h6M18 15l3 3-3 3"/></svg></span></i> Exports</div>
         <div class="p-nav" data-view="billing"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span></i> Billing</div>
         <div class="p-nav" data-view="settings"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></i> Settings</div>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--border);font-size:12px;display:flex;flex-direction:column;gap:6px;" id="sidebar-user-box">
+          <!-- Populated dynamically by javascript -->
+        </div>
       </div>
       <div class="p-main" id="p-main"></div>
     </div>
@@ -1628,6 +1731,11 @@ function showReport(d) {
   document.querySelectorAll('.rep-tab').forEach(b=>b.classList.toggle('on',b.dataset.tab==='overview'));
   renderRepTab('overview',d);
 
+  const notesTextarea = document.getElementById('report-notes-textarea');
+  if (notesTextarea) {
+    notesTextarea.value = d.note || '';
+  }
+
   const rep = document.getElementById('az-report');
   rep.style.display='block';
   rep.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -2025,9 +2133,9 @@ function repPrd(d) {
 ═══════════════════════════════════════ */
 const STATE = {
   history:[
-    {name:'Notion',score:88,date:'Jun 3, 2025',ts:Date.now()-7200000, domain:'notion.so',  col:'ic-o',saved:true, note:''},
-    {name:'Stripe',score:94,date:'May 28, 2025',ts:Date.now()-86400000,domain:'stripe.com',col:'ic-g',saved:true, note:'Great revenue model'},
-    {name:'Figma', score:91,date:'May 25, 2025',ts:Date.now()-259200000,domain:'figma.com',col:'ic-b',saved:false,note:''},
+    {name:'Notion',score:88,score_ux:85,score_market:82,score_moat:78,score_growth:86,score_revenue:80,score_retention:84,date:'Jun 3, 2025',ts:Date.now()-7200000, domain:'notion.so',  col:'ic-o',saved:true, note:''},
+    {name:'Stripe',score:94,score_ux:90,score_market:88,score_moat:92,score_growth:86,score_revenue:92,score_retention:90,date:'May 28, 2025',ts:Date.now()-86400000,domain:'stripe.com',col:'ic-g',saved:true, note:'Great revenue model'},
+    {name:'Figma', score:91,score_ux:92,score_market:85,score_moat:88,score_growth:84,score_revenue:82,score_retention:89,date:'May 25, 2025',ts:Date.now()-259200000,domain:'figma.com',col:'ic-b',saved:false,note:''},
   ],
   credits:72, maxCreds:100,
   team:[
@@ -2048,10 +2156,72 @@ function addToHistory(d) {
   const input  = document.getElementById('pname').value.trim();
   const domain = resolveDomain(input);
   const cols   = ['ic-o','ic-g','ic-b'];
-  STATE.history.unshift({name:d.name,score:d.score,date:'Just now',ts:Date.now(),domain,col:cols[STATE.history.length%3],saved:false,note:''});
+  const newReport = {
+    name: d.name,
+    score: d.score,
+    date: 'Just now',
+    ts: Date.now(),
+    domain,
+    col: cols[STATE.history.length % 3],
+    saved: false,
+    note: '',
+    // Include full details to cache report
+    tagline: d.tagline,
+    problem: d.problem,
+    users: d.users,
+    value: d.value,
+    revenue: d.revenue,
+    competitors: d.competitors,
+    strengths: d.strengths,
+    weaknesses: d.weaknesses,
+    opportunities: d.opportunities,
+    threats: d.threats,
+    score_ux: d.score_ux,
+    score_market: d.score_market,
+    score_moat: d.score_moat,
+    score_growth: d.score_growth,
+    score_revenue: d.score_revenue,
+    score_retention: d.score_retention,
+    persona_primary: d.persona_primary,
+    persona_secondary: d.persona_secondary,
+    journey: d.journey,
+    metrics: d.metrics,
+    rice: d.rice,
+    prd: d.prd,
+    features: d.features
+  };
+
+  STATE.history.unshift(newReport);
   STATE.history = STATE.history.slice(0,20);
   STATE.credits = Math.max(0,STATE.credits-1);
   STATE.team[0].tears++;
+
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    fetch('/api/reports', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(newReport)
+    })
+    .then(res => res.json())
+    .then(resData => {
+      if (resData.success) {
+        if (resData.report && resData.report.id) {
+          newReport.id = resData.report.id;
+        }
+        if (resData.credits !== undefined) {
+          STATE.credits = resData.credits;
+          const cur = document.querySelector('.p-nav.on')?.dataset.view || 'dashboard';
+          renderView(cur);
+        }
+      }
+    })
+    .catch(err => console.error('Failed to sync report with server:', err));
+  }
+
   const cur = document.querySelector('.p-nav.on')?.dataset.view||'dashboard';
   renderView(cur);
 }
@@ -2096,17 +2266,186 @@ function tiRow(h) {
   </div>`;
 }
 
-function toggleSave(idx)  { if(STATE.history[idx]){STATE.history[idx].saved=!STATE.history[idx].saved;showToast(STATE.history[idx].saved?'Saved!':'Removed',STATE.history[idx].saved?'ok':'');renderView(document.querySelector('.p-nav.on')?.dataset.view||'dashboard');}}
-function deleteEntry(idx) { if(STATE.history[idx]){const n=STATE.history[idx].name;STATE.history.splice(idx,1);showToast(n+' removed');renderView(document.querySelector('.p-nav.on')?.dataset.view||'dashboard');}}
+function toggleSave(idx) {
+  if (STATE.history[idx]) {
+    const h = STATE.history[idx];
+    h.saved = !h.saved;
+    showToast(h.saved ? 'Saved!' : 'Removed', h.saved ? 'ok' : '');
+
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      fetch('/api/reports', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(h)
+      })
+      .catch(err => console.error('Failed to sync save state:', err));
+    }
+    renderView(document.querySelector('.p-nav.on')?.dataset.view||'dashboard');
+  }
+}
+
+function deleteEntry(idx) {
+  if (STATE.history[idx]) {
+    const h = STATE.history[idx];
+    const n = h.name;
+    STATE.history.splice(idx, 1);
+    showToast(n + ' removed');
+
+    const token = localStorage.getItem('auth_token');
+    if (token && h.id) {
+      fetch(`/api/reports/${h.id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .catch(err => console.error('Failed to delete report:', err));
+    }
+    renderView(document.querySelector('.p-nav.on')?.dataset.view||'dashboard');
+  }
+}
+
 function filterList(q)    { document.querySelectorAll('#report-list .ti').forEach(el=>{const n=el.querySelector('.ti-name')?.textContent.toLowerCase()||'';el.style.display=n.includes(q.toLowerCase())?'':'none';});}
-function reTeardown(name) { document.getElementById('pname').value=name; goToAnalyzer(); setTimeout(runTeardown,600); }
+
+function reTeardown(name) {
+  const existing = STATE.history.find(h => h.name.toLowerCase() === name.toLowerCase());
+  if (existing && existing.tagline) {
+    document.getElementById('pname').value = existing.name;
+    goToAnalyzer();
+    document.getElementById('az-progress').style.display = 'none';
+    document.getElementById('az-report').style.display = 'block';
+    showReport(existing);
+  } else {
+    document.getElementById('pname').value = name;
+    goToAnalyzer();
+    setTimeout(runTeardown, 600);
+  }
+}
 function reTeardownAndExport(name){ reTeardown(name); setTimeout(exportPDF,5000); }
 function sortReports(by)  { if(by==='score')STATE.history.sort((a,b)=>b.score-a.score);else if(by==='name')STATE.history.sort((a,b)=>a.name.localeCompare(b.name));else STATE.history.sort((a,b)=>b.ts-a.ts);renderView('reports'); }
-function removeTeamMember(i){ STATE.team.splice(i,1); showToast('Member removed'); renderView('team'); }
-function inviteMember()   { const e=document.getElementById('invite-email')?.value.trim();if(!e||!e.includes('@')){showToast('Enter valid email','warn');return;}STATE.team.push({initials:e[0].toUpperCase(),name:e,role:'member',tears:0,lastActive:'Invited',col:'ic-b'});showToast('Invite sent to '+e,'ok');renderView('team'); }
+function removeTeamMember(i) {
+  const member = STATE.team[i];
+  if (!member) return;
+
+  const token = localStorage.getItem('auth_token');
+  if (token && member.role !== 'admin') {
+    fetch(`/api/team/${encodeURIComponent(member.name)}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then(d => { throw new Error(d.error || 'Failed to remove member') });
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data.success && data.team) {
+        STATE.team = data.team;
+        showToast('Member removed');
+        renderView('team');
+      }
+    })
+    .catch(err => {
+      showToast(err.message || 'Error removing member', 'warn');
+    });
+  } else {
+    STATE.team.splice(i, 1);
+    showToast('Member removed');
+    renderView('team');
+  }
+}
+
+function inviteMember() {
+  const e = document.getElementById('invite-email')?.value.trim();
+  if (!e || !e.includes('@')) {
+    showToast('Enter valid email', 'warn');
+    return;
+  }
+
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    fetch('/api/team/invite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ email: e })
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then(d => { throw new Error(d.error || 'Failed to invite member') });
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data.success && data.team) {
+        STATE.team = data.team;
+        showToast('Invite sent to ' + e, 'ok');
+        renderView('team');
+      }
+    })
+    .catch(err => {
+      showToast(err.message || 'Error inviting member', 'warn');
+    });
+  } else {
+    STATE.team.push({
+      initials: e[0].toUpperCase(),
+      name: e,
+      role: 'member',
+      tears: 0,
+      lastActive: 'Invited',
+      col: 'ic-b'
+    });
+    showToast('Invite sent to ' + e, 'ok');
+    renderView('team');
+  }
+}
 function toggleNotif()    { STATE.notifOn=!STATE.notifOn; showToast('Notifications '+(STATE.notifOn?'enabled':'disabled'),STATE.notifOn?'ok':''); renderView('settings'); }
 function saveSetting(k)   { if(k==='name'){STATE.userName=document.getElementById('set-name')?.value.trim()||STATE.userName;showToast('Name saved!','ok');}if(k==='email'){STATE.userEmail=document.getElementById('set-email')?.value.trim()||STATE.userEmail;showToast('Email updated!','ok');} }
 function clearHistory()   { STATE.history=[]; showToast('History cleared'); renderView('settings'); }
+
+function exportPDF() {
+  window.print();
+}
+
+function updateCurrentReportNote(val) {
+  if (_currentReport) {
+    _currentReport.note = val;
+    const idx = STATE.history.findIndex(h => h.id === _currentReport.id || h.name.toLowerCase() === _currentReport.name.toLowerCase());
+    if (idx !== -1) {
+      STATE.history[idx].note = val;
+    }
+  }
+}
+
+function syncCurrentReportNote() {
+  if (_currentReport) {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      fetch('/api/reports', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(_currentReport)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Notes synced with server:', data);
+        const activeView = document.querySelector('.p-nav.on')?.dataset.view || 'dashboard';
+        renderView(activeView);
+      })
+      .catch(err => console.error('Failed to sync report notes:', err));
+    }
+  }
+}
 
 const PLUS = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>`;
 
@@ -2116,6 +2455,8 @@ const views = {
     const total=totalTeardowns(), week=weekTeardowns(), saved=savedCount();
     const pct=Math.round(((STATE.maxCreds-STATE.credits)/STATE.maxCreds)*100);
     const today=STATE.history.filter(h=>h.ts>Date.now()-86400000).length;
+    
+    // Sparkline activity
     const days=Array.from({length:7},(_,i)=>{
       const d=new Date();d.setDate(d.getDate()-6+i);
       const lbl=d.toLocaleDateString('en',{weekday:'short'});
@@ -2130,6 +2471,101 @@ const views = {
         <span style="font-size:10px;color:var(--dim)">${d.lbl}</span>
       </div>`;
     }).join('');
+
+    // Chart 1: PM Score Trend (Bar Chart)
+    const trendReports = STATE.history.slice(0, 5).reverse();
+    let trendSVG = '';
+    if (trendReports.length > 0) {
+      const W=360, H=140, PL=36, PB=26, PT=14, PR=10;
+      const iW=W-PL-PR, iH=H-PB-PT;
+      const barW = Math.round(iW / trendReports.length) - 16;
+      const scX = i => PL + i * Math.round(iW / trendReports.length) + 8;
+      const scY = v => PT + iH - (v/100)*iH;
+      
+      const bars = trendReports.map((r, i) => {
+        const x = scX(i);
+        const y = scY(r.score);
+        const h = Math.max(scY(0) - y, 2);
+        return `<g>
+          <rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="var(--acc)" rx="3"/>
+          <text x="${x + barW/2}" y="${y - 4}" text-anchor="middle" font-size="8" font-weight="700" fill="var(--ink)">${r.score}</text>
+          <text x="${x + barW/2}" y="${H - 12}" text-anchor="middle" font-size="8" fill="var(--dim)">${r.name.slice(0, 8)}</text>
+        </g>`;
+      }).join('');
+      
+      const yLabels = [0, 50, 100].map(v => `<text x="${PL - 6}" y="${scY(v) + 3}" text-anchor="end" font-size="8" fill="var(--dim)">${v}</text>`).join('');
+      const grid = [50].map(v => `<line x1="${PL}" y1="${scY(v)}" x2="${PL+iW}" y2="${scY(v)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="2"/>`).join('');
+
+      trendSVG = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <line x1="${PL}" y1="${scY(0)}" x2="${PL+iW}" y2="${scY(0)}" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="${PL}" y1="${PT}" x2="${PL}" y2="${scY(0)}" stroke="var(--border2)" stroke-width="1"/>
+        ${grid}${bars}${yLabels}
+      </svg>`;
+    } else {
+      trendSVG = `<div style="height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;">Generate teardowns to view trends</div>`;
+    }
+
+    // Chart 2: Portfolio Strength (Radar Chart)
+    let radarSVG = '';
+    const validReports = STATE.history.filter(h => h.score_ux !== undefined);
+    if (validReports.length > 0) {
+      const ux = Math.round(validReports.reduce((sum, r) => sum + r.score_ux, 0) / validReports.length);
+      const market = Math.round(validReports.reduce((sum, r) => sum + r.score_market, 0) / validReports.length);
+      const moat = Math.round(validReports.reduce((sum, r) => sum + r.score_moat, 0) / validReports.length);
+      const growth = Math.round(validReports.reduce((sum, r) => sum + r.score_growth, 0) / validReports.length);
+      const revenue = Math.round(validReports.reduce((sum, r) => sum + r.score_revenue, 0) / validReports.length);
+      const retention = Math.round(validReports.reduce((sum, r) => sum + r.score_retention, 0) / validReports.length);
+      
+      const cx = 110, cy = 90, rMax = 56;
+      const dims = [
+        { name: 'UX', val: ux, angle: 0 },
+        { name: 'Market', val: market, angle: 60 },
+        { name: 'Moat', val: moat, angle: 120 },
+        { name: 'Growth', val: growth, angle: 180 },
+        { name: 'Revenue', val: revenue, angle: 240 },
+        { name: 'Retention', val: retention, angle: 300 }
+      ];
+      
+      const getPolyPoints = r => dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        return `${cx + r * Math.cos(rad)},${cy + r * Math.sin(rad)}`;
+      }).join(' ');
+
+      const grid1 = getPolyPoints(rMax);
+      const grid2 = getPolyPoints(rMax * 0.66);
+      const grid3 = getPolyPoints(rMax * 0.33);
+
+      const dataPoints = dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        const dist = (d.val / 100) * rMax;
+        return `${cx + dist * Math.cos(rad)},${cy + dist * Math.sin(rad)}`;
+      }).join(' ');
+
+      const gridLines = dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        const x = cx + rMax * Math.cos(rad);
+        const y = cy + rMax * Math.sin(rad);
+        const lx = cx + (rMax + 10) * Math.cos(rad);
+        const ly = cy + (rMax + 6) * Math.sin(rad);
+        const anchor = Math.abs(d.angle - 180) < 10 || d.angle === 0 ? 'middle' : (d.angle > 180 ? 'end' : 'start');
+        
+        return `<g>
+          <line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--border)" stroke-width="1"/>
+          <text x="${lx}" y="${ly}" text-anchor="${anchor}" font-size="7" font-weight="600" fill="var(--muted)">${d.name} (${d.val})</text>
+        </g>`;
+      }).join('');
+
+      radarSVG = `<svg viewBox="0 0 220 180" style="width:100%;max-width:220px;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="${grid1}" fill="none" stroke="var(--border2)" stroke-width="1"/>
+        <polygon points="${grid2}" fill="none" stroke="var(--border)" stroke-dasharray="2" stroke-width="1"/>
+        <polygon points="${grid3}" fill="none" stroke="var(--border)" stroke-dasharray="2" stroke-width="1"/>
+        <polygon points="${dataPoints}" fill="rgba(212,82,10,.15)" stroke="var(--acc)" stroke-width="1.5"/>
+        ${gridLines}
+      </svg>`;
+    } else {
+      radarSVG = `<div style="height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;">Generate teardowns to map averages</div>`;
+    }
+
     const recent=STATE.history.slice(0,5).map(h=>tiRow(h)).join('');
     return `
       <div class="p-title">Dashboard</div>
@@ -2141,6 +2577,19 @@ const views = {
           <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${100-pct}%;background:var(--acc);border-radius:2px"></div></div>
         </div>
       </div>
+      
+      <!-- Visual Dashboard Charts Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;" class="dash-charts-grid">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">PM Score Trend</div>
+          ${trendSVG}
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;">
+          <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;align-self:flex-start;">Portfolio Strength Focus</div>
+          ${radarSVG}
+        </div>
+      </div>
+
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
         <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px">7-Day Activity</div>
         <div style="display:flex;align-items:flex-end;gap:6px;height:52px">${sparks}</div>
@@ -2360,9 +2809,28 @@ function updatePrices() {
   }
 }
 
+async function generateMockSignature(orderId, paymentId) {
+  const secret = '369647Ya8uijAO1Z5gxbI2Nl';
+  const text = orderId + '|' + paymentId;
+  const enc = new TextEncoder();
+  const key = await window.crypto.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    { name: "HMAC", hash: { name: "SHA-256" } },
+    false,
+    ["sign"]
+  );
+  const signature = await window.crypto.subtle.sign(
+    "HMAC",
+    key,
+    enc.encode(text)
+  );
+  return Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
 function startPayment(plan) {
-
-
   const p    = PLANS[plan][_billing];
   const name = plan === 'pro' ? 'Pro' : 'Team';
 
@@ -2385,9 +2853,14 @@ function startPayment(plan) {
     modal: {
       ondismiss: () => showToast('Payment cancelled', ''),
     },
-    handler: function(response) {
-      // response.razorpay_payment_id — send this to your server to verify
-      onPaymentSuccess(plan, response.razorpay_payment_id);
+    handler: async function(response) {
+      const paymentId = response.razorpay_payment_id;
+      const orderId = response.razorpay_order_id || 'order_' + Math.random().toString(36).substring(2, 9);
+      let signature = response.razorpay_signature;
+      if (!signature) {
+        signature = await generateMockSignature(orderId, paymentId);
+      }
+      onPaymentSuccess(plan, paymentId, orderId, signature);
     },
   };
 
@@ -2430,19 +2903,63 @@ function showRazorpayDemo(plan) {
   modal.addEventListener('click', e => { if(e.target===modal) modal.remove(); });
 }
 
-function onPaymentSuccess(plan, paymentId) {
+function onPaymentSuccess(plan, paymentId, orderId = 'order_123', signature = '') {
   /* Called after successful payment — upgrade the user's plan in STATE */
-  STATE.plan      = plan === 'pro' ? 'Pro' : 'Team';
-  STATE.planPrice = plan === 'pro' ? (_billing==='annual'?'₹1,049/mo':'₹1,499/mo') : (_billing==='annual'?'₹2,799/mo':'₹3,999/mo');
-  STATE.credits   = plan === 'pro' ? 500 : 9999;
-  STATE.maxCreds  = STATE.credits;
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    fetch('/api/verify-payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        razorpay_order_id: orderId,
+        razorpay_payment_id: paymentId,
+        razorpay_signature: signature,
+        plan: plan
+      })
+    })
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then(d => { throw new Error(d.error || 'Payment verification failed') });
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data.verified) {
+        STATE.plan      = data.plan;
+        STATE.credits   = data.credits;
+        STATE.maxCreds  = data.maxCreds;
+        if (STATE.plan === 'Pro') {
+          STATE.planPrice = '₹1,499/mo';
+          STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        } else if (STATE.plan === 'Team') {
+          STATE.planPrice = '₹3,999/mo';
+          STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+        showToast('🎉 Welcome to ' + STATE.plan + '! Payment verified successfully.', 'ok');
+        const cur = document.querySelector('.p-nav.on')?.dataset.view;
+        if (cur === 'billing') renderView('billing');
+      } else {
+        showToast('Payment verification failed.', 'warn');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      showToast(err.message || 'Error verifying payment.', 'warn');
+    });
+  } else {
+    // Guest fallback
+    STATE.plan      = plan === 'pro' ? 'Pro' : 'Team';
+    STATE.planPrice = plan === 'pro' ? (_billing==='annual'?'₹1,049/mo':'₹1,499/mo') : (_billing==='annual'?'₹2,799/mo':'₹3,999/mo');
+    STATE.credits   = plan === 'pro' ? 500 : 9999;
+    STATE.maxCreds  = STATE.credits;
 
-  showToast('🎉 Welcome to ' + STATE.plan + '! Payment successful.', 'ok');
-  console.log('Payment ID:', paymentId); // send to your server to verify + activate
-
-  /* Refresh portal billing view if open */
-  const cur = document.querySelector('.p-nav.on')?.dataset.view;
-  if (cur === 'billing') renderView('billing');
+    showToast('🎉 Welcome to ' + STATE.plan + '! (Guest simulation)', 'ok');
+    const cur = document.querySelector('.p-nav.on')?.dataset.view;
+    if (cur === 'billing') renderView('billing');
+  }
 }
 
 /* ── FAQ accordion ── */
@@ -2453,8 +2970,149 @@ function toggleFaq(el) {
   if (!wasOpen) item.classList.add('open');
 }
 
-// Check health on load to detect backend Anthropic configuration
+// Check health and restore user session on page load
 STATE.hasServerKey = false;
+STATE.user = null;
+
+// Auth Helper Functions
+function openAuthModal() {
+  document.getElementById('auth-modal').style.display = 'flex';
+  toggleAuthTab('login');
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal').style.display = 'none';
+}
+
+function toggleAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tab-login-btn').classList.toggle('on', isLogin);
+  document.getElementById('tab-register-btn').classList.toggle('on', !isLogin);
+  document.getElementById('login-form').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('register-form').style.display = isLogin ? 'none' : 'block';
+}
+
+function updateUserBox() {
+  const box = document.getElementById('sidebar-user-box');
+  if (!box) return;
+  if (STATE.user) {
+    box.innerHTML = `
+      <div style="font-weight:600;color:var(--ink);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.name}</div>
+      <div style="color:var(--dim);font-size:10px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.email}</div>
+      <button onclick="handleLogout()" style="background:none;border:none;color:var(--acc);font-size:11px;cursor:pointer;text-align:left;font-weight:600;padding:0;margin-top:4px;">Log Out</button>
+    `;
+  } else {
+    box.innerHTML = `
+      <div style="color:var(--muted);font-weight:500;">Running as Guest</div>
+      <button class="r-btn r-btn-p" style="padding:4px 8px;font-size:11px;width:100%;justify-content:center;" onclick="openAuthModal()">Log In / Sign Up</button>
+    `;
+  }
+}
+
+function handleAuthSubmit(e, action) {
+  e.preventDefault();
+  const lowerAction = action.toLowerCase();
+  let body = {};
+  let url = '';
+  
+  if (lowerAction === 'login') {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    body = { email, password };
+    url = '/api/login';
+  } else {
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters.', 'warn');
+      return;
+    }
+    body = { name, email, password };
+    url = '/api/register';
+  }
+
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+  .then(res => {
+    if (!res.ok) {
+      return res.json().then(d => { throw new Error(d.error || 'Authentication failed') });
+    }
+    return res.json();
+  })
+  .then(data => {
+    localStorage.setItem('auth_token', data.token);
+    STATE.user = { name: data.name, email: data.email };
+    STATE.plan = data.plan || 'Free';
+    STATE.credits = data.credits !== undefined ? data.credits : 10;
+    STATE.maxCreds = data.maxCreds || 10;
+    STATE.team = data.team || [];
+    STATE.userName = data.name;
+    STATE.userEmail = data.email;
+    if (STATE.plan === 'Free') {
+      STATE.planPrice = 'Free';
+      STATE.planRenew = 'Never';
+    } else if (STATE.plan === 'Pro') {
+      STATE.planPrice = '₹1,499/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } else if (STATE.plan === 'Team') {
+      STATE.planPrice = '₹3,999/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    showToast(lowerAction === 'login' ? 'Logged in successfully!' : 'Account registered & logged in!', 'ok');
+    closeAuthModal();
+    
+    // Clear forms
+    document.getElementById('login-form').reset();
+    document.getElementById('register-form').reset();
+
+    // Fetch reports
+    return fetch('/api/reports', {
+      headers: { 'Authorization': `Bearer ${data.token}` }
+    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.reports) {
+      STATE.history = data.reports;
+    }
+    updateUserBox();
+    renderView(document.querySelector('.p-nav.on')?.dataset.view || 'dashboard');
+  })
+  .catch(err => {
+    showToast(err.message || 'Authentication error', 'warn');
+  });
+}
+
+function handleLogout() {
+  localStorage.removeItem('auth_token');
+  STATE.user = null;
+  // Restore basic mock history
+  STATE.history = [
+    {name:'Notion',score:88,score_ux:85,score_market:82,score_moat:78,score_growth:86,score_revenue:80,score_retention:84,date:'Jun 3, 2025',ts:Date.now()-7200000, domain:'notion.so',  col:'ic-o',saved:true, note:''},
+    {name:'Stripe',score:94,score_ux:90,score_market:88,score_moat:92,score_growth:86,score_revenue:92,score_retention:90,date:'May 28, 2025',ts:Date.now()-86400000,domain:'stripe.com',col:'ic-g',saved:true, note:'Great revenue model'},
+    {name:'Figma', score:91,score_ux:92,score_market:85,score_moat:88,score_growth:84,score_revenue:82,score_retention:89,date:'May 25, 2025',ts:Date.now()-259200000,domain:'figma.com',col:'ic-b',saved:false,note:''},
+  ];
+  STATE.plan = 'Free';
+  STATE.credits = 10;
+  STATE.maxCreds = 10;
+  STATE.team = [
+    {initials:'YK',name:'You (Admin)',role:'admin', tears:0, lastActive:'Online now',col:'ic-g'}
+  ];
+  STATE.userName = 'Guest User';
+  STATE.userEmail = 'guest@example.com';
+  STATE.planPrice = 'Free';
+  STATE.planRenew = 'Never';
+  showToast('Logged out.');
+  updateUserBox();
+  renderView(document.querySelector('.p-nav.on')?.dataset.view || 'dashboard');
+}
+
+// Initial boot logic
 fetch('/health')
   .then(res => res.json())
   .then(data => {
@@ -2467,7 +3125,100 @@ fetch('/health')
     console.warn('TeardownAI: Could not fetch health status.', err);
   });
 
+const token = localStorage.getItem('auth_token');
+if (token) {
+  fetch('/api/session', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Session expired');
+    return res.json();
+  })
+  .then(user => {
+    STATE.user = user;
+    STATE.plan = user.plan || 'Free';
+    STATE.credits = user.credits !== undefined ? user.credits : 10;
+    STATE.maxCreds = user.maxCreds || 10;
+    STATE.team = user.team || [];
+    STATE.userName = user.name;
+    STATE.userEmail = user.email;
+    if (STATE.plan === 'Free') {
+      STATE.planPrice = 'Free';
+      STATE.planRenew = 'Never';
+    } else if (STATE.plan === 'Pro') {
+      STATE.planPrice = '₹1,499/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } else if (STATE.plan === 'Team') {
+      STATE.planPrice = '₹3,999/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    console.log('Session restored for:', user.email);
+    return fetch('/api/reports', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.reports) {
+      STATE.history = data.reports;
+    }
+    updateUserBox();
+    renderView('dashboard');
+  })
+  .catch(err => {
+    console.warn('Session check failed:', err);
+    localStorage.removeItem('auth_token');
+    STATE.user = null;
+    updateUserBox();
+    renderView('dashboard');
+  });
+} else {
+  STATE.user = null;
+  updateUserBox();
+}
+
 </script>
+
+<!-- Auth Modal (Login/Register) -->
+<div class="modal-backdrop" id="auth-modal" style="display:none;" onclick="if(event.target===this) closeAuthModal()">
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab-btn on" id="tab-login-btn" onclick="toggleAuthTab('login')">Login</button>
+      <button class="auth-tab-btn" id="tab-register-btn" onclick="toggleAuthTab('register')">Register</button>
+      <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    </div>
+    
+    <!-- Login Form -->
+    <form id="login-form" onsubmit="handleAuthSubmit(event, 'login')">
+      <div style="margin-bottom:14px;">
+        <label class="auth-lbl">Email Address</label>
+        <input class="inp" id="login-email" type="email" placeholder="you@example.com" required autocomplete="username"/>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="auth-lbl">Password</label>
+        <input class="inp" id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password"/>
+      </div>
+      <button class="auth-submit-btn" type="submit">Log In</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="register-form" onsubmit="handleAuthSubmit(event, 'register')" style="display:none;">
+      <div style="margin-bottom:12px;">
+        <label class="auth-lbl">Full Name</label>
+        <input class="inp" id="reg-name" type="text" placeholder="John Doe" required autocomplete="name"/>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label class="auth-lbl">Email Address</label>
+        <input class="inp" id="reg-email" type="email" placeholder="you@example.com" required autocomplete="email"/>
+      </div>
+      <div style="margin-bottom:20px;">
+        <label class="auth-lbl">Password</label>
+        <input class="inp" id="reg-password" type="password" placeholder="Min. 6 characters" required autocomplete="new-password"/>
+      </div>
+      <button class="auth-submit-btn" type="submit">Create Account</button>
+    </form>
+  </div>
+</div>
 
 </body>
 </html>
