@@ -155,7 +155,7 @@ nav{
 /* Portal history logos */
 .ti-icon img{width:100%;height:100%;object-fit:contain;border-radius:5px;padding:3px;}
 
-.report-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.rep-header,.report-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
 .report-name{font-family:var(--fh);font-size:20px;}
 .report-actions{display:flex;gap:7px;flex-wrap:wrap;}
 .r-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 13px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink);transition:border-color .15s;}
@@ -163,6 +163,167 @@ nav{
 .r-btn-p{background:var(--ink);color:#fff;border-color:var(--ink);}
 .r-btn-p:hover{background:#2a2926;}
 .badge{font-size:11px;padding:3px 10px;border-radius:100px;font-weight:600;background:var(--acc2-bg);color:var(--acc2-t);border:1px solid #b6deca;}
+
+/* ─── REPORT COMPONENTS STYLING ─── */
+.rep-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1.5px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.rep-tabs::-webkit-scrollbar {
+  display: none;
+}
+.rep-tab {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.rep-tab:hover {
+  color: var(--ink);
+}
+.rep-tab.on {
+  color: var(--acc);
+  border-bottom-color: var(--acc);
+  font-weight: 700;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media(max-width:768px){
+  .overview-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+.ov-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.ov-card:hover {
+  border-color: var(--border2);
+}
+.ov-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--dim);
+  margin-bottom: 6px;
+}
+.ov-val {
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.personas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:768px){
+  .personas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.persona-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.persona-card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 4px 20px rgba(0,0,0,.02);
+}
+.persona-card.persona-p {
+  border-left: 4px solid var(--acc);
+}
+.persona-card.persona-s {
+  border-left: 4px solid var(--acc2);
+}
+.persona-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.persona-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.persona-role {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: -8px;
+}
+.persona-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.persona-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--dim);
+}
+.persona-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ptag {
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.ptag-goal {
+  background: var(--acc2-bg);
+  color: var(--acc2-t);
+  border: 1px solid #b6deca;
+}
+.ptag-pain {
+  background: var(--acc-bg);
+  color: var(--acc-t);
+  border: 1px solid #f5c3a8;
+}
+.ptag-trigger {
+  background: var(--bg2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
 
 .rg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
 .rc{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;}
@@ -350,7 +511,7 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 /* Portal history logos */
 .ti-icon img{width:100%;height:100%;object-fit:contain;border-radius:5px;padding:3px;}
 
-.report-hdr{flex-direction:column;}
+.rep-header,.report-hdr{flex-direction:column;}
   .report-actions{width:100%;}
   .r-btn{flex:1;justify-content:center;}
   .rg{grid-template-columns:1fr 1fr;}
@@ -496,10 +657,10 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge"><span class="ico" style="font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="currentColor" opacity=".3"/><path d="M12 2l1.5 3.5L17 7l-3.5 1.5L12 12l-1.5-3.5L7 7l3.5-1.5z"/></svg></span></i> Real AI · Real PM insights · Real fast</div>
-  <h1>Teardown any product<br>like a <em>senior PM</em></h1>
-  <p>Enter a product name. Get a complete teardown — personas, competitive landscape, SWOT, features, and growth ideas — instantly.</p>
+  <h1>Analyze any website's UX, performance,<br>and conversion bottlenecks using AI.</h1>
+  <p>Paste any URL or product name to get instant actionable PM insights, SWOT matrices, and user personas.</p>
   <div class="hero-btns">
-    <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span></i> Try it now — it's free</button>
+    <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Demo</button>
     <button class="btn-out" onclick="loadSample('Stripe')">See sample: Stripe →</button>
   </div>
   <div class="hero-stats">
@@ -511,6 +672,26 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     <div class="dot"></div>
     <div class="stat"><span class="stat-n">Any</span> product or URL</div>
   </div>
+
+  <!-- Browser Mockup Screenshot -->
+  <div class="hero-screenshot" style="margin: 3rem auto 0; max-width: 900px; position: relative;">
+    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 5px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); overflow: hidden; display: flex; flex-direction: column;">
+      <!-- Browser chrome -->
+      <div style="display: flex; align-items: center; padding: 10px 14px; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.25);">
+        <div style="display: flex; gap: 6px;">
+          <span style="width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+          <span style="width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+          <span style="width: 9px; height: 9px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+        </div>
+        <div style="flex-grow: 1; text-align: center; font-size: 11px; color: var(--muted); background: rgba(255, 255, 255, 0.04); border-radius: 6px; padding: 3px 0; max-width: 320px; margin: 0 auto; letter-spacing: 0.3px; border: 1px solid rgba(255, 255, 255, 0.05);">
+          teardown.ai/portal/dashboard
+        </div>
+      </div>
+      <!-- Image -->
+      <img src="preview.png" alt="TeardownAI Portal Dashboard" style="width: 100%; height: auto; border-radius: 0 0 8px 8px; display: block; filter: brightness(0.92);" />
+    </div>
+  </div>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -539,9 +720,15 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Notion')">Notion</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Stripe')">Stripe</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Figma')">Figma</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Airbnb')">Airbnb</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Spotify')">Spotify</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Netflix')">Netflix</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Linear')">Linear</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Loom')">Loom</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Slack')">Slack</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Swiggy')">Swiggy</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Zomato')">Zomato</button>
+          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Razorpay')">Razorpay</button>
         </div>
       </div>
       <div class="az-inputs">
@@ -677,18 +864,22 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 .funnel-arrow{text-align:center;color:var(--border2);font-size:18px;line-height:1;margin-left:102px;}
 
 /* Heatmap SWOT */
-.swot-heatmap{display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:12px;overflow:hidden;}
-.swot-hm-q{padding:20px;position:relative;overflow:hidden;}
-.swot-hm-q::after{content:'';position:absolute;bottom:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:.12;}
-.swot-hm-s{background:#0d4d35;}.swot-hm-s::after{background:#4ade80;}
-.swot-hm-w{background:#78350f;}.swot-hm-w::after{background:#fcd34d;}
-.swot-hm-o{background:#1e3a5f;}.swot-hm-o::after{background:#60a5fa;}
-.swot-hm-t{background:#7f1d1d;}.swot-hm-t::after{background:#f87171;}
-.swot-hm-header{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.swot-hm-icon{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;}
-.swot-hm-items{display:flex;flex-direction:column;gap:8px;}
-.swot-hm-item{font-size:12.5px;color:rgba(255,255,255,.88);line-height:1.55;display:flex;align-items:flex-start;gap:8px;}
-.swot-hm-bullet{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);flex-shrink:0;margin-top:6px;}
+.swot-heatmap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;}
+.swot-hm-q{padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);}
+.swot-hm-q:hover{transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);}
+.swot-hm-s{background:rgba(26, 107, 74, 0.08); border-color:rgba(74, 222, 128, 0.25);}
+.swot-hm-s:hover{border-color:rgba(74, 222, 128, 0.45); background:rgba(26, 107, 74, 0.11);}
+.swot-hm-w{background:rgba(217, 119, 6, 0.08); border-color:rgba(251, 191, 36, 0.25);}
+.swot-hm-w:hover{border-color:rgba(251, 191, 36, 0.45); background:rgba(217, 119, 6, 0.11);}
+.swot-hm-o{background:rgba(42, 95, 165, 0.08); border-color:rgba(96, 165, 250, 0.25);}
+.swot-hm-o:hover{border-color:rgba(96, 165, 250, 0.45); background:rgba(42, 95, 165, 0.11);}
+.swot-hm-t{background:rgba(190, 18, 60, 0.08); border-color:rgba(248, 113, 113, 0.25);}
+.swot-hm-t:hover{border-color:rgba(248, 113, 113, 0.45); background:rgba(190, 18, 60, 0.11);}
+.swot-hm-header{font-size:14px;font-weight:700;letter-spacing:0.3px;color:rgba(255,255,255,0.95);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:none;}
+.swot-hm-icon{font-size:16px; display:inline-flex; align-items:center; justify-content:center;}
+.swot-hm-items{display:flex;flex-direction:column;gap:10px;}
+.swot-hm-item{font-size:13px;color:rgba(255,255,255,.9);line-height:1.6;display:flex;align-items:flex-start;gap:10px;}
+.swot-hm-bullet{font-size: 11px; margin-top: 3px; color: rgba(255, 255, 255, 0.6); flex-shrink:0;}
 
 /* Bubble chart */
 .bubble-wrap{position:relative;overflow:hidden;border-radius:12px;background:var(--bg);}
@@ -1062,14 +1253,9 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <div class="pc-body">
         <ul class="p-feats">
           <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>Unlimited</strong> teardowns</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Full 8-tab visual report</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>All visualisations: radar, bubble, funnel, RICE, PRD</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>Priority Claude Haiku</strong> — faster responses</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Competitor deep-dive (5 competitors with bars)</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>RICE prioritisation + Mini PRD generator</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>PDF export + Share links</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Save &amp; annotate reports</span></li>
-          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Email support</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Interactive SVG charts (Radar & Trend)</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>RICE framework & Mini PRD generator</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
         </ul>
         <button class="p-btn p-btn-pro" onclick="startPayment('pro')">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
@@ -1097,15 +1283,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <ul class="p-feats">
           <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Everything in Pro</span></li>
           <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>10 team seats</strong> included</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Shared report library</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Team dashboard &amp; analytics</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Collaborative annotations</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Role-based access (Admin / Member / Viewer)</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>API access</strong> — 500 calls/month</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Custom branding on exports</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Slack &amp; Notion integration</span></li>
-          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Priority email + chat support</span></li>
-          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Dedicated onboarding call</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Shared report library & workspace</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Collaborative annotations & branding</span></li>
         </ul>
         <button class="p-btn p-btn-team" onclick="startPayment('team')">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
@@ -1329,6 +1508,18 @@ const PRODUCT_DB = {
   },
   slack: {
     name:'Slack', tagline:'Where work happens', problem:'Email is too slow, siloed, and context-stripping for modern team collaboration. Important threads get buried, decisions get lost, and remote teams feel disconnected.', users:'Enterprise tech teams, remote-first companies, developer communities, ops and support teams', value:'Slack provides organised real-time messaging with channels, thread history, and 2,600+ integrations — replacing internal email and creating a searchable company memory.', revenue:'Freemium — Pro $7.25/user/mo, Business+ $12.50/user/mo, Enterprise Grid custom', competitors:[{name:'Microsoft Teams',threat:'high',ux:68,features:82,pricing:55,market:88},{name:'Google Chat',threat:'high',ux:70,features:70,pricing:65,market:75},{name:'Discord',threat:'medium',ux:80,features:72,pricing:85,market:55},{name:'Lark',threat:'medium',ux:78,features:80,pricing:75,market:35},{name:'Zoom Chat',threat:'medium',ux:65,features:68,pricing:62,market:60}], score:82, score_ux:78, score_market:80, score_moat:76, score_growth:72, score_revenue:78, score_retention:80, strengths:['Massive integration ecosystem with 2,600+ apps','Strong brand loyalty in tech companies and startups','Powerful workflow automation with Workflow Builder'], weaknesses:['Notification overload causes focus fragmentation and fatigue','Microsoft Teams bundled free in M365 significantly undercuts pricing','Message history disappears after 90 days on free tier, frustrating users'], opportunities:['AI Slack agents for autonomous workflow execution','Voice-first async messaging for on-the-go teams','Vertical expansions for healthcare, legal, and education teams'], threats:['Microsoft Teams bundled free makes Slack hard to justify in enterprises','Discord gaining traction as a professional communication tool','Slack-like features being built directly into productivity suites'], persona_primary:{name:'Siddharth Jain',role:'Remote Software Engineer',age:'25–35',goals:['Get quick answers without scheduling meetings','Keep work and personal messages separate','Find that conversation from 3 months ago quickly'],pains:['Too many channels to track — most are noise','GitHub and Jira bots creating spam in channels','Can\'t mute noisy channels without missing important updates'],triggers:['Joining a remote-first company','Team growing beyond 20 people']}, persona_secondary:{name:'Asha Reddy',role:'Chief of Staff',age:'30–42',goals:['Keep leadership aligned without constant meetings','Ensure important decisions are documented and findable','Run cross-functional projects in one place'],pains:['Decisions made in DMs are invisible to the rest of the team','No good way to run polls and async decisions','Message threads become impossible to follow after 50 replies'],triggers:['Company going fully remote','CEO asking for better async culture']}, journey:[{stage:'Discovery',title:'Engineering team already using it',desc:'Slack spreads virally within organisations — engineering adopts it first, then it spreads to product, design, and eventually the whole company.',actions:['Engineering team starts Slack workspace','Other teams invited one by one']},{stage:'Onboarding',title:'Channel setup and integrations',desc:'The team creates channels for projects, departments, and social topics. GitHub and Jira integrations are connected in the first week.',actions:['Create #engineering and #general channels','Connect GitHub notifications']},{stage:'Activation',title:'First time email is replaced',desc:'The aha moment is the first time someone says "Just Slack me" instead of emailing. Teams realise they\'ve eliminated 80% of internal email.',actions:['Share update in channel instead of email','Get answer in 3 minutes instead of 3 hours']},{stage:'Retention',title:'Institutional memory and search',desc:'As the channel history grows, Slack becomes the company\'s institutional memory. Searching Slack replaces asking colleagues "what was that decision about?".',actions:['Search Slack for old decision context','Reference 6-month-old thread in new project']},{stage:'Referral',title:'Teams recommending to partners',desc:'Companies invite external partners and clients into Slack Connect channels. Partners then adopt Slack internally, driving B2B viral growth.',actions:['Invite agency partner to Slack Connect','Partner sets up own Slack workspace']}], metrics:[{name:'Daily Active Users',value:'DAU/MAU ratio',importance:95,priority:'high'},{name:'Messages Sent per User',value:'Daily message volume',importance:90,priority:'high'},{name:'Paid Conversion Rate',value:'Free to Pro upgrade %',importance:88,priority:'high'},{name:'Workspace Retention',value:'Annual workspace churn',importance:85,priority:'high'},{name:'Integration Usage',value:'# apps per workspace',importance:72,priority:'medium'},{name:'Slack Connect Adoption',value:'% with external channels',importance:68,priority:'medium'},{name:'Workflow Builder Usage',value:'% with active workflows',importance:62,priority:'medium'},{name:'Mobile DAU',value:'Mobile % of DAU',importance:55,priority:'low'}], rice:[{feature:'AI meeting summaries posted in channels',reach:9,impact:3,confidence:88,effort:2},{feature:'Native voice messages with auto-transcription',reach:8,impact:2,confidence:82,effort:2},{feature:'Async decision polls with deadlines',reach:9,impact:2,confidence:90,effort:1},{feature:'Slack AI search across all company knowledge',reach:8,impact:3,confidence:85,effort:4},{feature:'Slack Canvas as living team document hub',reach:7,impact:2,confidence:78,effort:3}], prd:{feature:'Async decision polls with deadlines',objective:'Replace the "Reply to this message with 👍 or 👎" pattern with a structured, time-bounded decision tool that surfaces the final result clearly in the channel.',user_story:'As a Chief of Staff, I want to run structured async decisions with a deadline so that teams can decide without scheduling a meeting.',acceptance_criteria:['Poll created with /decide command in any channel','Supports single choice, multiple choice, and rating formats','Automated reminder sent 2 hours before deadline','Result posted automatically with breakdown when deadline hits'],success_metrics:['60% of teams who try polls use them weekly','30% reduction in "quick sync" meeting requests','Poll completion rate >80% when deadline is set'],open_questions:['Should poll results be anonymous or attributed?','How do we handle polls that reach deadline without quorum?']}, features:['AI meeting summaries automatically posted to channels','Async decision polls with automatic deadlines and results','Native voice messages with live transcription','Slack AI search across all company channels and files','Slack Canvas as structured team knowledge base']
+  },
+  loom: {
+    name:'Loom', tagline:'Video messaging for work', problem:'Communicating complex ideas async via text leads to long, confusing threads and constant meetings. Schedule coordination wastes days, and text lacks emotional nuance.', users:'Remote workers, product managers, designers, engineering teams, sales reps, support agents', value:'Loom combines video, screen sharing, and audio recording into instant shareable links — letting users communicate ideas async with the clarity of a live meeting.', revenue:'Freemium SaaS — Starter Free, Business $12.50/user/mo, Enterprise custom', competitors:[{name:'Zoom',threat:'high',ux:68,features:80,pricing:55,market:90},{name:'Vimeo Record',threat:'medium',ux:70,features:65,pricing:68,market:50},{name:'Vidyard',threat:'high',ux:72,features:78,pricing:60,market:65},{name:'Slack Clips',threat:'high',ux:82,features:70,pricing:75,market:78},{name:'ScreenPal',threat:'low',ux:62,features:68,pricing:88,market:25}], score:89, score_ux:91, score_market:86, score_moat:78, score_growth:88, score_revenue:80, score_retention:84, strengths:['Pioneered instant video share links with zero upload delay','Generous free tier drives viral bottom-up adoption','Automated AI titles, summaries, and chapters save viewer time'], weaknesses:['Limited editing tools compared to dedicated video editors','Video performance lags on slow internet connections','High pricing for casual users who only record 2-3 Looms a month'], opportunities:['AI translations to localize videos automatically','Interactive video widgets with embedded forms and CTAs','Deeper CRM integrations for sales outreach analytics'], threats:['Slack Clips and Teams bundling screen recordings for free','Zoom expanding into async video messaging','Browser updates restricting extension screen recording APIs'], persona_primary:{name:'Anjali Shah',role:'Product Manager',age:'26–34',goals:['Explain feature specs to engineers without a meeting','Give design feedback asynchronously','Onboard new team members with walk-throughs'],pains:['Schedules are too packed for a 15-minute sync','Written specs are misunderstood by remote devs','Screen recordings take too long to upload and email'],triggers:['Transitioning to a remote-first team','Calendar getting clogged with status meetings']}, persona_secondary:{name:'David Miller',role:'Customer Support Lead',age:'28–40',goals:['Reduce support ticket resolution times','Explain complex setups clearly to customers','Build a library of reusable video FAQs'],pains:['Text-based instructions are ignored by customers','Customers struggle to describe their technical issues','Drafting long support emails is highly repetitive'],triggers:['Support ticket volume spiking','CSAT scores dropping due to miscommunication']}, journey:[{stage:'Discovery',title:'Receiving a Loom link',desc:'Loom acquires users virally. Someone receives a Loom link in Slack, Jira, or email, watches the video, and notices the clean user experience.',actions:['Click shared Loom link','Watch video in web player']},{stage:'Onboarding',title:'First recording in 1 minute',desc:'The browser extension or desktop app install takes seconds. Guided tutorial prompts the user to record their first 10-second test video.',actions:['Install extension','Record first test Loom']},{stage:'Activation',title:'First video link shared',desc:'The aha moment is when the video finishes and the share link is copied instantly — no waiting for rendering or upload bars.',actions:['Copy Link','Post link in team Slack']},{stage:'Retention',title:'Async standup routine',desc:'Teams replace daily standup meetings with async Loom channels, creating a continuous loop of short, recorded updates.',actions:['Record daily update video','Watch teammate updates at 1.5x speed']},{stage:'Referral',title:'Viral links inside organizations',desc:'Every sent video is a referral hook. External clients and partners watch Looms and sign up to record their own replies.',actions:['Send Loom to external client','Client registers to record video reply']}], metrics:[{name:'Videos Recorded',value:'Weekly Looms per creator',importance:95,priority:'high'},{name:'Video View Rate',value:'% shared Looms viewed',importance:90,priority:'high'},{name:'Time to Share',value:'Seconds from stop to copy link',importance:88,priority:'high'},{name:'Workspace Expansion',value:'New creators per account',importance:82,priority:'high'},{name:'Paid Upgrade Rate',value:'Free to Business convert %',importance:78,priority:'medium'},{name:'AI Feature Adoption',value:'% using AI summaries',importance:70,priority:'medium'},{name:'Link Click-Through',value:'CTA clicks on video page',importance:60,priority:'medium'},{name:'Viewer retention',value:'% video watched average',importance:55,priority:'low'}], rice:[{feature:'AI video localization and accent translator',reach:9,impact:3,confidence:85,effort:4},{feature:'In-video interactive forms and CTAs',reach:8,impact:2,confidence:90,effort:2},{feature:'Native Slack and Teams recording embeds',reach:9,impact:2,confidence:88,effort:2},{feature:'AI-generated screen click highlighting',reach:7,impact:2,confidence:80,effort:2},{feature:'CRM integrations for automatic sales tracking',reach:6,impact:3,confidence:78,effort:3}], prd:{feature:'In-video interactive forms and CTAs',objective:'Increase product conversion and feedback loops by allowing creators to embed buttons, forms, and custom links directly inside their video timeline.',user_story:'As a sales development rep, I want to embed a "Book Meeting" button inside my Loom video so that leads can schedule a call immediately.',acceptance_criteria:['CTA button configuration in video editor side panel','Supports Typeform and Calendly inline embeds','Click-through analytics tracked on dashboard','Interactive element appears at specific timestamps'],success_metrics:['25% increase in CTA click-through rate for sales videos','15% of business users configure interactive elements within 30 days','NPS for marketing features increases by 10 points'],open_questions:['Should CTAs block video playback until completed?','How do we prevent malicious external links inside Looms?']}, features:['AI-powered video translation and dubbing','In-video interactive CTA forms and buttons','Native screen-drawing tools during recording','Custom branding on video sharing pages','Enterprise CRM integration for sales tracking']
+  },
+  spotify: {
+    name:'Spotify', tagline:'Music for everyone', problem:'Music discovery is fragmented, digital piracy is high, and users lack an affordable, legal, on-demand way to stream millions of songs across multiple devices.', users:'Music listeners, podcast fans, audio creators, advertisers, music labels', value:'Spotify offers a legal on-demand catalog of 100M+ tracks with personalized recommendation engines (Discover Weekly) that sync across mobile, desktop, and smart speakers.', revenue:'Freemium — Free ad-supported tier, Premium individual $10.99/mo, family and student discounts', competitors:[{name:'Apple Music',threat:'high',ux:88,features:85,pricing:70,market:82},{name:'Amazon Music',threat:'high',ux:72,features:70,pricing:75,market:75},{name:'YouTube Music',threat:'high',ux:80,features:78,pricing:72,market:80},{name:'Deezer',threat:'medium',ux:75,features:72,pricing:78,market:50},{name:'Tidal',threat:'medium',ux:70,features:75,pricing:60,market:40}], score:92, score_ux:94, score_market:90, score_moat:86, score_growth:88, score_revenue:85, score_retention:92, strengths:['Algorithmic personalization models (Discover Weekly, Spotify Wrapped) are industry-leading','Seamless cross-device streaming sync via Spotify Connect protocol','Powerful viral marketing social share loops and playlist collaboration'], weaknesses:['High catalog licensing payouts to major labels depress net gross margins','Lacks native hardware ecosystem compared to Apple and Amazon smart speakers','Heavy investment in podcast studios has struggled to achieve high profitability'], opportunities:['Hi-Fi high-resolution audio subscription tier for audiophiles','AI-powered voice translation and dubbing for global podcasts','Integrated live audio and concert ticket purchase portal'], threats:['Apple Music bundled into Apple One service undercutting standalone pricing','TikTok launching standalone music products to capture Gen-Z discoverability','Regulatory changes in streaming royalty payout distribution models'], persona_primary:{name:'Sofia Martinez',role:'Active Music Enthusiast',age:'18–26',goals:['Discover new indie artists and curate playlists','Share custom music mixes with friends','Seamlessly transition playback from phone to laptop'],pains:['Audio ads disrupting social listening flows','Hard to export curated playlists to other platforms','High mobile data usage during road trips'],triggers:['Starting university','Purchasing a smart speaker']}, persona_secondary:{name:'Vikram Patel',role:'Daily Commuter & Podcast Fan',age:'28–42',goals:['Listen to business and news podcasts offline during transit','Keep daily news feeds organized','Have a reliable car dashboard interface'],pains:['Podcast episodes get out of sequence in queue','Cluttered home screen mixing music recommendations with podcasts','Irrelevant algorithmic suggestions'],triggers:['Adopting a new daily transit routine','Buying a new vehicle with CarPlay']}, journey:[{stage:'Discovery',title:'Social playlist share',desc:'Sofia sees a friend sharing a Spotify Wrapped card or playlist link on Instagram and decides to check it out.',actions:['Click shared link','Landing on Spotify web player']},{stage:'Onboarding',title:'Pick genres and artists',desc:'Selects preferred music genres and top artists during sign-up to pre-populate the personalized recommendation feed.',actions:['Select 3 genres','Confirm top artists']},{stage:'Activation',title:'First custom playlist',desc:'Sofia creates her first custom playlist and adds 10 tracks, realizing how easy it is to find any song.',actions:['Search for tracks','Add to new playlist']},{stage:'Retention',title:'Daily Discover Weekly habit',desc:'Returns every Monday to listen to the custom-curated Discover Weekly playlist, creating a strong habit loop.',actions:['Play Discover Weekly','Save recommended tracks']},{stage:'Referral',title:'Annual Wrapped sharing',desc:'Shares Spotify Wrapped summary cards to social media, attracting new organic signups from her network.',actions:['View Wrapped slides','Share to Instagram Stories']}], metrics:[{name:'Monthly Active Users',value:'Monthly Active Users (MAU)',importance:96,priority:'high'},{name:'Premium Subscribers',value:'Paying subscribers count',importance:94,priority:'high'},{name:'Premium Churn Rate',value:'Monthly cancellations %',importance:92,priority:'high'},{name:'Average Listening Hours',value:'Daily active hours/user',importance:88,priority:'high'},{name:'Ad-Supported ARPU',value:'Average ad revenue per user',importance:78,priority:'medium'},{name:'Playlist Creation Rate',value:'Playlists created per user',importance:75,priority:'medium'},{name:'Podcast Listenership',value:'Monthly podcast listeners %',importance:72,priority:'medium'},{name:'Skip Rate',value:'% of songs skipped in first 30s',importance:58,priority:'low'}], rice:[{feature:'AI-generated personalized DJ voice commentary',reach:9,impact:3,confidence:90,effort:3},{feature:'Real-time collaborative group listening sessions',reach:8,impact:2,confidence:85,effort:2},{feature:'Hi-Fi lossless audio streaming mode',reach:7,impact:2,confidence:88,effort:3},{feature:'In-app local live concert ticket checkout',reach:6,impact:3,confidence:75,effort:4},{feature:'Voice ordering via smart assistant integrations',reach:5,impact:1,confidence:80,effort:2}], prd:{feature:'AI-generated personalized DJ voice commentary',objective:'Increase average listening sessions length by 15% through a virtual AI DJ that serves personalized tracks interspersed with spoken-word artist commentary.',user_story:'As a music listener, I want an AI DJ to select music and speak to me about the tracks so that I can enjoy a radio-like personalized experience.',acceptance_criteria:['AI voice sounds natural, warm, and highly personalized','Narration includes artist names, track details, and short background facts','User can skip the DJ commentary using standard playback controls','DJ respects explicit content filters set by the user'],success_metrics:['20% of Premium users adopt AI DJ within 30 days','15% increase in weekly streaming hours for adopted cohort','NPS score for the AI DJ feature >65'],open_questions:['How do we scale AI voice rendering for multiple languages?','Should we offer alternative DJ personalities/voices?']}, features:['AI DJ personalized streaming voice assistant','Real-time collaborative group listening rooms','Lossless Hi-Fi high resolution audio quality','In-app local concert tickets purchase checkout','Smart voice assistant smart speaker integration']
+  },
+  netflix: {
+    name:'Netflix', tagline:'Watch TV shows and movies anytime, anywhere', problem:'Linear cable TV is expensive, heavily interrupted by ads, and locked to strict schedules. Consumers want premium, on-demand entertainment they can binge at will.', users:'Household families, movie buffs, global content consumers, mobile viewers', value:'Netflix provides unlimited, ad-free streaming of award-winning original shows, feature films, documentaries, and mobile games for a simple monthly subscription on any screen.', revenue:'Subscription tiers — ad-supported $6.99/mo, Standard $15.49/mo, Premium 4K $22.99/mo', competitors:[{name:'Disney+',threat:'high',ux:85,features:82,pricing:75,market:88},{name:'Prime Video',threat:'high',ux:70,features:78,pricing:85,market:85},{name:'Max (HBO)',threat:'high',ux:78,features:80,pricing:65,market:70},{name:'Apple TV+',threat:'medium',ux:88,features:68,pricing:78,market:50},{name:'YouTube Premium',threat:'medium',ux:92,features:85,pricing:70,market:82}], score:90, score_ux:92, score_market:88, score_moat:85, score_growth:82, score_revenue:89, score_retention:91, strengths:['World-class recommendation algorithms maximize user screen time','Massive catalog of proprietary original intellectual property (Stranger Things, Squid Game)','Highly optimized adaptive streaming video encoding for weak mobile networks'], weaknesses:['Enormous annual capital expenditure required for content production','Loss of licensed third-party library catalogs to competitor studio platforms','Subscriber saturation in primary high-revenue North American markets'], opportunities:['Live sports and events streaming (NFL, WWE) to capture legacy TV ad budgets','Expanding cloud gaming division integrated into the core TV app interface','Deeper localized content production in high-growth APAC and LATAM countries'], threats:['Incumbent studio conglomerates bundling services at competitive prices','Account sharing restrictions causing short-term user backlash','Short-form video apps (TikTok, YouTube) dominating mobile screen time'], persona_primary:{name:'Sarah Jenkins',role:'Binge Watcher / TV Fan',age:'22–32',goals:['Watch trending shows to participate in social discussions','Find high-quality films quickly on Friday nights','Download episodes to watch offline during travel'],pains:['Spending 25 minutes scrolling without deciding what to watch','Curated shows getting canceled after a single season','Frequent subscription price hikes'],triggers:['Cold winter weather','Viral recommendations from colleagues']}, persona_secondary:{name:'Marcus Thompson',role:'Family Household Admin',age:'35–50',goals:['Provide safe kid-friendly content profiles for children','Stream concurrent 4K feeds on multiple household devices','Manage screen time limits'],pains:['Children accessing mature content by accident','Incidental extra-member charges for college kids away from home','Account login sharing blockages'],triggers:['Children reaching school age','Upgrading living room TV to 4K resolution']}, journey:[{stage:'Discovery',title:'Viral social buzz',desc:'Sarah sees trending memes and tweets about a newly released Netflix Original series (e.g. Squid Game) and gets curious.',actions:['Search for trailer on YouTube','Visit netflix.com landing page']},{stage:'Onboarding',title:'Profile creation',desc:'Sarah signs up, selects a subscription plan, and creates custom user profiles for different members of the household.',actions:['Select subscription tier','Create kids and personal profiles']},{stage:'Activation',title:'First full binge session',desc:'The auto-play next episode feature triggers, causing Sarah to watch 4 episodes in a row during her first weekend.',actions:['Start first episode','Let next episode auto-play']},{stage:'Retention',title:'Curated recommendation feed',desc:'Returns daily to check the "Top 10 in your country" list and customized row recommendations based on viewing history.',actions:['Check Top 10 list','Resume watching ongoing series']},{stage:'Referral',title:'Word of mouth recommendation',desc:'Tells coworkers during lunch about the incredible show she finished, driving new account signups.',actions:['Recommend show to colleagues','Share show link from mobile app']}], metrics:[{name:'Paid Memberships',value:'Global paid subscriber base',importance:96,priority:'high'},{name:'Average View Hours',value:'Monthly viewing hours per account',importance:92,priority:'high'},{name:'Subscriber Churn Rate',value:'Monthly subscription cancellations %',importance:90,priority:'high'},{name:'Original Content View %',value:'% time spent on original vs licensed',importance:85,priority:'high'},{name:'Customer Acquisition Cost',value:'CAC per new subscriber',importance:78,priority:'medium'},{name:'Ad Tier Adoption Rate',value:'% new signups choosing ad-supported',importance:75,priority:'medium'},{name:'Content RoI',value:'View hours per dollar spent on show',importance:68,priority:'medium'},{name:'Streaming Error Rate',value:'% streams experiencing buffering',importance:50,priority:'low'}], rice:[{feature:'Interactive gaming integration on TV screens',reach:7,impact:2,confidence:80,effort:4},{feature:'Live sports broadcast chat rooms and commentary',reach:8,impact:2,confidence:75,effort:3},{feature:'AI-generated personalized highlight trailer creator',reach:9,impact:2,confidence:85,effort:3},{feature:'Virtual reality shared viewing theater rooms',reach:5,impact:1,confidence:70,effort:4},{feature:'Smart watch offline audio synchronization',reach:6,impact:1,confidence:65,effort:2}], prd:{feature:'Interactive gaming integration on TV screens',objective:'Increase non-video engagement by 20% by allowing subscribers to play lightweight cloud games on their TVs utilizing their mobile phones as controllers.',user_story:'As a Netflix subscriber, I want to play games on my TV using my phone so that I can enjoy interactive entertainment without buying a console.',acceptance_criteria:['Games load inside the Netflix TV app without additional downloads','Phone pairs instantly with TV via QR code scan','Latency between phone input and TV action remains <50ms','Supports multiplayer modes for household profiles'],success_metrics:['15% of active TV households play a game weekly','10% increase in average monthly session hours for gaming cohort','Churn rate reduces by 8% among active gaming households'],open_questions:['What is the maximum game graphics complexity supported by smart TVs?','Should gaming achievements unlock profile avatars?']}, features:['Cloud gaming integration inside TV app profiles','Live sports broadcasting with interactive widgets','AI custom episode highlight trailers generator','VR virtual shared cinema viewing rooms','Mobile game downloads catalog included in plan']
+  },
+  airbnb: {
+    name:'Airbnb', tagline:'Book unique homes and experiences', problem:'Traditional hotels are expensive, sterile, and fail to provide authentic local travel experiences. Property owners lack an easy way to monetize unused space.', users:'Leisure travelers, digital nomads, family vacationers, property hosts, experience creators', value:'Airbnb connects travelers looking for unique, local accommodations with hosts who want to monetize their properties, offering payment handling, reviews, and host protection.', revenue:'Transaction fee — 14.2% guest service fee + 3% host service fee on every booking', competitors:[{name:'Booking.com',threat:'high',ux:70,features:88,pricing:80,market:92},{name:'Expedia',threat:'high',ux:65,features:85,pricing:75,market:88},{name:'VRBO',threat:'high',ux:75,features:78,pricing:70,market:72},{name:'Marriott Bonvoy',threat:'medium',ux:82,features:70,pricing:60,market:65},{name:'Google Travel',threat:'medium',ux:80,features:72,pricing:88,market:80}], score:89, score_ux:90, score_market:85, score_moat:88, score_growth:80, score_revenue:87, score_retention:86, strengths:['Globally recognized brand synonymous with vacation home rentals','Unmatched supply of 7M+ unique listings in 220+ countries','Strong double-sided marketplace trust network with reviews and AirCover insurance'], weaknesses:['Highly vulnerable to local municipal regulations and short-term rental bans (e.g. NYC)','Inconsistent quality control and cleanings compared to standard hotels','Hidden cleaning and service fees showing up at checkout hurt conversion'], opportunities:['Long-term rentals (30+ days) catering to remote workers and digital nomads','Airbnb Icons (exclusive stays with celebrities/brands) to drive brand viral buzz','AI-powered guest service agents resolving support disputes in real-time'], threats:['Hotels launching direct home rental competitors','Rising homeowner association (HOA) restrictions and fines','Economic recessions reducing discretionary vacation budgets'], persona_primary:{name:'Elena Rostova',role:'Frequent Leisure Traveler',age:'25–38',goals:['Stay in neighborhood-style homes instead of tourist hotels','Work remotely with reliable Wi-Fi','Find unique architecture (cabins, treehouses)'],pains:['Hidden fees doubling the booking price at checkout','Host canceling booking 2 days before arrival','Inaccurate listings showing old photos'],triggers:['Planning a summer holiday trip','Transitioning to a remote-first job']}, persona_secondary:{name:'Robert Davis',role:'Property Host',age:'40–60',goals:['Earn reliable passive income from second home','Protect property from unruly guests','Minimize effort required for guest check-ins'],pains:['Guests throwing parties and damaging furniture', 'Local regulations requiring complex licensing', 'Airbnb support favoring guest disputes'],triggers:['Inheriting property', 'Seasonal tourist surge starting']}, journey:[{stage:'Discovery',title:'Instagram visual listing',desc:'Elena sees a stunning post of a glass dome cabin in the woods on Instagram and clicks the link to Airbnb.',actions:['Click social post','View listing page']},{stage:'Onboarding',title:'Account verification',desc:'Completes profile verification, uploading government ID and payment method to build host trust.',actions:['Upload ID photo','Link credit card']},{stage:'Activation',title:'First checkout completion',desc:'Elena completes her first weekend stay at the cabin and writes a 5-star review for the host.',actions:['Book dome cabin','Leave host review']},{stage:'Retention',title:'Wishlist organization',desc:'Elena creates wishlists for different destinations, returning to the app whenever she plans weekend getaways.',actions:['Create wishlist','Save unique properties']},{stage:'Referral',title:'Shared booking links',desc:'Shares a group cabin link with 4 friends in WhatsApp to plan a joint trip, prompting them to download the app.',actions:['Share listing with group','Invite co-travelers']}], metrics:[{name:'Nights Booked',value:'Nights & experiences booked',importance:95,priority:'high'},{name:'Gross Booking Value',value:'GBV in USD millions',importance:92,priority:'high'},{name:'Active Listings',value:'Total properties registered',importance:90,priority:'high'},{name:'Take Rate',value:'% fee revenue of GBV',importance:85,priority:'high'},{name:'Host Retention Rate',value:'Annual host retention %',importance:80,priority:'high'},{name:'Average Guest Rating',value:'Host ratings average',importance:75,priority:'medium'},{name:'Cleanliness Disputes',value:'Cleanliness complaints %',importance:65,priority:'medium'},{name:'Long-term Stay %',value:'Stays of 28+ days %',importance:60,priority:'medium'}], rice:[{feature:'Group booking with split payment coordination',reach:8,impact:2,confidence:90,effort:2},{feature:'AI listing photo validity verifier',reach:7,impact:2,confidence:80,effort:2},{feature:'Host-guest chat real-time voice translator',reach:6,impact:2,confidence:85,effort:3},{feature:'IoT smart lock automated check-in keys',reach:7,impact:2,confidence:78,effort:2},{feature:'Guest guest-tier loyalty rewards system',reach:9,impact:2,confidence:82,effort:4}], prd:{feature:'Group booking with split payment coordination',objective:'Increase group booking conversions by 15% by allowing co-travelers to split the accommodation cost directly during checkout.',user_story:'As a group traveler, I want to split the booking cost with my friends at checkout so that I do not have to pay the full amount upfront.',acceptance_criteria:['Primary booker can invite up to 8 guests to split payment','Invited guests receive payment links via email/SMS','Booking is confirmed only when all parties pay within 24 hours','Refunds are processed back to individual cards if booking fails'],success_metrics:['12% increase in average booking values for group checkouts','15% increase in conversion rate for listings over $300/night','Group payment collection completed in <4 hours on average'],open_questions:['How do we handle host cancellation policies if a group member fails to pay on time?','Should we charge a convenience fee for split payments?']}, features:['Group booking split payment coordinator','AI listing photo validity inspector','Host-guest chat real-time speech translation','IoT smart lock automated checkout keys','Guest guest-tier loyalty rewards points']
   },
 };
 
@@ -1792,9 +1983,9 @@ function repOverview(d) {
   </svg>`;
 
   return `<div class="tab-panel">
-    <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;flex-wrap:wrap;margin-bottom:16px;">
+    <div class="overview-grid">
       <div class="radar-wrap"><div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;text-align:center">Product Score Radar</div>${radarSVG}</div>
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:0;width:100%;">
         <div class="ov-card"><div class="ov-label">Problem solved</div><div class="ov-val">${d.problem||''}</div></div>
         <div class="ov-card"><div class="ov-label">Value proposition</div><div class="ov-val">${d.value||''}</div></div>
         <div class="ov-card"><div class="ov-label">Target users</div><div class="ov-val">${d.users||''}</div></div>
@@ -1887,10 +2078,10 @@ function repCompetitors(d) {
   </div>`;
 }
 function repSwot(d) {
-  function quad(cls, icon, label, arr, color) {
-    const items = (arr||[]).map(i=>`<div class="swot-hm-item"><div class="swot-hm-bullet"></div><span>${i}</span></div>`).join('');
+  function quad(cls, emoji, label, arr) {
+    const items = (arr||[]).map(i=>`<div class="swot-hm-item"><span class="swot-hm-bullet">•</span><span>${i}</span></div>`).join('');
     return `<div class="swot-hm-q ${cls}">
-      <div class="swot-hm-header"><div class="swot-hm-icon">${icon}</div>${label}</div>
+      <div class="swot-hm-header"><span class="swot-hm-icon">${emoji}</span>${label}</div>
       <div class="swot-hm-items">${items}</div>
     </div>`;
   }
@@ -1932,10 +2123,10 @@ function repSwot(d) {
       ${matrixSVG}
     </div>
     <div class="swot-heatmap">
-      ${quad('swot-hm-s','S','Strengths',d.strengths,'#1a6b4a')}
-      ${quad('swot-hm-w','W','Weaknesses',d.weaknesses,'#d97706')}
-      ${quad('swot-hm-o','O','Opportunities',d.opportunities,'#2a5fa5')}
-      ${quad('swot-hm-t','T','Threats',d.threats,'#be123c')}
+      ${quad('swot-hm-s','✅','Strengths',d.strengths)}
+      ${quad('swot-hm-w','⚠️','Weaknesses',d.weaknesses)}
+      ${quad('swot-hm-o','🚀','Growth Opportunities',d.opportunities)}
+      ${quad('swot-hm-t','🔴','Market Threats',d.threats)}
     </div>
   </div>`;
 }
@@ -2132,19 +2323,13 @@ function repPrd(d) {
    PORTAL STATE
 ═══════════════════════════════════════ */
 const STATE = {
-  history:[
-    {name:'Notion',score:88,score_ux:85,score_market:82,score_moat:78,score_growth:86,score_revenue:80,score_retention:84,date:'Jun 3, 2025',ts:Date.now()-7200000, domain:'notion.so',  col:'ic-o',saved:true, note:''},
-    {name:'Stripe',score:94,score_ux:90,score_market:88,score_moat:92,score_growth:86,score_revenue:92,score_retention:90,date:'May 28, 2025',ts:Date.now()-86400000,domain:'stripe.com',col:'ic-g',saved:true, note:'Great revenue model'},
-    {name:'Figma', score:91,score_ux:92,score_market:85,score_moat:88,score_growth:84,score_revenue:82,score_retention:89,date:'May 25, 2025',ts:Date.now()-259200000,domain:'figma.com',col:'ic-b',saved:false,note:''},
+  history: [],
+  credits: 10, maxCreds: 10,
+  team: [
+    {initials:'YK',name:'You (Admin)',role:'admin', tears:0, lastActive:'Online now',col:'ic-g'}
   ],
-  credits:72, maxCreds:100,
-  team:[
-    {initials:'YK',name:'You (Admin)',role:'admin', tears:0, lastActive:'Online now',col:'ic-g'},
-    {initials:'AR',name:'Ananya R.', role:'member',tears:12,lastActive:'1 day ago',   col:'ic-b'},
-    {initials:'MK',name:'Mohan K.', role:'member',tears:7, lastActive:'3 days ago',  col:'ic-o'},
-  ],
-  plan:'Pro',planPrice:'$19/mo',planRenew:'July 3, 2025',
-  notifOn:true, userName:'Your Name', userEmail:'you@example.com',
+  plan:'Free',planPrice:'Free',planRenew:'Never',
+  notifOn:true, userName:'Guest User', userEmail:'guest@example.com',
 };
 
 function totalTeardowns(){ return 25+STATE.history.length+STATE.team.reduce((a,t)=>a+t.tears,0); }
