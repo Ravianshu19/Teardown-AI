@@ -58,6 +58,78 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
+// ── Follow-up Chat endpoint ──
+app.post('/api/teardown/chat', async (req, res) => {
+  if (!KEY) return res.status(500).json({ error: 'API key not configured on server.' });
+
+  try {
+    const { report, messages } = req.body;
+    if (!report || !messages) {
+      return res.status(400).json({ error: 'Report and messages are required.' });
+    }
+
+    let systemPrompt;
+    if (report.isComparison) {
+      const dA = report.dA;
+      const dB = report.dB;
+      systemPrompt = `You are a Senior Product Manager AI Assistant. You are comparing two products: ${dA.name} and ${dB.name}.
+    ${dA.name}:
+      - Tagline: "${dA.tagline || ''}"
+      - Problem: ${dA.problem || ''}
+      - Value Prop: ${dA.value || ''}
+      - Scores: UX (${dA.score_ux || 75}), Market (${dA.score_market || 75}), Moat (${dA.score_moat || 75}), Growth (${dA.score_growth || 75}), Revenue (${dA.score_revenue || 75}), Retention (${dA.score_retention || 75})
+    ${dB.name}:
+      - Tagline: "${dB.tagline || ''}"
+      - Problem: ${dB.problem || ''}
+      - Value Prop: ${dB.value || ''}
+      - Scores: UX (${dB.score_ux || 75}), Market (${dB.score_market || 75}), Moat (${dB.score_moat || 75}), Growth (${dB.score_growth || 75}), Revenue (${dB.score_revenue || 75}), Retention (${dB.score_retention || 75})
+      
+    Answer the user's follow-up questions comparing these products. Be professional, highly structured, clear, and actionable. Keep your answers reasonably concise (under 250 words) and direct.`;
+    } else {
+      systemPrompt = `You are a Senior Product Manager AI Assistant. You are analyzing the product teardown report of ${report.name || 'this product'} (Tagline: "${report.tagline || ''}", Score: ${report.score || 75}).
+      Here are the teardown details:
+      - Problem Solved: ${report.problem || ''}
+      - Value Prop: ${report.value || ''}
+      - Competitors: ${report.competitors || ''}
+      - Strengths: ${report.strengths ? report.strengths.join(', ') : ''}
+      - Weaknesses: ${report.weaknesses ? report.weaknesses.join(', ') : ''}
+      - Opportunities: ${report.opportunities ? report.opportunities.join(', ') : ''}
+      - Threats: ${report.threats ? report.threats.join(', ') : ''}
+      - Metrics Scores: UX (${report.score_ux || 75}), Market Fit (${report.score_market || 75}), Moat (${report.score_moat || 75}), Growth (${report.score_growth || 75}), Revenue (${report.score_revenue || 75}), Retention (${report.score_retention || 75})
+
+      Answer the user's follow-up questions about this product and teardown. Be professional, highly structured, clear, and actionable. Keep your answers reasonably concise (under 250 words) and direct.`;
+    }
+
+    const payload = {
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: messages.map(m => ({ role: m.role, content: m.content }))
+    };
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method:  'POST',
+      headers: {
+        'Content-Type':      'application/json',
+        'x-api-key':         KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json(data);
+    }
+    res.json(data);
+
+  } catch (err) {
+    console.error('Chat endpoint proxy error:', err.message);
+    res.status(500).json({ error: err.message || 'Proxy error' });
+  }
+});
+
 // ── Database and Auth Implementation ──
 const fs = require('fs');
 const DB_FILE = path.join(__dirname, 'database.json');
@@ -253,7 +325,7 @@ app.post('/api/reports', (req, res) => {
 
   // Decrement user credit
   if (user.credits === undefined) user.credits = 10;
-  if (user.credits > 0 && user.plan !== 'Team') { // Team tier has unlimited mock credits (9999)
+  if (user.credits > 0 && user.plan !== 'Pro') { // Pro tier has unlimited mock credits
     user.credits--;
   }
 
@@ -318,8 +390,8 @@ app.post('/api/verify-payment', (req, res) => {
   const expected = crypto.createHmac('sha256', RZP_SEC).update(body).digest('hex');
   if (expected === razorpay_signature) {
     const normalizedPlan = plan.toLowerCase();
-    user.plan = normalizedPlan === 'pro' ? 'Pro' : 'Team';
-    user.credits = normalizedPlan === 'pro' ? 500 : 9999;
+    user.plan = normalizedPlan === 'pro' ? 'Pro' : (normalizedPlan === 'student' ? 'Student' : 'Free');
+    user.credits = normalizedPlan === 'pro' ? 500 : (normalizedPlan === 'student' ? 15 : 10);
     user.maxCreds = user.credits;
     saveDB(db);
     
