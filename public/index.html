@@ -1010,6 +1010,7 @@ body.dark-theme .rep-header {
 .rep-tabs {
   display: flex !important;
   flex-direction: row !important;
+  flex-wrap: wrap !important;
   gap: 20px !important;
   border-bottom: 1.5px solid var(--border) !important;
   padding-bottom: 8px !important;
@@ -1047,12 +1048,17 @@ body.dark-theme .rep-header {
 }
 
 /* 8. Mobile Tabs dropdown responsive toggles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .rep-tabs {
     display: none !important;
   }
   .rep-tabs-select-wrap {
     display: block !important;
+  }
+}
+@media (max-width: 600px) {
+  .dash-charts-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -1416,8 +1422,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
   <h1>AI-powered product teardowns in seconds.</h1>
   <p>Product insights like a Senior PM. Paste any URL or product name to get instant SWOT, personas, and roadmap suggestions.</p>
   <div class="hero-btns">
-    <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Demo</button>
-    <button class="btn-out" onclick="loadSample('Stripe')">See sample: Stripe →</button>
+    <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Live Demo</button>
   </div>
   <div class="hero-trust-signals" style="display:flex;gap:20px;justify-content:center;margin-top:18px;font-size:13px;color:var(--muted);font-weight:600;flex-wrap:wrap;align-items:center;">
     <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> No sign-up required</span>
@@ -1442,8 +1447,19 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <span class="hero-teaser-bold">Top Insight:</span> Netflix wins on retention but faces rising content acquisition costs.
     </div>
     <div class="hero-teaser-footer">
-      <span class="hero-teaser-cta">⚡ Click to load full interactive report</span>
-      <span>View Report →</span>
+      <span class="hero-teaser-cta">⚡ Click to load full interactive report →</span>
+    </div>
+  </div>
+
+  <!-- Trust Logos Strip -->
+  <div style="margin-top: 36px; text-align: center; width: 100%;">
+    <div style="font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;">Inspired by frameworks used at</div>
+    <div style="display: flex; gap: clamp(1.5rem, 6vw, 3.5rem); justify-content: center; align-items: center; flex-wrap: wrap; opacity: 0.65;">
+      <span style="font-size: 17px; font-weight: 700; color: var(--ink); font-family: system-ui, sans-serif; letter-spacing: -0.2px;">Google</span>
+      <span style="font-size: 17px; font-weight: 800; color: var(--ink); font-family: system-ui, sans-serif; letter-spacing: -0.8px;">Meta</span>
+      <span style="font-size: 17px; font-weight: 800; color: var(--ink); font-family: system-ui, sans-serif; letter-spacing: -0.3px;">airbnb</span>
+      <span style="font-size: 17px; font-weight: 800; color: var(--ink); font-family: system-ui, sans-serif; letter-spacing: -0.5px; font-style: italic;">stripe</span>
+      <span style="font-size: 18px; font-weight: 700; color: var(--ink); font-family: var(--fh); letter-spacing: -0.2px;">Notion</span>
     </div>
   </div>
 </div>
@@ -1519,7 +1535,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>
       <!-- EMPTY STATE -->
       <div id="az-empty-state" style="margin-top:24px;background:var(--card);border:1.5px dashed var(--border2);border-radius:12px;padding:40px 24px;text-align:center;">
-        <div style="font-size:36px;margin-bottom:14px;">📊</div>
+        <div style="font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:inline-block;padding:3px 10px;background:var(--acc-bg);border-radius:100px;">💡 Pick a sample below to preview</div>
         <h3 style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;">Ready to Analyze</h3>
         <p style="font-size:13px;color:var(--muted);max-width:340px;margin:0 auto 24px;line-height:1.6;">Paste a product name or URL above to generate a comprehensive 10-module teardown report.</p>
         <div class="empty-features-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;max-width:640px;margin:0 auto;text-align:left;">
@@ -1573,8 +1589,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
             <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">PM Score</div>
             <div class="score-big" id="r-score-num">0</div>
             <div class="score-label">out of 100</div>
-            <div class="score-benchmark-box" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);width:100%;text-align:center;font-size:10px;line-height:1.4;color:var(--muted);">
-              <div style="font-weight:700;color:var(--ink);margin-bottom:3px;text-transform:uppercase;font-size:9px;letter-spacing:0.5px;">Benchmarks</div>
+            <div class="score-benchmark-box" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);width:100%;text-align:center;font-size:12px;line-height:1.4;color:var(--muted);">
+              <div style="font-weight:700;color:var(--ink);margin-bottom:3px;text-transform:uppercase;font-size:11px;letter-spacing:0.5px;">Benchmarks</div>
               <div style="white-space:nowrap;">Top SaaS: <span style="font-weight:600;color:var(--acc2);">90+</span></div>
               <div style="white-space:nowrap;">Avg Startup: <span style="font-weight:600;color:var(--ink);">65–75</span></div>
             </div>
@@ -1612,14 +1628,20 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <!-- MOBILE TABS DROPDOWN -->
         <div class="rep-tabs-select-wrap" style="display:none;margin-bottom:16px;">
           <select id="rep-tabs-select" onchange="onTabSelectChange(this.value)" style="font-weight:600;padding:10px 14px;background:var(--card);border-color:var(--acc3);color:var(--ink);width:100%;border-radius:8px;border:1.5px solid var(--border);outline:none;">
-            <option value="overview">Overview</option>
-            <option value="personas">Personas</option>
-            <option value="competitors">Competitors</option>
-            <option value="swot">SWOT</option>
-            <option value="journey">User Journey</option>
-            <option value="metrics">Metrics</option>
-            <option value="rice">RICE Framework</option>
-            <option value="prd">Mini PRD Spec</option>
+            <optgroup label="❶ Core Research">
+              <option value="overview">Overview</option>
+              <option value="personas">Personas</option>
+              <option value="swot">SWOT</option>
+            </optgroup>
+            <optgroup label="❷ Competitive & Strategy">
+              <option value="competitors">Competitors</option>
+              <option value="journey">User Journey</option>
+            </optgroup>
+            <optgroup label="❸ Execution Outputs">
+              <option value="metrics">Metrics</option>
+              <option value="rice">RICE Framework</option>
+              <option value="prd">Mini PRD Spec</option>
+            </optgroup>
           </select>
         </div>
         <div id="rep-content" style="margin-top:14px;"></div>
@@ -1649,7 +1671,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     <div class="dot"></div>
     <div class="stat"><span class="stat-n">5,400+</span> PMs &amp; founders</div>
     <div class="dot"></div>
-    <div class="stat"><span class="stat-n">&lt;3s</span> analysis time</div>
+    <div class="stat"><span class="stat-n">&lt;30s</span> analysis time</div>
     <div class="dot"></div>
     <div class="stat"><span class="stat-n">Any</span> product or URL</div>
   </div>
@@ -2031,8 +2053,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">AI-powered</span>
       </div>
       <h3 class="fc2-title">Product Overview Generator</h3>
-      <p class="fc2-desc">Understand any product in under 30 seconds. Our AI reads the product's website, positioning, and public data to extract the essential PM intelligence — problem, users, value proposition, and core features.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Problem statement with root-cause framing</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Target user segments by job role and context</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Value proposition mapped to key differentiators</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core feature list with priority ranking</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Industry and category auto-detection</li></ul>
+      <p class="fc2-desc">Get the essential PM intelligence in under 30 seconds. Maps core problems, target audiences, and primary value propositions.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core problem statement with root-cause context</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Target user segments by job role and use case</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>High-level value proposition and core feature list</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Claude-powered</span><span class="ftag">Any URL or name</span><span class="ftag"><30s turnaround</span></div>
     </div>
     <div class="fc2 card">
@@ -2041,8 +2063,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Persona engine</span>
       </div>
       <h3 class="fc2-title">User Persona Mapping</h3>
-      <p class="fc2-desc">Goes beyond simple demographics. TeardownAI generates two full user personas with goals, frustrations, usage triggers, and willingness-to-pay signals — ready to drop into any PRD or pitch deck.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Primary persona with name, role, and daily context</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Secondary/edge-case persona for niche segments</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Goal and pain point breakdown per persona</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Behaviour triggers and adoption barriers</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>ICP scoring and fit-to-product alignment</li></ul>
+      <p class="fc2-desc">Generates detailed primary and secondary ICP maps. Identifies adoption triggers, daily goals, pain points, and willingness to pay.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Primary ICP context: role, age range, daily workflows</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Secondary ICP profile for edge case and niche segments</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core adoption triggers and willing-to-pay signals</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">ICP detection</span><span class="ftag">Interview-ready</span><span class="ftag">PRD-compatible</span></div>
     </div>
     <div class="fc2 card">
@@ -2051,8 +2073,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">Market intel</span>
       </div>
       <h3 class="fc2-title">Competitive Landscape Analysis</h3>
-      <p class="fc2-desc">Maps the full competitive moat around any product — direct rivals, indirect alternatives, and emerging threats — with positioning notes that go beyond simple feature checklists.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>4–6 direct competitors auto-identified</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Indirect and substitute competitors flagged</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Differentiation score per competitor</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Market positioning map (price vs. value)</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Where each competitor wins and loses</li></ul>
+      <p class="fc2-desc">Decodes direct and indirect market rivals. Maps price-to-value positioning and identifies key areas where they win or lose.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>5 direct market competitors identified automatically</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Competitor strengths, weaknesses, and market threat levels</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Interactive radar feature-comparison matrix</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Battle-card ready</span><span class="ftag">Market positioning</span><span class="ftag">Win/loss signals</span></div>
     </div>
     <div class="fc2 card">
@@ -2061,8 +2083,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">Strategic framework</span>
       </div>
       <h3 class="fc2-title">Full SWOT Analysis</h3>
-      <p class="fc2-desc">A rigorous four-quadrant SWOT built from real product data — not generic buzzwords. Each quadrant gets specific, actionable bullets that a PM can bring directly into a strategy review.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Strengths tied to product defensibility</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Weaknesses mapped to user churn risk</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Opportunities ranked by market timing</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Threats cross-referenced with competitor moves</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>One prioritised action per quadrant</li></ul>
+      <p class="fc2-desc">Builds a strategic, four-quadrant SWOT table. Maps product defensibility, churn risks, and market-timing opportunities.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Defensible core strengths and value differentiators</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Churn risks and product experience weaknesses</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>High-impact opportunities and external market threats</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Strategic</span><span class="ftag">Interview-ready</span><span class="ftag">Board-level quality</span></div>
     </div>
     <div class="fc2 card">
@@ -2071,8 +2093,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Monetisation</span>
       </div>
       <h3 class="fc2-title">Revenue Model Decoder</h3>
-      <p class="fc2-desc">Reverse-engineers exactly how a product makes money — from the pricing tiers on the surface to the upsell triggers, expansion revenue levers, and hidden monetisation mechanics underneath.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pricing model: freemium, subscription, usage, hybrid</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Free-to-paid conversion triggers identified</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Upsell and expansion revenue opportunities</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Net Revenue Retention levers flagged</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Unit economics assumptions and benchmarks</li></ul>
+      <p class="fc2-desc">Reverse-engineers how any product monetizes. Decodes pricing tiers, upsell flows, expansion hooks, and growth models.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Primary monetization type: SaaS, transaction, usage, ads</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core free-to-paid conversion trigger points</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Actionable upsell and net revenue retention (NRR) levers</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Monetisation</span><span class="ftag">Pricing intel</span><span class="ftag">NRR levers</span></div>
     </div>
     <div class="fc2 card">
@@ -2081,8 +2103,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">User journey</span>
       </div>
       <h3 class="fc2-title">User Journey Mapping</h3>
-      <p class="fc2-desc">Traces the full product lifecycle from first touch to loyal advocate. TeardownAI identifies the critical moments of friction, delight, and drop-off across five key stages.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Discovery: how users first encounter the product</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Onboarding: activation steps and time-to-value</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core loop: habit-forming actions and retention hooks</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Expansion: upsell and feature discovery moments</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Referral: virality triggers and sharing mechanisms</li></ul>
+      <p class="fc2-desc">Maps the full customer lifecycle. Spot delight points, friction bottlenecks, and drop-off risks across core activation loops.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Direct onboarding and activation time-to-value (Aha! moment)</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Habit-forming retention triggers and loops</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Viral sharing and referral loops setup</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Full lifecycle</span><span class="ftag">Drop-off points</span><span class="ftag">Retention hooks</span></div>
     </div>
     <div class="feat-divider"></div>
@@ -2093,8 +2115,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">KPI framework</span>
       </div>
       <h3 class="fc2-title">Product Metrics Recommendation</h3>
-      <p class="fc2-desc">Suggests the exact KPIs a PM should track for any product — mapped to the product's stage, business model, and growth motion. No more copy-pasting generic metric lists.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>North Star Metric with rationale</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>L1 metrics: DAU, MAU, Retention, Conversion</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>L2 metrics: feature adoption and engagement</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Vanity vs. actionable metric distinction</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Dashboard structure recommendation</li></ul>
+      <p class="fc2-desc">Recommends the right PM metrics for the product's business model. Avoid generic lists and focus on metric relationships.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Single North Star Metric with concrete business rationale</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>L1 core retention, activation, and conversion drivers</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>L2 feature-specific usage and health tracking ideas</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">North Star</span><span class="ftag">AARRR-aligned</span><span class="ftag">Stage-appropriate</span></div>
     </div>
     <div class="fc2 card">
@@ -2103,8 +2125,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Growth strategy</span>
       </div>
       <h3 class="fc2-title">Growth Opportunity Scanner</h3>
-      <p class="fc2-desc">Identifies the highest-leverage growth levers for any product across acquisition, retention, and monetisation — with channel-specific tactics tailored to the product's category and audience.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Top 3 acquisition channels with effort vs. impact</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Retention loop improvements and nudge strategies</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Monetisation experiments ranked by revenue potential</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Viral and referral mechanic suggestions</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Quick wins vs. strategic bets breakdown</li></ul>
+      <p class="fc2-desc">Pinpoints high-leverage growth channels. Tailored tactics for traffic acquisition, product-led growth (PLG), and NRR.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Channel matrix: Acquisition levers with difficulty ratings</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>User retention nudges and churn recovery plans</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>High-potential monetisation experiments</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">Acquisition</span><span class="ftag">Retention</span><span class="ftag">Monetisation</span></div>
     </div>
     <div class="fc2 card">
@@ -2113,8 +2135,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">Prioritisation</span>
       </div>
       <h3 class="fc2-title">RICE Feature Prioritisation</h3>
-      <p class="fc2-desc">Takes the AI-generated list of recommended features and scores each one using the RICE framework — so you always know which bets to take first and which to park for later.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Reach: estimated user impact per feature</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Impact: business value score (1–3)</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Confidence: data certainty weighting</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Effort: engineering complexity estimate</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Final RICE score with ranked feature table</li></ul>
+      <p class="fc2-desc">Scores features using PM-standard RICE. Sort the product roadmap based on real reach, impact, confidence, and engineering effort.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Quantified Reach and business Impact ratings</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Confidence adjustment and Engineering Effort estimates</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Automatic prioritized backlog sorting</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">RICE framework</span><span class="ftag">PM-standard</span><span class="ftag">Prioritised output</span></div>
     </div>
     <div class="fc2 card">
@@ -2123,8 +2145,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">PRD generation</span>
       </div>
       <h3 class="fc2-title">Mini PRD Generator</h3>
-      <p class="fc2-desc">Converts the teardown insights into a structured, one-page PRD for the top recommended feature — complete with objective, user story, acceptance criteria, and success metrics.</p>
-      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Feature objective tied to business goal</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>User story in standard "As a… I want… So that…" format</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acceptance criteria with edge cases</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Success metrics mapped to product KPIs</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Open questions and dependencies flagged</li></ul>
+      <p class="fc2-desc">Drafts a structured, one-page spec for the highest-priority feature. Speeds up PRD creation with standard user stories and criteria.</p>
+      <ul class="fc2-checks"><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Feature objective linked to high-level roadmap goals</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>User stories in standard "As a... I want to... So that..." format</li><li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core functional acceptance criteria and success KPIs</li></ul>
       <div class="fc-tags" style="margin-top:14px"><span class="ftag">PM-standard</span><span class="ftag">Ready to share</span><span class="ftag">Interview gold</span></div>
     </div>
   </div>
@@ -2507,7 +2529,10 @@ function closeMobNav() {
   _ham.setAttribute('aria-expanded','false');
   document.body.style.overflow = '';
 }
-function navGo(hash) { closeMobNav(); document.querySelector(hash)?.scrollIntoView({behavior:'smooth'}); }
+function navGo(hash) {
+  document.querySelector(hash)?.scrollIntoView({behavior:'smooth'});
+  setTimeout(closeMobNav, 300);
+}
 document.addEventListener('click', e => {
   if (_mobNav.classList.contains('open') && !_mobNav.contains(e.target) && !_ham.contains(e.target)) closeMobNav();
 });
@@ -2786,6 +2811,7 @@ function runTeardown() {
     addTeardownTimeout(() => {
       try {
         const d = findProduct(input);
+        clearTeardownTimeouts();
         for(let i=0; i<6; i++) updateStep(i, 'done');
         fill.style.width = '100%';
         setTimeout(() => {
@@ -2958,6 +2984,7 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       }
       const report = JSON.parse(cleanJson);
       
+      clearTeardownTimeouts();
       for(let i=0; i<6; i++) updateStep(i, 'done');
       fill.style.width = '100%';
       setTimeout(() => {
@@ -2974,6 +3001,7 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       // Fallback gracefully to local inference
       try {
         const fallbackData = findProduct(input);
+        clearTeardownTimeouts();
         for(let i=0; i<6; i++) updateStep(i, 'done');
         fill.style.width = '100%';
         setTimeout(() => {
@@ -3115,23 +3143,18 @@ function showReport(d) {
   const badgeEl = document.getElementById('r-badge');
   if (badgeEl) {
     const score = d.score || 0;
-    if (score >= 90) {
-      badgeEl.textContent = 'Excellent (' + score + ')';
+    if (score >= 80) {
+      badgeEl.textContent = `Strong product (${score}/100)`;
       badgeEl.style.background = 'var(--acc2-bg)';
       badgeEl.style.color = 'var(--acc2-t)';
       badgeEl.style.borderColor = 'rgba(26, 107, 74, 0.2)';
-    } else if (score >= 75) {
-      badgeEl.textContent = 'Strong (' + score + ')';
-      badgeEl.style.background = 'var(--acc3-bg)';
-      badgeEl.style.color = 'var(--acc3-t)';
-      badgeEl.style.borderColor = 'rgba(42, 95, 165, 0.2)';
     } else if (score >= 60) {
-      badgeEl.textContent = 'Average (' + score + ')';
+      badgeEl.textContent = `Solid foundations (${score}/100)`;
       badgeEl.style.background = 'var(--acc-bg)';
       badgeEl.style.color = 'var(--acc-t)';
       badgeEl.style.borderColor = 'rgba(212, 82, 10, 0.2)';
     } else {
-      badgeEl.textContent = 'Needs Work (' + score + ')';
+      badgeEl.textContent = `Needs work (${score}/100)`;
       badgeEl.style.background = 'rgba(190, 18, 60, 0.08)';
       badgeEl.style.color = '#be123c';
       badgeEl.style.borderColor = 'rgba(190, 18, 60, 0.2)';
@@ -3717,6 +3740,9 @@ function addToHistory(d) {
   STATE.history.unshift(newReport);
   STATE.history = STATE.history.slice(0,20);
   STATE.credits = Math.max(0,STATE.credits-1);
+  if (STATE.plan !== 'Pro' && STATE.credits === 2) {
+    showToast('2 credits left — upgrade for unlimited.', 'warn');
+  }
   STATE.team[0].tears++;
 
   const token = localStorage.getItem('auth_token');
@@ -3934,7 +3960,7 @@ function saveSetting(k)   { if(k==='name'){STATE.userName=document.getElementByI
 function clearHistory()   { STATE.history=[]; showToast('History cleared'); renderView('settings'); }
 
 function exportPDF() {
-  showToast('Preparing report for PDF export...', 'ok');
+  showToast('Generating PDF...', 'ok');
   window.print();
 }
 
@@ -3958,7 +3984,7 @@ function shareReport() {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url.toString())
       .then(() => {
-        showToast('Share link copied to clipboard!', 'ok');
+        showToast('Link copied!', 'ok');
       })
       .catch(err => {
         console.error('Failed to copy share link:', err);
@@ -3981,7 +4007,7 @@ function fallbackCopyTextToClipboard(text) {
   try {
     const successful = document.execCommand('copy');
     if (successful) {
-      showToast('Share link copied to clipboard!', 'ok');
+      showToast('Link copied!', 'ok');
     } else {
       showToast('Failed to copy share link', 'warn');
     }
@@ -4043,6 +4069,39 @@ const PLUS = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" vie
 const views = {
   dashboard() {
     const total=totalTeardowns(), week=weekTeardowns(), saved=savedCount();
+    
+    // Calculate Portfolio Diagnostics
+    let topStrength = 'UX';
+    let weakestArea = 'Growth';
+    let suggestedFocus = 'Improve onboarding activation loops';
+    
+    const validReports = STATE.history.filter(h => h.score_ux !== undefined);
+    if (validReports.length > 0) {
+      const avgUX = validReports.reduce((sum, r) => sum + r.score_ux, 0) / validReports.length;
+      const avgMarket = validReports.reduce((sum, r) => sum + r.score_market, 0) / validReports.length;
+      const avgMoat = validReports.reduce((sum, r) => sum + (r.score_moat !== undefined ? r.score_moat : r.score), 0) / validReports.length;
+      const avgGrowth = validReports.reduce((sum, r) => sum + (r.score_growth !== undefined ? r.score_growth : r.score), 0) / validReports.length;
+      const avgRev = validReports.reduce((sum, r) => sum + (r.score_revenue !== undefined ? r.score_revenue : r.score), 0) / validReports.length;
+      const avgRet = validReports.reduce((sum, r) => sum + (r.score_retention !== undefined ? r.score_retention : r.score), 0) / validReports.length;
+      
+      const dims = [
+        { name: 'UX', val: avgUX, focus: 'Optimize key friction points in onboarding flow' },
+        { name: 'Market', val: avgMarket, focus: 'Expand target personas and address new segments' },
+        { name: 'Moat', val: avgMoat, focus: 'Strengthen core product defensibility and IP' },
+        { name: 'Growth', val: avgGrowth, focus: 'Improve onboarding activation loops' },
+        { name: 'Revenue', val: avgRev, focus: 'Experiment with upsell triggers and packaging' },
+        { name: 'Retention', val: avgRet, focus: 'Invest in habit-forming core retention hooks' }
+      ];
+      
+      dims.sort((a, b) => b.val - a.val);
+      topStrength = `${dims[0].name} (${Math.round(dims[0].val)}/100)`;
+      weakestArea = `${dims[5].name} (${Math.round(dims[5].val)}/100)`;
+      suggestedFocus = dims[5].focus;
+    } else {
+      topStrength = 'N/A';
+      weakestArea = 'N/A';
+      suggestedFocus = 'Generate a teardown report to unlock strategic diagnostics';
+    }
     const pct=Math.round(((STATE.maxCreds-STATE.credits)/STATE.maxCreds)*100);
     const today=STATE.history.filter(h=>h.ts>Date.now()-86400000).length;
     
@@ -4097,7 +4156,6 @@ const views = {
 
     // Chart 2: Portfolio Strength (Radar Chart)
     let radarSVG = '';
-    const validReports = STATE.history.filter(h => h.score_ux !== undefined);
     if (validReports.length > 0) {
       const ux = Math.round(validReports.reduce((sum, r) => sum + r.score_ux, 0) / validReports.length);
       const market = Math.round(validReports.reduce((sum, r) => sum + r.score_market, 0) / validReports.length);
@@ -4165,6 +4223,35 @@ const views = {
         <div class="m-card"><div class="m-num">${saved}</div><div class="m-lbl">Saved</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Star to save</div></div>
         <div class="m-card"><div class="m-num">${STATE.credits}</div><div class="m-lbl">Credits left</div>
           <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${100-pct}%;background:var(--acc);border-radius:2px"></div></div>
+        </div>
+      </div>
+
+      <!-- Portfolio Strategic Diagnostics (Wow Moment) -->
+      <div style="background: linear-gradient(135deg, var(--acc-bg), var(--acc3-bg)); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 4px 25px rgba(212,82,10,0.03);">
+        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, var(--acc) 10%, transparent 60%); opacity: 0.15; pointer-events: none;"></div>
+        
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--acc); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Portfolio Strategic Diagnostics
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px;" class="dash-charts-grid">
+          <div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(26, 107, 74, 0.06); border-radius: 8px; border: 1px solid rgba(26, 107, 74, 0.15);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--muted);">Top Strength</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--acc2); display: inline-flex; align-items: center; gap: 4px;">💪 ${topStrength}</span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(190, 18, 60, 0.06); border-radius: 8px; border: 1px solid rgba(190, 18, 60, 0.15);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--muted);">Weakest Area</span>
+                <span style="font-size: 12px; font-weight: 700; color: #be123c; display: inline-flex; align-items: center; gap: 4px;">⚠️ ${weakestArea}</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Suggested Focus</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.45;">${suggestedFocus}</div>
+          </div>
         </div>
       </div>
       
@@ -4904,6 +4991,7 @@ function resetAnalyzer() {
 }
 
 function resetPage() {
+  closeMobNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   resetAnalyzer();
 }
