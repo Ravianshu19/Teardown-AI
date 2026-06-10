@@ -648,19 +648,21 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 
 /* 1. Reduce hero section tallness and padding */
 .hero {
-  padding: clamp(1.5rem, 4.5vw, 3rem) clamp(1rem, 5vw, 2rem) clamp(1rem, 3.5vw, 2rem) !important;
-}
-.hero-badge {
-  margin-bottom: 1.25rem !important;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 2rem) 0.25rem !important;
 }
 .hero h1 {
-  margin-bottom: 1rem !important;
+  font-size: clamp(1.8rem, 5.5vw, 3.2rem) !important;
+  margin-bottom: 0.75rem !important;
+  line-height: 1.15 !important;
 }
 .hero p {
-  margin-bottom: 1.75rem !important;
+  margin-bottom: 1.25rem !important;
+}
+.hero-badge {
+  margin-bottom: 1rem !important;
 }
 .hero-stats {
-  margin-top: 1.75rem !important;
+  margin-top: 1.5rem !important;
 }
 
 /* 2. Elevated primary buttons & inputs */
@@ -696,16 +698,44 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   box-shadow: 0 6px 16px rgba(212, 82, 10, 0.45) !important;
 }
 
-/* 3. Analyzer layout & button height match */
+/* 3. Analyzer layout & button height match + contiguous merge */
+#analyzer {
+  padding: 0.5rem clamp(1rem, 4vw, 2rem) 0 !important;
+}
+.az-wrap {
+  padding: 0.5rem clamp(1rem, 4vw, 2rem) 1.5rem !important;
+}
 .az-inputs {
+  display: flex !important;
+  flex-direction: row !important;
   align-items: stretch !important;
+  gap: 0 !important;
+  background: var(--card) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  overflow: hidden !important;
+}
+.az-inputs:focus-within {
+  border-color: var(--acc) !important;
+  box-shadow: 0 0 0 3px rgba(212, 82, 10, 0.08) !important;
 }
 .az-inputs .inp {
-  height: 44px !important;
+  border: none !important;
+  background: transparent !important;
+  height: 48px !important;
+  padding: 11px 16px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
 .az-inputs .run-btn {
-  height: 44px !important;
-  align-items: center !important;
+  border: none !important;
+  height: 48px !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  box-shadow: none !important;
 }
 
 /* 4. Competitor Tab Layout - side-by-side on desktop */
@@ -723,16 +753,33 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 
 /* 5. Pricing Cards visual flow & Pro card styling */
 .price-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  align-items: stretch !important;
   gap: 24px !important;
 }
 .pc {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
   border-radius: 16px !important;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+}
+.pc-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.pc-body .p-feats {
+  flex: 1 !important;
 }
 .pc.pop {
-  border: 2px solid var(--acc) !important;
-  transform: scale(1.05) !important;
-  box-shadow: 0 12px 30px rgba(212, 82, 10, 0.18) !important;
+  border: 3px solid var(--acc) !important;
+  border-top: 6px solid var(--acc) !important;
+  transform: scale(1.08) translateY(-12px) !important;
+  box-shadow: 0 24px 48px rgba(212, 82, 10, 0.25) !important;
   z-index: 10 !important;
 }
 .p-btn-pro {
@@ -745,10 +792,29 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   background: #b84508 !important;
   border-color: #b84508 !important;
 }
+.student-pop-chip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--acc3);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 14px;
+  border-radius: 100px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(42, 95, 165, 0.2);
+  z-index: 15;
+}
 @media (max-width: 900px) {
   .pc.pop {
     transform: none !important;
     margin: 12px 0 !important;
+  }
+  .price-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 }
 
@@ -903,7 +969,7 @@ body.dark-theme .rep-header {
 /* 13. Rich Footer styling */
 footer.rich-footer {
   border-top: 1px solid var(--border) !important;
-  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 6vw, 3rem) !important;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 3rem) !important;
   background: var(--bg2) !important;
   color: var(--ink) !important;
 }
@@ -972,7 +1038,10 @@ footer.rich-footer .footer-col a:hover {
 /* 15. Feature modules equal height & visual weight contrast */
 .feat-grid2 {
   display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-auto-rows: 1fr !important;
   align-items: stretch !important;
+  gap: 16px !important;
 }
 .fc2 {
   height: 100% !important;
@@ -981,44 +1050,15 @@ footer.rich-footer .footer-col a:hover {
 }
 .fc2-desc {
   flex-grow: 1 !important;
-  color: var(--ink) !important;
-  opacity: 0.85 !important;
-}
-.fc2-checks li {
-  color: var(--ink) !important;
-  opacity: 0.95 !important;
-  font-weight: 500 !important;
 }
 
-/* 16. Analyzer input bar and button integration */
-.az-inputs {
+/* 17. Quick Picks hierarchy & alignment overrides */
+#quick-picks {
   display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
-  gap: 0 !important;
-  background: var(--card) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
-}
-.az-inputs .inp {
-  flex: 1 !important;
-  height: 48px !important;
-  border-radius: 8px 0 0 8px !important;
-  border-right: none !important;
-  outline: none !important;
-}
-.az-inputs .run-btn {
-  height: 48px !important;
-  border-radius: 0 8px 8px 0 !important;
-  padding: 0 24px !important;
-  display: inline-flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
   align-items: center !important;
-  justify-content: center !important;
-  margin: 0 !important;
-  border: 1.5px solid var(--acc) !important;
 }
-
-/* 17. Fixed height chips for Quick Picks */
 #quick-picks button.ftag {
   height: 44px !important;
   display: inline-flex !important;
@@ -1031,34 +1071,59 @@ footer.rich-footer .footer-col a:hover {
   white-space: nowrap !important;
   border: 1.5px solid var(--border2) !important;
   margin-bottom: 4px !important;
+  background: var(--bg2) !important;
+  color: var(--muted) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+#quick-picks button.ftag:hover {
+  background: var(--bg3) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+#quick-picks button.vs-tag {
+  background: var(--acc2-bg) !important;
+  color: var(--acc2-t) !important;
+  border-color: #b6deca !important;
+}
+#quick-picks button.vs-tag:hover {
+  background: var(--acc2) !important;
+  color: #fff !important;
+  border-color: var(--acc2) !important;
+}
+#quick-picks button.trending-tag {
+  background: var(--acc-bg) !important;
+  color: var(--acc-t) !important;
+  border-color: #f5c3a8 !important;
+  box-shadow: 0 0 10px rgba(212, 82, 10, 0.15) !important;
+}
+#quick-picks button.trending-tag:hover {
+  background: var(--acc) !important;
+  color: #fff !important;
+  border-color: var(--acc) !important;
+  box-shadow: 0 0 14px rgba(212, 82, 10, 0.3) !important;
 }
 
-/* 18. Pricing grid card height & visual dominance layout */
-.price-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  align-items: stretch !important;
-  gap: 24px !important;
+/* 18. Contrast Overrides for Descriptions & Bullets */
+body:not(.dark-theme) .fc2-desc, 
+body:not(.dark-theme) .fc2-checks li, 
+body:not(.dark-theme) .sec-sub, 
+body:not(.dark-theme) .step p, 
+body:not(.dark-theme) .sw-val, 
+body:not(.dark-theme) .p-desc, 
+body:not(.dark-theme) .p-feats li {
+  color: #3a3830 !important;
+  opacity: 1 !important;
 }
-.pc {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-}
-.pc-body {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-.pc-body .p-feats {
-  flex: 1 !important;
-}
-.pc.pop {
-  transform: scale(1.08) translateY(-8px) !important;
-  box-shadow: 0 20px 40px rgba(212, 82, 10, 0.22) !important;
-  z-index: 10 !important;
-  border: 2.5px solid var(--acc) !important;
+body.dark-theme .fc2-desc, 
+body.dark-theme .fc2-checks li, 
+body.dark-theme .sec-sub, 
+body.dark-theme .step p, 
+body.dark-theme .sw-val, 
+body.dark-theme .p-desc, 
+body.dark-theme .p-feats li {
+  color: #eeece8 !important;
+  opacity: 1 !important;
 }
 
 /* 19. Client portal sidebar 20% / 80% split */
@@ -1075,16 +1140,6 @@ footer.rich-footer .footer-col a:hover {
 }
 .divider {
   margin: 1.5rem auto 0 !important;
-}
-
-@media (max-width: 900px) {
-  .price-grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
-  .pc.pop {
-    transform: scale(1.02) !important;
-  }
 }
 @media (max-width: 768px) {
   .score-banner {
@@ -1105,6 +1160,21 @@ footer.rich-footer .footer-col a:hover {
   }
   .p-body {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* 21. Page breaks for printing */
+@media print {
+  .section, .price-grid, .portal-wrap {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+  .card, .step, .pc, .fc2 {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .divider {
+    display: none !important;
   }
 }
 </style>
@@ -1149,11 +1219,16 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge"><span class="ico" style="font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="currentColor" opacity=".3"/><path d="M12 2l1.5 3.5L17 7l-3.5 1.5L12 12l-1.5-3.5L7 7l3.5-1.5z"/></svg></span></i> Real AI · Real PM insights · Real fast</div>
-  <h1>Analyze any website's UX, performance,<br>and conversion bottlenecks using AI.</h1>
-  <p>Paste any URL or product name to get instant actionable PM insights, SWOT matrices, and user personas.</p>
+  <h1>AI-powered product teardowns in seconds.</h1>
+  <p>Product insights like a Senior PM. Paste any URL or product name to get instant SWOT, personas, and roadmap suggestions.</p>
   <div class="hero-btns">
     <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Demo</button>
     <button class="btn-out" onclick="loadSample('Stripe')">See sample: Stripe →</button>
+  </div>
+  <div class="hero-trust-signals" style="display:flex;gap:20px;justify-content:center;margin-top:18px;font-size:13px;color:var(--muted);font-weight:600;flex-wrap:wrap;align-items:center;">
+    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> No sign-up required</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Free first teardown</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Results in under 30 seconds</span>
   </div>
 </div>
 
@@ -1174,22 +1249,22 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <div style="margin-bottom:14px;">
         <div style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;">Quick picks — or type any product / URL below:</div>
         <div style="display:flex;gap:7px;flex-wrap:wrap;" id="quick-picks">
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Notion')">Notion</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Stripe')">Stripe</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Figma')">Figma</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Airbnb')">Airbnb</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Spotify')">Spotify</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Netflix')">Netflix</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Linear')">Linear</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Loom')">Loom</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Slack')">Slack</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Swiggy')">Swiggy</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Zomato')">Zomato</button>
-          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Razorpay')">Razorpay</button>
-          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc-bg);color:var(--acc-t);" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
-          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc2-bg);color:var(--acc2-t);" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
-          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc3-bg);color:var(--acc3-t);" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
-          <button class="ftag toggle-picks-btn" onclick="toggleQuickPicks(this)" style="cursor:pointer;padding:6px 14px;font-size:13px;background:var(--bg3);border-color:var(--border2);color:var(--ink);font-weight:600;">Show More +</button>
+          <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Notion')">Notion</button>
+          <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Stripe')">Stripe</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Figma')">Figma</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Airbnb')">Airbnb</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Spotify')">Spotify</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Netflix')">Netflix</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Linear')">Linear</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Loom')">Loom</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Slack')">Slack</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Swiggy')">Swiggy</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Zomato')">Zomato</button>
+          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Razorpay')">Razorpay</button>
+          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
+          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
+          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
+          <button class="ftag toggle-picks-btn" onclick="toggleQuickPicks(this)" style="cursor:pointer;background:var(--bg3);border-color:var(--border2);color:var(--ink);font-weight:600;">Show More +</button>
         </div>
       </div>
       <div class="az-inputs">
@@ -1978,7 +2053,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 
     <!-- STUDENT -->
     <div class="pc card" style="position:relative">
-      <div class="pc-header">
+      <div class="student-pop-chip">Most Popular for PM Interviews</div>
+      <div class="pc-header" style="padding-top:32px;">
         <div class="p-tier">Student</div>
         <div class="p-amt-wrap">
           <div class="p-amt" id="student-amt">₹199</div>
@@ -2023,6 +2099,9 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>Interactive SVG charts (Radar & Trend)</span></li>
           <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>RICE framework & Mini PRD generator</span></li>
           <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>Export to Notion</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>Team collaboration</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>AI strategy recommendations</span></li>
         </ul>
         <button class="p-btn p-btn-pro" onclick="startPayment('pro')">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
@@ -3214,7 +3293,72 @@ function repPrd(d) {
    PORTAL STATE
 ═══════════════════════════════════════ */
 const STATE = {
-  history: [],
+  history: [
+    {
+      name: 'Stripe',
+      score: 94,
+      score_ux: 95,
+      score_market: 92,
+      score_moat: 96,
+      score_growth: 90,
+      score_revenue: 94,
+      score_retention: 97,
+      date: '1 hour ago',
+      ts: Date.now() - 3600000,
+      domain: 'stripe.com',
+      col: 'ic-b',
+      saved: true,
+      note: 'Industry-leading DX and payment APIs.'
+    },
+    {
+      name: 'Notion',
+      score: 88,
+      score_ux: 90,
+      score_market: 86,
+      score_moat: 82,
+      score_growth: 88,
+      score_revenue: 80,
+      score_retention: 92,
+      date: '4 hours ago',
+      ts: Date.now() - 4 * 3600000,
+      domain: 'notion.so',
+      col: 'ic-g',
+      saved: true,
+      note: 'Highly flexible doc workspace with strong product-led viral expansion loops.'
+    },
+    {
+      name: 'Figma',
+      score: 92,
+      score_ux: 94,
+      score_market: 90,
+      score_moat: 95,
+      score_growth: 89,
+      score_revenue: 88,
+      score_retention: 96,
+      date: '1 day ago',
+      ts: Date.now() - 24 * 3600000,
+      domain: 'figma.com',
+      col: 'ic-o',
+      saved: false,
+      note: 'Excellent multi-player design canvas, near-monopoly positioning.'
+    },
+    {
+      name: 'Airbnb',
+      score: 85,
+      score_ux: 88,
+      score_market: 82,
+      score_moat: 85,
+      score_growth: 80,
+      score_revenue: 84,
+      score_retention: 91,
+      date: '2 days ago',
+      ts: Date.now() - 2 * 24 * 3600000,
+      domain: 'airbnb.com',
+      col: 'ic-b',
+      saved: false,
+      note: 'High-quality interface. Growth loops focus on expanding supply in core markets.'
+    }
+  ],
   credits: 10, maxCreds: 10,
   team: [
     {initials:'YK',name:'You (Admin)',role:'admin', tears:0, lastActive:'Online now',col:'ic-g'}
