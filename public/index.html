@@ -903,41 +903,188 @@ body.dark-theme .rep-header {
 /* 13. Rich Footer styling */
 footer.rich-footer {
   border-top: 1px solid var(--border) !important;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 5vw, 2.5rem) !important;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 6vw, 3rem) !important;
   background: var(--bg2) !important;
   color: var(--ink) !important;
 }
 footer.rich-footer .footer-grid {
   display: grid !important;
-  grid-template-columns: 2fr repeat(3, 1fr) !important;
-  gap: clamp(1.5rem, 4vw, 3rem) !important;
+  grid-template-columns: 2.5fr repeat(3, 1fr) !important;
+  gap: clamp(2rem, 5vw, 4rem) !important;
   max-width: 1200px !important;
   margin: 0 auto !important;
 }
 footer.rich-footer .footer-col {
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
+  gap: 12px !important;
 }
 footer.rich-footer .brand-col {
-  max-width: 320px !important;
+  max-width: 360px !important;
 }
 footer.rich-footer .footer-col h4 {
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  margin-bottom: 8px !important;
+  letter-spacing: 0.08em !important;
+  margin-bottom: 12px !important;
   color: var(--ink) !important;
 }
 footer.rich-footer .footer-col a {
-  font-size: 13px !important;
+  font-size: 14px !important;
   color: var(--muted) !important;
   text-decoration: none !important;
   transition: color 0.2s ease !important;
 }
 footer.rich-footer .footer-col a:hover {
   color: var(--acc) !important;
+}
+
+/* 14. Competitor & Feature pill chips styling in Report Overview */
+.ov-comp-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+.comp-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: var(--bg2) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--ink) !important;
+  padding: 5px 12px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+}
+.feat-pill-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+.feat-pill-list .pill {
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+/* 15. Feature modules equal height & visual weight contrast */
+.feat-grid2 {
+  display: grid !important;
+  align-items: stretch !important;
+}
+.fc2 {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.fc2-desc {
+  flex-grow: 1 !important;
+  color: var(--ink) !important;
+  opacity: 0.85 !important;
+}
+.fc2-checks li {
+  color: var(--ink) !important;
+  opacity: 0.95 !important;
+  font-weight: 500 !important;
+}
+
+/* 16. Analyzer input bar and button integration */
+.az-inputs {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  background: var(--card) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+.az-inputs .inp {
+  flex: 1 !important;
+  height: 48px !important;
+  border-radius: 8px 0 0 8px !important;
+  border-right: none !important;
+  outline: none !important;
+}
+.az-inputs .run-btn {
+  height: 48px !important;
+  border-radius: 0 8px 8px 0 !important;
+  padding: 0 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  border: 1.5px solid var(--acc) !important;
+}
+
+/* 17. Fixed height chips for Quick Picks */
+#quick-picks button.ftag {
+  height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 16px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+  border: 1.5px solid var(--border2) !important;
+  margin-bottom: 4px !important;
+}
+
+/* 18. Pricing grid card height & visual dominance layout */
+.price-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  align-items: stretch !important;
+  gap: 24px !important;
+}
+.pc {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+.pc-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.pc-body .p-feats {
+  flex: 1 !important;
+}
+.pc.pop {
+  transform: scale(1.08) translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(212, 82, 10, 0.22) !important;
+  z-index: 10 !important;
+  border: 2.5px solid var(--acc) !important;
+}
+
+/* 19. Client portal sidebar 20% / 80% split */
+.p-body {
+  grid-template-columns: 20% 80% !important;
+}
+
+/* 20. Vertical spacing cleanups & print page adjustments */
+#features {
+  padding-bottom: 0 !important;
+}
+#how {
+  padding-top: 1.5rem !important;
+}
+.divider {
+  margin: 1.5rem auto 0 !important;
+}
+
+@media (max-width: 900px) {
+  .price-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .pc.pop {
+    transform: scale(1.02) !important;
+  }
 }
 @media (max-width: 768px) {
   .score-banner {
@@ -955,6 +1102,9 @@ footer.rich-footer .footer-col a:hover {
   }
   footer.rich-footer .brand-col {
     max-width: none !important;
+  }
+  .p-body {
+    grid-template-columns: 1fr !important;
   }
 }
 </style>
@@ -1004,15 +1154,6 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
   <div class="hero-btns">
     <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Demo</button>
     <button class="btn-out" onclick="loadSample('Stripe')">See sample: Stripe →</button>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><span class="stat-n">14,000+</span> teardowns generated</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">5,400+</span> PMs &amp; founders</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">&lt;3s</span> analysis time</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">Any</span> product or URL</div>
   </div>
 </div>
 
@@ -1188,30 +1329,21 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     </div>
   </div>
 
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">14,000+</span> teardowns generated</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">5,400+</span> PMs &amp; founders</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">&lt;3s</span> analysis time</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">Any</span> product or URL</div>
+  </div>
+
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track" aria-hidden="true">
     <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
     <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
-  </div>
-</div>
-
-<!-- Browser Mockup Screenshot -->
-<div class="hero-screenshot" style="margin: 4rem auto 0; max-width: 900px; padding: 0 clamp(1rem,4vw,2rem); position: relative;">
-  <div style="background: linear-gradient(135deg, rgba(212, 82, 10, 0.15) 0%, rgba(74, 143, 229, 0.15) 100%); padding: 6px; border-radius: 16px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; display: flex; flex-direction: column;">
-    <!-- Browser chrome -->
-    <div style="display: flex; align-items: center; padding: 10px 14px; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.25);">
-      <div style="display: flex; gap: 6px;">
-        <span style="width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
-        <span style="width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
-        <span style="width: 9px; height: 9px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
-      </div>
-      <div style="flex-grow: 1; text-align: center; font-size: 11px; color: var(--muted); background: rgba(255, 255, 255, 0.04); border-radius: 6px; padding: 3px 0; max-width: 320px; margin: 0 auto; letter-spacing: 0.3px; border: 1px solid rgba(255, 255, 255, 0.05);">
-        teardown.ai/portal/dashboard
-      </div>
-    </div>
-    <!-- Image -->
-    <img src="preview.png" alt="TeardownAI Portal Dashboard" style="width: 100%; height: auto; border-radius: 0 0 12px 12px; display: block; filter: brightness(0.95);" />
   </div>
 </div>
 
@@ -1728,7 +1860,75 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <!-- Populated dynamically by javascript -->
         </div>
       </div>
-      <div class="p-main" id="p-main"></div>
+      <div class="p-main" id="p-main">
+        <!-- STATIC MOCK DASHBOARD FOR PRINT/SEO/LOAD UX -->
+        <div class="p-title">Dashboard</div>
+        <div class="metrics" style="margin-bottom:14px">
+          <div class="m-card"><div class="m-num">12</div><div class="m-lbl">Total teardowns</div><div style="font-size:10px;color:var(--acc2);margin-top:4px;font-weight:600">+2 today</div></div>
+          <div class="m-card"><div class="m-num">8</div><div class="m-lbl">This week</div><div style="font-size:10px;color:var(--acc3);margin-top:4px;font-weight:600">4 in session</div></div>
+          <div class="m-card"><div class="m-num">5</div><div class="m-lbl">Saved</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Star to save</div></div>
+          <div class="m-card"><div class="m-num">18</div><div class="m-lbl">Credits left</div>
+            <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:72%;background:var(--acc);border-radius:2px"></div></div>
+          </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;" class="dash-charts-grid">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">PM Score Trend</div>
+            <div style="height:90px;display:flex;align-items:flex-end;gap:10px;padding-bottom:10px;">
+              <div style="flex:1;background:var(--acc-bg);height:60%;border-radius:3px;position:relative;"><span style="position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9px;color:var(--muted)">78</span></div>
+              <div style="flex:1;background:var(--acc-bg);height:75%;border-radius:3px;position:relative;"><span style="position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9px;color:var(--muted)">84</span></div>
+              <div style="flex:1;background:var(--acc-bg);height:68%;border-radius:3px;position:relative;"><span style="position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9px;color:var(--muted)">80</span></div>
+              <div style="flex:1;background:var(--acc-bg);height:90%;border-radius:3px;position:relative;"><span style="position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9px;color:var(--muted)">92</span></div>
+            </div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;">
+            <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;align-self:flex-start;">Portfolio Strength Focus</div>
+            <div style="height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;font-weight:600;">UX: 88% &middot; Market: 82% &middot; Moat: 78%</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
+          <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px">7-Day Activity</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:52px">
+            <div style="flex:1;background:var(--acc2);height:30%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:45%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:20%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:65%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:80%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:50%;border-radius:2px;"></div>
+            <div style="flex:1;background:var(--acc2);height:95%;border-radius:2px;"></div>
+          </div>
+        </div>
+        <div class="p-title" style="margin-bottom:10px">Recent teardowns</div>
+        <div class="tlist">
+          <div class="ti">
+            <div class="ti-l">
+              <div class="ti-icon ic-o" style="font-size:12px;font-weight:700">S</div>
+              <div class="ti-info">
+                <div class="ti-name">Stripe</div>
+                <div class="ti-date">Today &middot; Payments infrastructure for the internet</div>
+              </div>
+            </div>
+            <div class="ti-r">
+              <div class="ti-score" style="color:var(--acc2)">94/100</div>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="ti-l">
+              <div class="ti-icon ic-g" style="font-size:12px;font-weight:700">N</div>
+              <div class="ti-info">
+                <div class="ti-name">Notion</div>
+                <div class="ti-date">Yesterday &middot; Connected workspace</div>
+              </div>
+            </div>
+            <div class="ti-r">
+              <div class="ti-score" style="color:var(--acc2)">88/100</div>
+            </div>
+          </div>
+        </div>
+        <button class="new-btn" onclick="goToAnalyzer()">+ New teardown</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1776,36 +1976,6 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>
     </div>
 
-    <!-- PRO -->
-    <div class="pc card pop" style="position:relative">
-      <div class="pop-chip">Most popular</div>
-      <div class="pc-header" style="background:var(--ink);color:#fff;padding-top:32px;">
-        <div class="p-tier" style="color:rgba(255,255,255,.5)">Pro</div>
-        <div class="p-amt-wrap">
-          <div class="p-amt" id="pro-amt" style="color:#fff">₹1,499</div>
-        </div>
-        <div class="p-amt-orig" id="pro-orig" style="display:none;color:rgba(255,255,255,.4)">₹2,099</div>
-        <div class="p-period" style="color:rgba(255,255,255,.55)">/month · billed monthly</div>
-        <div class="p-desc" style="color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.12)">For serious PMs doing competitive research, interview prep, and product strategy.</div>
-      </div>
-      <div class="pc-body">
-        <ul class="p-feats">
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>Unlimited</strong> teardowns</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Interactive SVG charts (Radar & Trend)</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>RICE framework & Mini PRD generator</span></li>
-          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
-        </ul>
-        <button class="p-btn p-btn-pro" onclick="startPayment('pro')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          Pay with Razorpay
-        </button>
-        <div class="razorpay-badge">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Secured by <span class="razorpay-logo">Razorpay</span>
-        </div>
-      </div>
-    </div>
-
     <!-- STUDENT -->
     <div class="pc card" style="position:relative">
       <div class="pc-header">
@@ -1825,6 +1995,36 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
         </ul>
         <button class="p-btn p-btn-student" onclick="startPayment('student')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Pay with Razorpay
+        </button>
+        <div class="razorpay-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secured by <span class="razorpay-logo">Razorpay</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRO -->
+    <div class="pc card pop" style="position:relative">
+      <div class="pop-chip">Most popular</div>
+      <div class="pc-header" style="background:var(--ink);color:#fff;padding-top:32px;">
+        <div class="p-tier" style="color:rgba(255,255,255,.5)">Pro</div>
+        <div class="p-amt-wrap">
+          <div class="p-amt" id="pro-amt" style="color:#fff">₹1,499</div>
+        </div>
+        <div class="p-amt-orig" id="pro-orig" style="display:none;color:rgba(255,255,255,.4)">₹2,099</div>
+        <div class="p-period" style="color:rgba(255,255,255,.55)">/month · billed monthly</div>
+        <div class="p-desc" style="color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.12)">For serious PMs doing competitive research, interview prep, and product strategy.</div>
+      </div>
+      <div class="pc-body">
+        <ul class="p-feats">
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span><strong>Unlimited</strong> teardowns</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>Interactive SVG charts (Radar & Trend)</span></li>
+          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l-6.91-1.01z"/></svg></div><span>RICE framework & Mini PRD generator</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
+        </ul>
+        <button class="p-btn p-btn-pro" onclick="startPayment('pro')">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
           Pay with Razorpay
         </button>
@@ -2665,7 +2865,7 @@ function repOverview(d) {
     <div class="ov-card" style="margin-top:12px;">
       <div class="ov-label">📌 Sources & Citations</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
-        \${sources.map(s => \`<span class="source-chip" style="display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);padding:4px 10px;border-radius:100px;font-size:12px;color:var(--muted);"><span style="color:var(--acc);">•</span> \${s}</span>\`).join('')}
+        ${sources.map(s => `<span class="source-chip" style="display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);padding:4px 10px;border-radius:100px;font-size:12px;color:var(--muted);"><span style="color:var(--acc);">•</span> ${s}</span>`).join('')}
       </div>
     </div>
   `;
