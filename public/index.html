@@ -643,6 +643,320 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
     color: #1a1916 !important;
   }
 }
+
+/* ─── UI & DESIGN ITERATION OVERRIDES ─── */
+
+/* 1. Reduce hero section tallness and padding */
+.hero {
+  padding: clamp(1.5rem, 4.5vw, 3rem) clamp(1rem, 5vw, 2rem) clamp(1rem, 3.5vw, 2rem) !important;
+}
+.hero-badge {
+  margin-bottom: 1.25rem !important;
+}
+.hero h1 {
+  margin-bottom: 1rem !important;
+}
+.hero p {
+  margin-bottom: 1.75rem !important;
+}
+.hero-stats {
+  margin-top: 1.75rem !important;
+}
+
+/* 2. Elevated primary buttons & inputs */
+.btn-ink {
+  background: var(--acc) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(212, 82, 10, 0.45) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 8px !important;
+}
+.btn-ink:hover {
+  background: #b84508 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(212, 82, 10, 0.6) !important;
+}
+.btn-out {
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+}
+.btn-out:hover {
+  background: var(--bg2) !important;
+  border-color: var(--ink) !important;
+  transform: translateY(-2px) !important;
+}
+.run-btn {
+  background: var(--acc) !important;
+  box-shadow: 0 4px 12px rgba(212, 82, 10, 0.3) !important;
+  transition: all 0.2s !important;
+}
+.run-btn:hover {
+  background: #b84508 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(212, 82, 10, 0.45) !important;
+}
+
+/* 3. Analyzer layout & button height match */
+.az-inputs {
+  align-items: stretch !important;
+}
+.az-inputs .inp {
+  height: 44px !important;
+}
+.az-inputs .run-btn {
+  height: 44px !important;
+  align-items: center !important;
+}
+
+/* 4. Competitor Tab Layout - side-by-side on desktop */
+@media (min-width: 768px) {
+  .comp-layout {
+    display: grid !important;
+    grid-template-columns: 3fr 2fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+  .comp-chart-panel {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* 5. Pricing Cards visual flow & Pro card styling */
+.price-grid {
+  gap: 24px !important;
+}
+.pc {
+  border-radius: 16px !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.pc.pop {
+  border: 2px solid var(--acc) !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 12px 30px rgba(212, 82, 10, 0.18) !important;
+  z-index: 10 !important;
+}
+.p-btn-pro {
+  background: var(--acc) !important;
+  border-color: var(--acc) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(212, 82, 10, 0.3) !important;
+}
+.p-btn-pro:hover {
+  background: #b84508 !important;
+  border-color: #b84508 !important;
+}
+@media (max-width: 900px) {
+  .pc.pop {
+    transform: none !important;
+    margin: 12px 0 !important;
+  }
+}
+
+/* 6. Sticky header styling for reports */
+.rep-header {
+  position: sticky !important;
+  top: 57px !important;
+  background: var(--card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 16px 0 !important;
+  z-index: 100 !important;
+  margin-top: -12px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02) !important;
+}
+body.dark-theme .rep-header {
+  background: var(--card) !important;
+}
+@media print {
+  .rep-header {
+    position: static !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+  }
+}
+
+/* 7. Loading Step Animation */
+@keyframes pulseGlow {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0.4; transform: scale(0.9); }
+}
+.chk-bullet-active {
+  display: inline-block !important;
+  animation: pulseGlow 1.2s infinite ease-in-out !important;
+}
+
+/* 8. Mobile Tabs dropdown responsive toggles */
+@media (max-width: 768px) {
+  .rep-tabs {
+    display: none !important;
+  }
+  .rep-tabs-select-wrap {
+    display: block !important;
+  }
+}
+
+/* 9. SWOT Colors & Light Mode Contrast Override */
+.swot-hm-header {
+  color: var(--ink) !important;
+}
+.swot-hm-item {
+  color: var(--muted) !important;
+}
+.swot-hm-bullet {
+  font-size: 13px !important;
+  margin-top: 0 !important;
+}
+
+/* 10. Border Radius Standardization overrides */
+.card, .az, .fc, .steps, .portal-shell { border-radius: 16px !important; }
+.ov-card, .persona-card, .persona-avatar, .product-logo, .product-logo-fallback, .ti-icon img, .toast { border-radius: 12px !important; }
+.inp, .run-btn, .r-btn, .ptag, .rc, .recs-box, .sw, .fc-icon, .ftag, .snum, .p-tab, .p-nav, .m-card, .ti, .ti-icon, .ti-btn, .new-btn, .plan-card, .cta-inp, .cta-go { border-radius: 8px !important; }
+
+/* 11. White Space Gaps */
+.feat-grid, .testi-grid, .steps-row {
+  gap: 24px !important;
+}
+
+/* 12. Score Banner Redesign */
+.score-banner {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(1.5rem, 4vw, 3rem) !important;
+  background: var(--bg2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  margin-bottom: 24px !important;
+}
+.score-card-left {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  padding: 20px 30px !important;
+  min-width: 140px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+}
+.score-card-left .score-big {
+  font-family: var(--fh) !important;
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  color: var(--acc) !important;
+  line-height: 1 !important;
+}
+.score-card-left .score-label {
+  font-size: 12px !important;
+  color: var(--dim) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-top: 6px !important;
+  font-weight: 700 !important;
+}
+.score-dims {
+  flex: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px 24px !important;
+}
+.sdim-wrapper {
+  margin-bottom: 0 !important;
+}
+.sdim {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+.sdim-label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  width: 80px !important;
+  flex-shrink: 0 !important;
+}
+.sdim-bar-wrap {
+  flex: 1 !important;
+  height: 8px !important;
+  background: var(--bg3) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+.sdim-bar {
+  height: 100% !important;
+  border-radius: 4px !important;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sdim-val {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  width: 28px !important;
+  text-align: right !important;
+  flex-shrink: 0 !important;
+}
+
+/* 13. Rich Footer styling */
+footer.rich-footer {
+  border-top: 1px solid var(--border) !important;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 5vw, 2.5rem) !important;
+  background: var(--bg2) !important;
+  color: var(--ink) !important;
+}
+footer.rich-footer .footer-grid {
+  display: grid !important;
+  grid-template-columns: 2fr repeat(3, 1fr) !important;
+  gap: clamp(1.5rem, 4vw, 3rem) !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+footer.rich-footer .footer-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+footer.rich-footer .brand-col {
+  max-width: 320px !important;
+}
+footer.rich-footer .footer-col h4 {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 8px !important;
+  color: var(--ink) !important;
+}
+footer.rich-footer .footer-col a {
+  font-size: 13px !important;
+  color: var(--muted) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+footer.rich-footer .footer-col a:hover {
+  color: var(--acc) !important;
+}
+@media (max-width: 768px) {
+  .score-banner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 20px !important;
+  }
+  .score-dims {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  footer.rich-footer .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  footer.rich-footer .brand-col {
+    max-width: none !important;
+  }
+}
 </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -700,33 +1014,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     <div class="dot"></div>
     <div class="stat"><span class="stat-n">Any</span> product or URL</div>
   </div>
-
-  <!-- Browser Mockup Screenshot -->
-  <div class="hero-screenshot" style="margin: 3rem auto 0; max-width: 900px; position: relative;">
-    <div style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 5px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); overflow: hidden; display: flex; flex-direction: column;">
-      <!-- Browser chrome -->
-      <div style="display: flex; align-items: center; padding: 10px 14px; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.25);">
-        <div style="display: flex; gap: 6px;">
-          <span style="width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
-          <span style="width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
-          <span style="width: 9px; height: 9px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
-        </div>
-        <div style="flex-grow: 1; text-align: center; font-size: 11px; color: var(--muted); background: rgba(255, 255, 255, 0.04); border-radius: 6px; padding: 3px 0; max-width: 320px; margin: 0 auto; letter-spacing: 0.3px; border: 1px solid rgba(255, 255, 255, 0.05);">
-          teardown.ai/portal/dashboard
-        </div>
-      </div>
-      <!-- Image -->
-      <img src="preview.png" alt="TeardownAI Portal Dashboard" style="width: 100%; height: auto; border-radius: 0 0 8px 8px; display: block; filter: brightness(0.92);" />
-    </div>
-  </div>
 </div>
-
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track" aria-hidden="true">
-    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
-    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
-  </div>
 
 <!-- ANALYZER -->
 <div id="analyzer" style="padding:clamp(2.5rem,6vw,4rem) clamp(1rem,4vw,2rem) 0;max-width:900px;margin:0 auto;">
@@ -749,17 +1037,18 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Stripe')">Stripe</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Figma')">Figma</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Airbnb')">Airbnb</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Spotify')">Spotify</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Netflix')">Netflix</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Linear')">Linear</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Loom')">Loom</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Slack')">Slack</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Swiggy')">Swiggy</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Zomato')">Zomato</button>
-          <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Razorpay')">Razorpay</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Spotify')">Spotify</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Netflix')">Netflix</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Linear')">Linear</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Loom')">Loom</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Slack')">Slack</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Swiggy')">Swiggy</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Zomato')">Zomato</button>
+          <button class="ftag more-picks" style="cursor:pointer;padding:6px 14px;font-size:13px;display:none;" onclick="loadSample('Razorpay')">Razorpay</button>
           <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc-bg);color:var(--acc-t);" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
           <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc2-bg);color:var(--acc2-t);" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
           <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc3-bg);color:var(--acc3-t);" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
+          <button class="ftag toggle-picks-btn" onclick="toggleQuickPicks(this)" style="cursor:pointer;padding:6px 14px;font-size:13px;background:var(--bg3);border-color:var(--border2);color:var(--ink);font-weight:600;">Show More +</button>
         </div>
       </div>
       <div class="az-inputs">
@@ -797,6 +1086,30 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           </div>
         </div>
       </div>
+      <!-- EMPTY STATE -->
+      <div id="az-empty-state" style="margin-top:24px;background:var(--card);border:1.5px dashed var(--border2);border-radius:12px;padding:40px 24px;text-align:center;">
+        <div style="font-size:36px;margin-bottom:14px;">📊</div>
+        <h3 style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;">Ready to Analyze</h3>
+        <p style="font-size:13px;color:var(--muted);max-width:340px;margin:0 auto 24px;line-height:1.6;">Paste a product name or URL above to generate a comprehensive 10-module teardown report.</p>
+        <div class="empty-features-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;max-width:640px;margin:0 auto;text-align:left;">
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-size:18px;margin-bottom:6px;">🎯</div>
+            <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">User Personas</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Target audiences, goals, and pain points mapped out.</div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-size:18px;margin-bottom:6px;">⚖️</div>
+            <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">SWOT Matrix</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Strategic strengths, weaknesses, and opportunities.</div>
+          </div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+            <div style="font-size:18px;margin-bottom:6px;">🗺️</div>
+            <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">Competitor Map</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Interactive chart mapping UX vs. Market fit.</div>
+          </div>
+        </div>
+      </div>
+
       <div id="az-report">
 
         <!-- REPORT HEADER -->
@@ -821,21 +1134,9 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 
         <!-- SCORE BANNER -->
         <div class="score-banner">
-          <div class="score-ring-wrap">
-            <svg class="score-ring" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="42" fill="none" stroke="#e0ded8" stroke-width="8"/>
-              <circle cx="50" cy="50" r="42" fill="none" stroke="url(#sgrd)" stroke-width="8"
-                stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"
-                id="score-arc" style="transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 1.2s ease;"/>
-              <defs><linearGradient id="sgrd" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#1a6b4a"/>
-                <stop offset="100%" stop-color="#d4520a"/>
-              </linearGradient></defs>
-            </svg>
-            <div class="score-ring-label">
-              <div class="score-big" id="r-score-num">0</div>
-              <div style="font-size:12px;color:var(--muted)">/ 100</div>
-            </div>
+          <div class="score-card-left">
+            <div class="score-big" id="r-score-num">0</div>
+            <div class="score-label">Overall Score</div>
           </div>
           <div class="score-dims" id="r-score-dims"></div>
         </div>
@@ -851,28 +1152,23 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="rep-tab" data-tab="rice">RICE</button>
           <button class="rep-tab" data-tab="prd">Mini PRD</button>
         </div>
+
+        <!-- MOBILE TABS DROPDOWN -->
+        <div class="rep-tabs-select-wrap" style="display:none;margin-bottom:16px;">
+          <select id="rep-tabs-select" onchange="onTabSelectChange(this.value)" style="font-weight:600;padding:10px 14px;background:var(--card);border-color:var(--acc3);color:var(--ink);width:100%;border-radius:8px;border:1.5px solid var(--border);outline:none;">
+            <option value="overview">Overview</option>
+            <option value="personas">Personas</option>
+            <option value="competitors">Competitors</option>
+            <option value="swot">SWOT</option>
+            <option value="journey">User Journey</option>
+            <option value="metrics">Metrics</option>
+            <option value="rice">RICE Framework</option>
+            <option value="prd">Mini PRD Spec</option>
+          </select>
+        </div>
         <div id="rep-content" style="margin-top:14px;"></div>
 
-        <!-- CHAT ASSISTANT -->
-        <div class="chat-section" id="report-chat-container" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
-          <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Ask AI Follow-up Questions
-          </div>
-          <div id="chat-messages" style="max-height:240px;overflow-y:auto;margin-bottom:12px;padding:8px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;gap:8px;">
-            <div style="font-size:12.5px;color:var(--muted);text-align:center;padding:12px;">Ask any question about this teardown report or choose a quick prompt below.</div>
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;" id="chat-chips">
-            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('How would you improve retention?')">Improve Retention</button>
-            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('What features should be built next?')">Next Features</button>
-            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('Create a PRD')">Create a PRD</button>
-            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('Generate interview answer')">Interview Q&A</button>
-          </div>
-          <form onsubmit="handleChatSubmit(event)" style="display:flex;gap:8px;">
-            <input class="inp" id="chat-input" placeholder="Ask follow-up questions..." style="flex:1;font-size:13px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);outline:none;" autocomplete="off"/>
-            <button class="r-btn r-btn-p" type="submit" style="padding:0 16px;font-size:13px;">Ask</button>
-          </form>
-        </div>
+
 
         <!-- MY RESEARCH NOTES -->
         <div class="notes-section" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
@@ -891,6 +1187,33 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>    </div>
     </div>
   </div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" aria-hidden="true">
+    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
+    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
+  </div>
+</div>
+
+<!-- Browser Mockup Screenshot -->
+<div class="hero-screenshot" style="margin: 4rem auto 0; max-width: 900px; padding: 0 clamp(1rem,4vw,2rem); position: relative;">
+  <div style="background: linear-gradient(135deg, rgba(212, 82, 10, 0.15) 0%, rgba(74, 143, 229, 0.15) 100%); padding: 6px; border-radius: 16px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; display: flex; flex-direction: column;">
+    <!-- Browser chrome -->
+    <div style="display: flex; align-items: center; padding: 10px 14px; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.25);">
+      <div style="display: flex; gap: 6px;">
+        <span style="width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+        <span style="width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+        <span style="width: 9px; height: 9px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+      </div>
+      <div style="flex-grow: 1; text-align: center; font-size: 11px; color: var(--muted); background: rgba(255, 255, 255, 0.04); border-radius: 6px; padding: 3px 0; max-width: 320px; margin: 0 auto; letter-spacing: 0.3px; border: 1px solid rgba(255, 255, 255, 0.05);">
+        teardown.ai/portal/dashboard
+      </div>
+    </div>
+    <!-- Image -->
+    <img src="preview.png" alt="TeardownAI Portal Dashboard" style="width: 100%; height: auto; border-radius: 0 0 12px 12px; display: block; filter: brightness(0.95);" />
+  </div>
+</div>
 
 <!-- FEATURES -->
 <div class="divider"></div>
@@ -1044,66 +1367,204 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 .annual-badge{background:var(--acc2-bg);color:var(--acc2-t);font-size:11px;padding:2px 8px;border-radius:100px;border:1px solid #b6deca;font-weight:700;}
 
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:0;}
-.pc{padding:0;overflow:hidden;transition:box-shadow .2s,transform .15s;}
-.pc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-2px);}
-.pc.pop{border-color:var(--acc);transform:translateY(-4px);}
-.pc.pop:hover{transform:translateY(-6px);}
-.pop-chip{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;font-size:11px;padding:3px 14px;border-radius:100px;font-weight:700;white-space:nowrap;}
+.pc{padding:0;overflow:hidden;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:var(--card);border:1px solid var(--border);border-radius:16px;}
+.pc:hover{box-shadow:0 12px 36px rgba(0,0,0,.08);transform:translateY(-4px);border-color:var(--border2);}
+.pc.pop{border-color:var(--acc);transform:translateY(-6px);box-shadow:0 10px 30px rgba(244, 118, 44, 0.08);}
+.pc.pop:hover{transform:translateY(-10px);box-shadow:0 15px 40px rgba(244, 118, 44, 0.15);}
 
-.pc-header{padding:24px 24px 20px;}
-.pc-body{padding:0 24px 24px;}
-.p-tier{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:8px;}
-.p-amt-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px;}
-.p-amt{font-family:var(--fh);font-size:36px;font-weight:400;color:var(--ink);line-height:1;}
-.p-amt-orig{font-size:18px;color:var(--dim);text-decoration:line-through;margin-bottom:4px;}
-.p-period{font-size:13px;color:var(--muted);margin-bottom:2px;padding-bottom:4px;}
-.p-desc{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+/* Premium Comparison Table Styles */
+.compare-wrap {
+  margin-top: 3.5rem;
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  padding: 8px;
+}
+.compare-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 8px;
+}
+.compare-title-text {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+}
+.compare-table th {
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .5px;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg2);
+}
+.compare-table th:first-child {
+  text-align: left;
+  border-top-left-radius: 8px;
+}
+.compare-table th:last-child {
+  border-top-right-radius: 8px;
+}
+.compare-table td {
+  padding: 14px 20px;
+  font-size: 13.5px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+}
+.compare-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+}
+.compare-table tr:last-child td {
+  border-bottom: none;
+}
+.compare-table tr:hover td {
+  background: var(--bg3);
+}
 
-.p-feats{list-style:none;display:flex;flex-direction:column;gap:0;margin:0 0 20px;padding:0;}
-.p-feats li{font-size:12.5px;display:flex;align-items:flex-start;gap:9px;color:var(--muted);padding:7px 0;border-bottom:1px solid var(--bg2);}
-.p-feats li:last-child{border-bottom:none;}
-.p-feats li strong{color:var(--ink);font-weight:600;}
-.p-feats .off{color:var(--dim);}
-.p-feats .feat-ico{width:16px;height:16px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.feat-ico-ok{background:var(--acc2-bg);}
-.feat-ico-no{background:var(--bg2);}
-.feat-ico-star{background:var(--acc-bg);}
+/* Pill statuses */
+.ct-check-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--acc2-bg);
+  color: var(--acc2-t);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(26, 107, 74, 0.15);
+}
+.ct-cross-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg2);
+  color: var(--dim);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+}
+.ct-val-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acc3-bg);
+  color: var(--acc3-t);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(42, 95, 165, 0.15);
+}
+.ct-val-pro-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acc-bg);
+  color: var(--acc-t);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(212, 82, 10, 0.15);
+}
+.ct-head {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--dim);
+  padding: 16px 20px 6px !important;
+  background: var(--bg2) !important;
+  text-align: left !important;
+}
 
-.p-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;font-family:var(--fb);cursor:pointer;border:none;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.p-btn-free{background:var(--bg2);color:var(--ink);border:1.5px solid var(--border2);}
-.p-btn-free:hover{background:var(--bg3);}
-.p-btn-pro{background:var(--ink);color:#fff;}
-.p-btn-pro:hover{background:#2a2926;}
-.p-btn-team{background:linear-gradient(135deg,#2a5fa5,#1a6b4a);color:#fff;}
-.p-btn-team:hover{opacity:.9;}
-
-.razorpay-badge{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:11px;color:var(--dim);}
-.razorpay-logo{font-size:11px;font-weight:800;color:#072654;background:#f5f5f5;padding:1px 6px;border-radius:4px;}
-
-/* Comparison table */
-.compare-wrap{margin-top:3rem;overflow-x:auto;}
-.compare-table{width:100%;border-collapse:collapse;min-width:600px;}
-.compare-table th{padding:10px 16px;text-align:center;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid var(--border);}
-.compare-table th:first-child{text-align:left;}
-.compare-table td{padding:10px 16px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--border);text-align:center;vertical-align:middle;}
-.compare-table td:first-child{text-align:left;font-weight:600;color:var(--ink);}
-.compare-table tr:last-child td{border-bottom:none;}
-.compare-table tr:hover td{background:var(--bg2);}
-.ct-check{color:var(--acc2);font-size:16px;font-weight:700;}
-.ct-cross{color:var(--dim);font-size:16px;}
-.ct-val{font-weight:700;color:var(--ink);}
-.ct-head{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);padding:14px 16px 4px!important;background:var(--bg2);}
-
-/* FAQ */
-.faq-wrap{margin-top:2.5rem;display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.faq-item{border-bottom:1px solid var(--border);}
-.faq-item:last-child{border-bottom:none;}
-.faq-q{padding:16px 20px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;user-select:none;}
-.faq-q:hover{background:var(--bg2);}
-.faq-arrow{font-size:16px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
-.faq-a{display:none;padding:0 20px 16px;font-size:13px;color:var(--muted);line-height:1.7;}
-.faq-item.open .faq-a{display:block;}
-.faq-item.open .faq-arrow{transform:rotate(180deg);}
+/* Premium FAQ Accordion Styles */
+.faq-wrap {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.faq-item:hover {
+  border-color: var(--border2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+  transform: translateY(-1px);
+}
+.faq-item.open {
+  border-color: var(--acc3);
+  box-shadow: 0 8px 24px rgba(42, 95, 165, 0.08);
+}
+.faq-q {
+  padding: 18px 24px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  user-select: none;
+  transition: background 0.15s;
+}
+.faq-q:hover {
+  background: rgba(var(--ink), 0.01);
+}
+.faq-arrow-svg {
+  width: 14px;
+  height: 14px;
+  color: var(--muted);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-arrow-svg {
+  transform: rotate(180deg);
+  color: var(--acc3);
+}
+.faq-a {
+  display: none;
+  padding: 0 24px 20px;
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  border-top: 1px dashed transparent;
+}
+.faq-item.open .faq-a {
+  display: block;
+  border-top-color: var(--border);
+  padding-top: 14px;
+}
 
 @media(max-width:900px){.price-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:600px){
@@ -1378,54 +1839,71 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 
   <!-- Feature comparison table -->
   <div class="compare-wrap">
-    <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;margin-top:2.5rem;">Full feature comparison</div>
+    <div class="compare-title-row">
+      <div class="compare-title-text">Full feature comparison</div>
+    </div>
     <table class="compare-table">
       <thead>
         <tr>
           <th>Feature</th>
           <th>Starter</th>
-          <th style="color:#2a5fa5">Student</th>
+          <th style="color:var(--acc3)">Student</th>
           <th style="color:var(--acc)">Pro</th>
         </tr>
       </thead>
       <tbody>
         <tr><td class="ct-head" colspan="4">Analysis</td></tr>
-        <tr><td>Teardowns per month</td><td class="ct-val">5</td><td class="ct-val" style="color:#2a5fa5">15</td><td class="ct-val" style="color:var(--acc)">Unlimited</td></tr>
-        <tr><td>Full 8-tab visual report</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Radar + bubble + funnel charts</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>RICE prioritisation</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Mini PRD generator</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Competitor deep-dive</td><td class="ct-val">2</td><td class="ct-val" style="color:#2a5fa5">5</td><td class="ct-val" style="color:var(--acc)">5</td></tr>
+        <tr><td>Teardowns per month</td><td><span class="ct-val-pill">5</span></td><td><span class="ct-val-pill" style="background:var(--acc3-bg);color:var(--acc3-t)">15</span></td><td><span class="ct-val-pro-pill">Unlimited</span></td></tr>
+        <tr><td>Full 8-tab visual report</td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
+        <tr><td>Radar + bubble + funnel charts</td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
+        <tr><td>RICE prioritisation</td><td><span class="ct-cross-pill">—</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
+        <tr><td>Mini PRD generator</td><td><span class="ct-cross-pill">—</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
+        <tr><td>Competitor deep-dive</td><td><span class="ct-val-pill">2</span></td><td><span class="ct-val-pill" style="background:var(--acc3-bg);color:var(--acc3-t)">5</span></td><td><span class="ct-val-pro-pill">5</span></td></tr>
         <tr><td class="ct-head" colspan="4">Exports &amp; Sharing</td></tr>
-        <tr><td>PDF export</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Share links</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
+        <tr><td>PDF export</td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
+        <tr><td>Share links</td><td><span class="ct-cross-pill">—</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td><td><span class="ct-check-pill"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td></tr>
         <tr><td class="ct-head" colspan="4">Platform</td></tr>
-        <tr><td>Support</td><td class="ct-val">Community</td><td class="ct-val">Email</td><td class="ct-val">Email</td></tr>
+        <tr><td>Support</td><td><span class="ct-cross-pill">Community</span></td><td><span class="ct-check-pill">Email</span></td><td><span class="ct-check-pill">Email</span></td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- FAQ -->
-  <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin:2.5rem 0 .75rem">Frequently asked questions</div>
+  <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin:3rem 0 1rem">Frequently asked questions</div>
   <div class="faq-wrap">
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Is payment secure? <span class="faq-arrow">&#8964;</span></div>
-      <div class="faq-a">Yes. All payments are processed by Razorpay, which is PCI DSS Level 1 certified — the highest level of payment security. TeardownAI never stores your card details.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Is payment secure?</span>
+        <svg class="faq-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Yes. All payments are processed securely by Razorpay, which is PCI DSS Level 1 certified — the highest level of payment security. TeardownAI never stores your card details.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can I cancel anytime? <span class="faq-arrow">&#8964;</span></div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Can I cancel anytime?</span>
+        <svg class="faq-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
       <div class="faq-a">Absolutely. You can cancel your subscription at any time from your billing settings. You'll continue to have access until the end of your current billing period.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between Student and Pro? <span class="faq-arrow">&#8964;</span></div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What's the difference between Student and Pro?</span>
+        <svg class="faq-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
       <div class="faq-a">Student plan is designed for PM aspirants, university students, and boot camp learners with 15 teardowns/mo, core interactive metrics, RICE frameworks, and PDF export. Pro plan is for active PMs needing unlimited teardowns, full features, and support.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Do you offer a free trial for Pro? <span class="faq-arrow">&#8964;</span></div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Do you offer a free trial for Pro?</span>
+        <svg class="faq-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
       <div class="faq-a">The Starter plan is permanently free and gives you 5 teardowns a month to evaluate the full report quality. We don't offer a time-limited trial — the free tier is designed to show you exactly what you're getting before upgrading.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What payment methods does Razorpay support? <span class="faq-arrow">&#8964;</span></div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What payment methods does Razorpay support?</span>
+        <svg class="faq-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
       <div class="faq-a">Razorpay supports UPI (GPay, PhonePe, Paytm), credit/debit cards (Visa, Mastercard, RuPay), net banking (50+ banks), and EMI options. It works seamlessly for Indian users.</div>
     </div>
   </div>
@@ -1433,34 +1911,45 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 </div>
 
 
-<!-- TESTIMONIALS -->
-<div class="divider"></div>
-<div class="section">
-  <div class="kicker">Testimonials</div>
-  <div class="sec-title">PMs who switched to TeardownAI</div>
-  <div class="testi-grid">
-    <div class="tc card"><div class="t-stars">★★★★★</div><div class="t-body">"I used to spend 3 days on competitive teardowns. Now I get the same quality in seconds. It's completely changed how I do product research."</div><div class="t-author"><div class="t-av" style="background:var(--acc-bg);color:var(--acc-t)">SR</div><div><div class="t-name">Sara R.</div><div class="t-role">Senior PM at Stripe</div></div></div></div>
-    <div class="tc card"><div class="t-stars">★★★★★</div><div class="t-body">"The SWOT and competitor mapping alone is worth 10x the price. My CEO asked who our new research team was after I showed a teardown in a meeting."</div><div class="t-author"><div class="t-av" style="background:var(--acc2-bg);color:var(--acc2-t)">MK</div><div><div class="t-name">Marcus K.</div><div class="t-role">Founder, B2B SaaS</div></div></div></div>
-    <div class="tc card"><div class="t-stars">★★★★★</div><div class="t-body">"Best product intelligence tool I've found. My product intuition has leveled up massively in 3 months of daily use. Essential for any PM."</div><div class="t-author"><div class="t-av" style="background:var(--acc3-bg);color:var(--acc3-t)">JL</div><div><div class="t-name">Jaya L.</div><div class="t-role">APM at Figma</div></div></div></div>
-  </div>
-</div>
-
 <!-- CTA -->
 <div class="cta-strip">
   <h2>Analyze your first product free today</h2>
   <p>No credit card needed. Full teardown in seconds.</p>
   <div class="cta-row">
-    <input class="cta-inp" id="cta-inp" placeholder="Any product or URL (e.g. Notion, stripe.com, Figma)…"/>
+    <input class="cta-inp" id="cta-inp" placeholder="Any product or URL (e.g. Notion, stripe.com, Figma)…" onkeydown="if(event.key==='Enter') analyzeFromCTA()"/>
     <button class="cta-go" onclick="analyzeFromCTA()">Analyze →</button>
   </div>
 </div>
 
-<footer>
-  <div class="logo" style="font-size:14px"><div class="logo-mark" style="width:20px;height:20px;font-size:10px">T</div> TeardownAI</div>
-  <div class="foot-links">
-    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Blog</a><a href="#">API docs</a><a href="#">Contact</a>
+<footer class="rich-footer">
+  <div class="footer-grid">
+    <div class="footer-col brand-col">
+      <div class="logo" style="font-size:16px;margin-bottom:12px;"><div class="logo-mark" style="width:24px;height:24px;font-size:12px">T</div> TeardownAI</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px;">Teardown any product like a Senior PM. Get instant product teardowns, SWOT analysis, competitor maps, and user personas generated by AI.</p>
+      <div style="font-size:12px;color:var(--dim)">© 2025 TeardownAI</div>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#analyzer">Live Analyzer</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Blog</a>
+      <a href="#">API docs</a>
+      <a href="#">Guides</a>
+      <a href="#">Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact & Socials</h4>
+      <a href="mailto:hello@teardownai.com">hello@teardownai.com</a>
+      <a href="https://twitter.com/teardownai" target="_blank" rel="noopener">Twitter / X</a>
+      <a href="https://linkedin.com/company/teardownai" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/teardownai" target="_blank" rel="noopener">GitHub</a>
+    </div>
   </div>
-  <div style="font-size:12px;color:var(--dim)">© 2025 TeardownAI</div>
 </footer>
 
 <script>
@@ -1660,10 +2149,22 @@ function loadSample(name) {
   setTimeout(runTeardown, 300);
 }
 
+function toggleQuickPicks(btn) {
+  const hidden = document.querySelectorAll('.more-picks');
+  const isCollapsed = btn.textContent.includes('Show More');
+  hidden.forEach(el => {
+    el.style.display = isCollapsed ? 'inline-block' : 'none';
+  });
+  btn.textContent = isCollapsed ? 'Show Less -' : 'Show More +';
+}
+
 function runTeardown() {
   if (_running) return;
   const input = document.getElementById('pname').value.trim();
   if (!input) { document.getElementById('pname').focus(); showToast('Enter a product name or URL'); return; }
+
+  const empty = document.getElementById('az-empty-state');
+  if (empty) empty.style.display = 'none';
 
   // Competitor Comparison Mode Interceptor
   const match = input.match(/\s+vs\s+/i);
@@ -1689,12 +2190,12 @@ function runTeardown() {
   fill.style.width = '0%';
 
   const steps = [
-    { elId: 'chk-step-1', text: 'Scanning product surface...', pct: 15 },
-    { elId: 'chk-step-2', text: 'Mapping user personas...', pct: 32 },
-    { elId: 'chk-step-3', text: 'Identifying competitors...', pct: 52 },
-    { elId: 'chk-step-4', text: 'Decoding revenue model...', pct: 68 },
-    { elId: 'chk-step-5', text: 'Running SWOT framework...', pct: 82 },
-    { elId: 'chk-step-6', text: 'Assembling PM report...', pct: 95 }
+    { elId: 'chk-step-1', text: 'Scanning website & metadata...', pct: 15 },
+    { elId: 'chk-step-2', text: 'Reading customer reviews & discussions...', pct: 32 },
+    { elId: 'chk-step-3', text: 'Building user personas & journey maps...', pct: 52 },
+    { elId: 'chk-step-4', text: 'Mapping competitor space & features...', pct: 68 },
+    { elId: 'chk-step-5', text: 'Generating SWOT & RICE matrices...', pct: 82 },
+    { elId: 'chk-step-6', text: 'Assembling full PM report...', pct: 95 }
   ];
 
   steps.forEach(s => {
@@ -1703,6 +2204,11 @@ function runTeardown() {
       el.style.color = 'var(--muted)';
       el.querySelector('.chk-bullet').innerHTML = '○';
       el.querySelector('.chk-bullet').style.color = 'var(--dim)';
+      // Reset the text dynamically to support custom verb checks
+      const bulletSpan = el.querySelector('.chk-bullet');
+      el.innerHTML = '';
+      el.appendChild(bulletSpan);
+      el.appendChild(document.createTextNode(' ' + s.text));
     }
   });
 
@@ -1715,7 +2221,7 @@ function runTeardown() {
     if (status === 'active') {
       el.style.color = 'var(--ink)';
       el.style.fontWeight = '600';
-      el.querySelector('.chk-bullet').innerHTML = '●';
+      el.querySelector('.chk-bullet').innerHTML = '<span class="chk-bullet-active">●</span>';
       el.querySelector('.chk-bullet').style.color = 'var(--acc)';
     } else if (status === 'done') {
       el.style.color = 'var(--acc2-t)';
@@ -1899,6 +2405,10 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       body: JSON.stringify(payload)
     })
     .then(res => {
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        throw new Error('Expected JSON response, but received ' + contentType);
+      }
       if (!res.ok) throw new Error('Proxy server returned an error: ' + res.status);
       return res.json();
     })
@@ -1954,13 +2464,6 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
 let _currentReport = null;
 
 function animateScore(score) {
-  const circ = 2*Math.PI*42;
-  const arc  = document.getElementById('score-arc');
-  if (arc) {
-    arc.style.strokeDasharray  = circ;
-    arc.style.strokeDashoffset = circ;
-    setTimeout(() => { arc.style.strokeDashoffset = circ-(score/100)*circ; }, 80);
-  }
   const el = document.getElementById('r-score-num');
   if (!el) return;
   let cur=0; const step=score/40;
@@ -2014,10 +2517,18 @@ function renderScoreDims(d) {
 document.getElementById('rep-tabs')?.addEventListener('click', e=>{
   const b = e.target.closest('.rep-tab');
   if (b && _currentReport) {
-    document.querySelectorAll('.rep-tab').forEach(t=>t.classList.toggle('on',t===b));
-    renderRepTab(b.dataset.tab, _currentReport);
+    onTabSelectChange(b.dataset.tab);
   }
 });
+
+function onTabSelectChange(value) {
+  if (_currentReport) {
+    document.querySelectorAll('.rep-tab').forEach(t => t.classList.toggle('on', t.dataset.tab === value));
+    const sel = document.getElementById('rep-tabs-select');
+    if (sel) sel.value = value;
+    renderRepTab(value, _currentReport);
+  }
+}
 
 function renderRepTab(tab, d) {
   const el = document.getElementById('rep-content');
@@ -2041,6 +2552,9 @@ function renderRepTab(tab, d) {
 function showReport(d) {
   _currentReport = d;
 
+  const empty = document.getElementById('az-empty-state');
+  if (empty) empty.style.display = 'none';
+
   if (d.isComparison) {
     renderComparisonMode(d);
     return;
@@ -2054,8 +2568,7 @@ function showReport(d) {
   // Seed metadata (sources and breakdowns)
   seedReportMetadata(d);
 
-  // Reset chat helper
-  resetChat();
+
 
   /* Logo */
   const input  = document.getElementById('pname').value.trim();
@@ -2246,16 +2759,18 @@ function repCompetitors(d) {
   }).join('');
 
   return `<div class="tab-panel">
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
-      <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Competitive Positioning Map</div>
-      ${bubbleSVG}
+    <div class="comp-layout">
+      <div class="comp-chart-panel" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Competitive Positioning Map</div>
+        ${bubbleSVG}
+      </div>
+      <div class="comp-table">${rows}</div>
     </div>
-    <div class="comp-table">${rows}</div>
   </div>`;
 }
 function repSwot(d) {
-  function quad(cls, emoji, label, arr) {
-    const items = (arr||[]).map(i=>`<div class="swot-hm-item"><span class="swot-hm-bullet">•</span><span>${i}</span></div>`).join('');
+  function quad(cls, emoji, label, arr, bulletChar, bulletColor) {
+    const items = (arr||[]).map(i=>`<div class="swot-hm-item"><span class="swot-hm-bullet" style="color:${bulletColor};font-weight:bold;font-size:14px;">${bulletChar}</span><span>${i}</span></div>`).join('');
     return `<div class="swot-hm-q ${cls}">
       <div class="swot-hm-header"><span class="swot-hm-icon">${emoji}</span>${label}</div>
       <div class="swot-hm-items">${items}</div>
@@ -2299,10 +2814,10 @@ function repSwot(d) {
       ${matrixSVG}
     </div>
     <div class="swot-heatmap">
-      ${quad('swot-hm-s','✅','Strengths',d.strengths)}
-      ${quad('swot-hm-w','⚠️','Weaknesses',d.weaknesses)}
-      ${quad('swot-hm-o','🚀','Growth Opportunities',d.opportunities)}
-      ${quad('swot-hm-t','🔴','Market Threats',d.threats)}
+      ${quad('swot-hm-s','💪','Strengths',d.strengths,'✓','var(--acc2)')}
+      ${quad('swot-hm-w','⚠️','Weaknesses',d.weaknesses,'⚠','var(--acc)')}
+      ${quad('swot-hm-o','🚀','Growth Opportunities',d.opportunities,'→','var(--acc3)')}
+      ${quad('swot-hm-t','🚨','Market Threats',d.threats,'✖','#be123c')}
     </div>
   </div>`;
 }
@@ -2793,6 +3308,64 @@ function exportPDF() {
   window.print();
 }
 
+function shareReport() {
+  const query = _currentReport ? _currentReport.name : document.getElementById('pname').value.trim();
+  if (!query) {
+    showToast('No active report to share', 'warn');
+    return;
+  }
+  const url = new URL(window.location.origin + window.location.pathname);
+  url.searchParams.set('q', query);
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url.toString())
+      .then(() => {
+        showToast('Share link copied to clipboard!', 'ok');
+      })
+      .catch(err => {
+        console.error('Failed to copy share link:', err);
+        fallbackCopyTextToClipboard(url.toString());
+      });
+  } else {
+    fallbackCopyTextToClipboard(url.toString());
+  }
+}
+
+function fallbackCopyTextToClipboard(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    const successful = document.execCommand('copy');
+    if (successful) {
+      showToast('Share link copied to clipboard!', 'ok');
+    } else {
+      showToast('Failed to copy share link', 'warn');
+    }
+  } catch (err) {
+    console.error('Fallback copy failed:', err);
+    showToast('Could not copy link automatically', 'warn');
+  }
+  document.body.removeChild(textArea);
+}
+
+function analyzeFromCTA() {
+  const val = document.getElementById('cta-inp').value.trim();
+  if (!val) {
+    document.getElementById('cta-inp').focus();
+    showToast('Enter a product name or URL first', 'warn');
+    return;
+  }
+  document.getElementById('pname').value = val;
+  goToAnalyzer();
+  setTimeout(runTeardown, 300);
+}
+
 function updateCurrentReportNote(val) {
   if (_currentReport) {
     _currentReport.note = val;
@@ -3136,8 +3709,9 @@ switchView('dashboard');
 /* ═══════════════════════════════════════
    RAZORPAY PAYMENT INTEGRATION
    Replace KEY_ID with your Razorpay key from dashboard.razorpay.com
+   (Dynamically loaded from backend on startup)
 ═══════════════════════════════════════ */
-const RAZORPAY_KEY = 'rzp_test_SyRjWkQSmF4vn4'; // ← replace with your key
+let RAZORPAY_KEY = '';
 
 const PLANS = {
   student: {
@@ -3662,6 +4236,8 @@ function toggleScoreExplainer(sdimEl) {
 
 function resetAnalyzer() {
   document.getElementById('az-report').style.display = 'none';
+  const empty = document.getElementById('az-empty-state');
+  if (empty) empty.style.display = 'block';
   document.getElementById('pname').value = '';
   document.getElementById('analyzer').scrollIntoView({behavior:'smooth'});
   setTimeout(() => document.getElementById('pname').focus(), 600);
@@ -3871,6 +4447,8 @@ function renderComparisonMode(report) {
 
 function runComparison(pA, pB) {
   _running = true;
+  const empty = document.getElementById('az-empty-state');
+  if (empty) empty.style.display = 'none';
   const btn = document.getElementById('run-btn');
   btn.disabled = true;
   btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite"><path d="M12 3a9 9 0 1 0 9 9"/></svg> Comparing…</span>';
@@ -3882,12 +4460,12 @@ function runComparison(pA, pB) {
   fill.style.width = '0%';
 
   const steps = [
-    { elId: 'chk-step-1', text: 'Scanning product surfaces...', pct: 15 },
-    { elId: 'chk-step-2', text: 'Comparing user personas...', pct: 32 },
-    { elId: 'chk-step-3', text: 'Analyzing competitor overlaps...', pct: 52 },
-    { elId: 'chk-step-4', text: 'Mapping monetization differences...', pct: 68 },
-    { elId: 'chk-step-5', text: 'Running SWOT framework...', pct: 82 },
-    { elId: 'chk-step-6', text: 'Assembling comparison report...', pct: 95 }
+    { elId: 'chk-step-1', text: 'Scanning website surfaces & metadata...', pct: 15 },
+    { elId: 'chk-step-2', text: 'Comparing customer reviews & overlaps...', pct: 32 },
+    { elId: 'chk-step-3', text: 'Analyzing overlapping user personas...', pct: 52 },
+    { elId: 'chk-step-4', text: 'Mapping feature sets & monetization...', pct: 68 },
+    { elId: 'chk-step-5', text: 'Generating comparative SWOT matrices...', pct: 82 },
+    { elId: 'chk-step-6', text: 'Assembling side-by-side report...', pct: 95 }
   ];
 
   steps.forEach(s => {
@@ -3896,6 +4474,11 @@ function runComparison(pA, pB) {
       el.style.color = 'var(--muted)';
       el.querySelector('.chk-bullet').innerHTML = '○';
       el.querySelector('.chk-bullet').style.color = 'var(--dim)';
+      // Reset the text dynamically to support custom verb checks
+      const bulletSpan = el.querySelector('.chk-bullet');
+      el.innerHTML = '';
+      el.appendChild(bulletSpan);
+      el.appendChild(document.createTextNode(' ' + s.text));
     }
   });
 
@@ -3908,7 +4491,7 @@ function runComparison(pA, pB) {
     if (status === 'active') {
       el.style.color = 'var(--ink)';
       el.style.fontWeight = '600';
-      el.querySelector('.chk-bullet').innerHTML = '●';
+      el.querySelector('.chk-bullet').innerHTML = '<span class="chk-bullet-active">●</span>';
       el.querySelector('.chk-bullet').style.color = 'var(--acc)';
     } else if (status === 'done') {
       el.style.color = 'var(--acc2-t)';
@@ -3951,159 +4534,7 @@ function runComparison(pA, pB) {
   }, 2400);
 }
 
-let chatHistory = [];
 
-function resetChat() {
-  chatHistory = [];
-  const container = document.getElementById('chat-messages');
-  if (container) {
-    container.innerHTML = `<div style="font-size:12.5px;color:var(--muted);text-align:center;padding:12px;">Ask any question about this teardown report or choose a quick prompt below.</div>`;
-  }
-}
-
-function sendChatPrompt(text) {
-  const input = document.getElementById('chat-input');
-  if (input) {
-    input.value = text;
-    handleChatSubmit(new Event('submit'));
-  }
-}
-
-async function handleChatSubmit(e) {
-  if (e) e.preventDefault();
-  const inputEl = document.getElementById('chat-input');
-  if (!inputEl) return;
-  const text = inputEl.value.trim();
-  if (!text) return;
-  inputEl.value = '';
-
-  appendChatMessage('user', text);
-  chatHistory.push({ role: 'user', content: text });
-
-  const container = document.getElementById('chat-messages');
-  const thinkingEl = document.createElement('div');
-  thinkingEl.style.cssText = 'font-size:12px;color:var(--dim);padding:4px 8px;font-style:italic;';
-  thinkingEl.innerHTML = 'Thinking…';
-  container.appendChild(thinkingEl);
-  container.scrollTop = container.scrollHeight;
-
-  try {
-    let replyText = '';
-    if (STATE.hasServerKey) {
-      const response = await fetch('/api/teardown/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          report: _currentReport,
-          messages: chatHistory
-        })
-      });
-      if (!response.ok) {
-        throw new Error('Server returned error ' + response.status);
-      }
-      const data = await response.json();
-      if (data.content && data.content[0] && data.content[0].text) {
-        replyText = data.content[0].text;
-      } else {
-        throw new Error('Invalid chat response format');
-      }
-    } else {
-      replyText = getLocalChatResponse(_currentReport, text);
-    }
-    thinkingEl.remove();
-    appendChatMessage('assistant', replyText);
-    chatHistory.push({ role: 'assistant', content: replyText });
-  } catch (err) {
-    if (thinkingEl && thinkingEl.parentNode) {
-      thinkingEl.remove();
-    }
-    console.error('Chat failed:', err);
-    appendChatMessage('assistant', '⚠️ Failed to connect to the server assistant. Please verify your connection or check the server log.');
-  }
-}
-
-function appendChatMessage(role, text) {
-  const container = document.getElementById('chat-messages');
-  if (!container) return;
-  
-  if (container.querySelector('[style*="text-align:center"]')) {
-    container.innerHTML = '';
-  }
-
-  const isUser = role === 'user';
-  const msg = document.createElement('div');
-  msg.style.cssText = `
-    max-width: 85%;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-    align-self: ${isUser ? 'flex-end' : 'flex-start'};
-    background: ${isUser ? 'var(--acc-bg)' : 'var(--bg2)'};
-    color: ${isUser ? 'var(--acc-t)' : 'var(--ink)'};
-    border: 1px solid ${isUser ? 'var(--border2)' : 'var(--border)'};
-  `;
-  
-  let html = text
-    .replace(/\n/g, '<br>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/•\s*([^<\n]+)/g, '<li>$1</li>');
-  
-  if (html.includes('<li>')) {
-    html = `<ul style="padding-left:16px;margin:4px 0;">${html}</ul>`;
-  }
-  
-  msg.innerHTML = html;
-  container.appendChild(msg);
-  container.scrollTop = container.scrollHeight;
-}
-
-function getLocalChatResponse(report, query) {
-  const q = query.toLowerCase();
-  const name = report.name || 'this product';
-
-  if (q.includes('retention')) {
-    return `To improve **retention** for **${name}**, we recommend:
-• **Optimize the onboarding flow**: Reduce cognitive load by hiding secondary features until the user finishes the core activation steps.
-• **Re-engagement Triggers**: Set up contextual email/push alerts based on inactive periods, reminding users of value they left behind.
-• **Increase Data Hook Density**: Build integrations with existing workflows (Slack, Notion, Zapier) to increase switching costs.
-• **Nudge Collaborative Sharing**: Introduce multiplayer features so that inviting coworkers makes the product instantly more useful.`;
-  }
-
-  if (q.includes('prd') || q.includes('product requirement')) {
-    return `### Mini PRD for ${name}
-**Objective**: Build a personalized recommendation layer to increase engagement and drive upgrade conversions.
-**User Story**: As a user of ${name}, I want custom AI-guided tips tailored to my workflow so that I get faster results with minimal effort.
-**Acceptance Criteria**:
-1. AI suggestions are rendered inline within 1.5 seconds.
-2. The user can accept or dismiss suggestions.
-3. Suggestion metrics are logged in the dashboard.
-**Success Metrics**:
-• 25% increase in weekly active usage.
-• 15% improvement in conversion to paid plans.`;
-  }
-
-  if (q.includes('features') || q.includes('built next')) {
-    return `Here are the top **growth features** to build next for **${name}**:
-• **AI personalization engine**: Context-aware recommendations that adapt to user behavior.
-• **Collaboration spaces**: Shared workspaces with role-based access control for team productivity.
-• **Interactive dashboard widgets**: Let users drag and drop features to configure their workspace.
-• **Zapier & Slack integrations**: Deepen platform stickiness by piping alerts to user workspaces.`;
-  }
-
-  if (q.includes('interview')) {
-    return `**How to answer interview questions about ${name}'s product strategy**:
-• **Define the value proposition**: Explain how it saves time and integrates fragmented workflows.
-• **Highlight the growth metrics**: Focus on Daily Active Users, virality metrics (like sharing rates), and net retention.
-• **Propose key feature improvements**: Suggest adding collaboration hooks, multiplayer modes, or AI helpers to expand TAM.
-• **Acknowledge the competition**: Focus on why product speed or UX is the main defense against legacy incumbents.`;
-  }
-
-  return `Regarding **${name}**:
-• **Strategic Opportunity**: The current UX and feature depth offer a great baseline, but integrating more AI automation can boost activation.
-• **Market Context**: Competing tools are catching up fast, so maintaining high product velocity and a clean, responsive interface is critical.
-• **Next Steps**: Conduct user interviews to identify high-friction points in onboarding, and test simplified pricing tiers to capture broader audience segments.`;
-}
 
 function initTheme() {
   const saved = localStorage.getItem('theme');
@@ -4132,21 +4563,34 @@ function updateThemeIcons(isDark) {
 
 // Initial boot logic
 initTheme();
-fetch('/health')
-  .then(res => res.json())
-  .then(data => {
-    if (data && data.anthropic) {
-      STATE.hasServerKey = true;
-      console.log('TeardownAI: Server-side Anthropic API Key detected. Real generation enabled.');
-    }
-  })
-  .catch(err => {
-    console.warn('TeardownAI: Could not fetch health status.', err);
-  });
 
+const bootPromises = [];
+
+// 1. Fetch Health Status
+bootPromises.push(
+  fetch('/health')
+    .then(res => res.json())
+    .then(data => {
+      if (data) {
+        if (data.anthropic) {
+          STATE.hasServerKey = true;
+          console.log('TeardownAI: Server-side Anthropic API Key detected. Real generation enabled.');
+        }
+        if (data.razorpayKey) {
+          RAZORPAY_KEY = data.razorpayKey;
+          console.log('TeardownAI: Dynamic Razorpay Key loaded.');
+        }
+      }
+    })
+    .catch(err => {
+      console.warn('TeardownAI: Could not fetch health status.', err);
+    })
+);
+
+// 2. Fetch Session & Reports
 const token = localStorage.getItem('auth_token');
 if (token) {
-  fetch('/api/session', {
+  const sessionPromise = fetch('/api/session', {
     headers: { 'Authorization': `Bearer ${token}` }
   })
   .then(res => {
@@ -4191,10 +4635,24 @@ if (token) {
     updateUserBox();
     renderView('dashboard');
   });
+  bootPromises.push(sessionPromise);
 } else {
   STATE.user = null;
   updateUserBox();
 }
+
+// 3. Post-Boot Actions
+Promise.all(bootPromises).then(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get('q');
+  if (query) {
+    document.getElementById('pname').value = query;
+    goToAnalyzer();
+    setTimeout(() => {
+      runTeardown();
+    }, 1000);
+  }
+});
 
 </script>
 
