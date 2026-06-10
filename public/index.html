@@ -40,6 +40,30 @@
   --fh:'DM Serif Display',Georgia,serif;
   --fb:'DM Sans',system-ui,sans-serif;
 }
+body.dark-theme {
+  --bg:#0e0d0b;--bg2:#161512;--bg3:#1e1d1a;--card:#161512;
+  --border:#2a2926;--border2:#3a3833;
+  --ink:#fafaf8;--muted:#a8a59e;--dim:#6b6860;
+  --acc:#f4762c;--acc2:#2e9b67;--acc3:#4a8fe5;
+  --acc-bg:#26180f;--acc2-bg:#0f261c;--acc3-bg:#0f1d2c;
+  --acc-t:#ffccb0;--acc2-t:#b0ffd6;--acc3-t:#b0d6ff;
+}
+body.dark-theme nav {
+  background: rgba(14, 13, 11, .95);
+}
+.sdim-breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sdim-breakdown-item:last-child {
+  border-bottom: none;
+}
+.sdim-breakdown-item.pos { color: var(--acc2); }
+.sdim-breakdown-item.neg { color: #be123c; }
+.sdim-breakdown-item .pts { margin-left: auto; font-weight: 600; font-size: 11px; }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
@@ -639,6 +663,10 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     <a href="#portal">Portal</a>
   </div>
   <div class="nav-right">
+    <button id="theme-toggle-btn" class="ti-btn" style="padding: 6px; border-radius: 8px; margin-right: 8px; cursor: pointer; background: var(--bg2); border: 1px solid var(--border); color: var(--muted); display: inline-flex; align-items: center; justify-content: center;" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+      <svg id="theme-sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="7.07"/></svg>
+      <svg id="theme-moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <button class="btn-nav" onclick="goToAnalyzer()">Get started free</button>
     <button class="hamburger" id="ham" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -729,6 +757,9 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Swiggy')">Swiggy</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Zomato')">Zomato</button>
           <button class="ftag" style="cursor:pointer;padding:6px 14px;font-size:13px;" onclick="loadSample('Razorpay')">Razorpay</button>
+          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc-bg);color:var(--acc-t);" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
+          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc2-bg);color:var(--acc2-t);" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
+          <button class="ftag vs-tag" style="cursor:pointer;padding:6px 14px;font-size:13px;border:1px dashed var(--border2);background:var(--acc3-bg);color:var(--acc3-t);" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
         </div>
       </div>
       <div class="az-inputs">
@@ -737,9 +768,34 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg></span></i> Analyze
         </button>
       </div>
-      <div id="az-progress">
-        <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
-        <div class="prog-label"><div class="dots"><div class="d"></div><div class="d"></div><div class="d"></div></div><span id="prog-label">Starting…</span></div>
+      <div id="az-progress" style="display:none;margin:20px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
+        <div class="prog-track" style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:16px;">
+          <div class="prog-fill" id="prog-fill" style="width:0%;height:100%;background:linear-gradient(90deg, var(--acc), var(--acc3));transition:width 0.3s ease;"></div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
+          AI Research Engine in Progress...
+        </div>
+        <div id="prog-checklist" style="display:flex;flex-direction:column;gap:8px;">
+          <div class="chk-step" id="chk-step-1" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Scanning product surface...
+          </div>
+          <div class="chk-step" id="chk-step-2" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Mapping user personas...
+          </div>
+          <div class="chk-step" id="chk-step-3" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Identifying competitors...
+          </div>
+          <div class="chk-step" id="chk-step-4" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Decoding revenue model...
+          </div>
+          <div class="chk-step" id="chk-step-5" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Running SWOT framework...
+          </div>
+          <div class="chk-step" id="chk-step-6" style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+            <span class="chk-bullet" style="color:var(--dim);">○</span> Assembling PM report...
+          </div>
+        </div>
       </div>
       <div id="az-report">
 
@@ -796,6 +852,27 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="rep-tab" data-tab="prd">Mini PRD</button>
         </div>
         <div id="rep-content" style="margin-top:14px;"></div>
+
+        <!-- CHAT ASSISTANT -->
+        <div class="chat-section" id="report-chat-container" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
+          <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Ask AI Follow-up Questions
+          </div>
+          <div id="chat-messages" style="max-height:240px;overflow-y:auto;margin-bottom:12px;padding:8px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;gap:8px;">
+            <div style="font-size:12.5px;color:var(--muted);text-align:center;padding:12px;">Ask any question about this teardown report or choose a quick prompt below.</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;" id="chat-chips">
+            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('How would you improve retention?')">Improve Retention</button>
+            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('What features should be built next?')">Next Features</button>
+            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('Create a PRD')">Create a PRD</button>
+            <button class="ftag" style="cursor:pointer;padding:4px 10px;font-size:11.5px;border-radius:6px;border:1px solid var(--border);" onclick="sendChatPrompt('Generate interview answer')">Interview Q&A</button>
+          </div>
+          <form onsubmit="handleChatSubmit(event)" style="display:flex;gap:8px;">
+            <input class="inp" id="chat-input" placeholder="Ask follow-up questions..." style="flex:1;font-size:13px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);outline:none;" autocomplete="off"/>
+            <button class="r-btn r-btn-p" type="submit" style="padding:0 16px;font-size:13px;">Ask</button>
+          </form>
+        </div>
 
         <!-- MY RESEARCH NOTES -->
         <div class="notes-section" style="margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
@@ -1268,25 +1345,25 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>
     </div>
 
-    <!-- TEAM -->
+    <!-- STUDENT -->
     <div class="pc card" style="position:relative">
       <div class="pc-header">
-        <div class="p-tier">Team</div>
+        <div class="p-tier">Student</div>
         <div class="p-amt-wrap">
-          <div class="p-amt" id="team-amt">₹3,999</div>
+          <div class="p-amt" id="student-amt">₹199</div>
         </div>
-        <div class="p-amt-orig" id="team-orig" style="display:none;color:var(--dim)">₹5,599</div>
-        <div class="p-period">/month · up to 10 members</div>
-        <div class="p-desc">For product teams who teardown together, share findings, and ship faster.</div>
+        <div class="p-amt-orig" id="student-orig" style="display:none;color:var(--dim)">₹279</div>
+        <div class="p-period">/month · billed monthly</div>
+        <div class="p-desc">For PM aspirants, university students, and boot camp learners preparing for interviews.</div>
       </div>
       <div class="pc-body">
         <ul class="p-feats">
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Everything in Pro</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span><strong>10 team seats</strong> included</span></li>
-          <li><div class="feat-ico feat-ico-star"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div><span>Shared report library & workspace</span></li>
-          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Collaborative annotations & branding</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span><strong>15 teardowns</strong> / month</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>Interactive SVG charts (Radar & Trend)</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>RICE framework & Mini PRD generator</span></li>
+          <li><div class="feat-ico feat-ico-ok"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><span>PDF export & Share links</span></li>
         </ul>
-        <button class="p-btn p-btn-team" onclick="startPayment('team')">
+        <button class="p-btn p-btn-student" onclick="startPayment('student')">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
           Pay with Razorpay
         </button>
@@ -1307,32 +1384,23 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <tr>
           <th>Feature</th>
           <th>Starter</th>
+          <th style="color:#2a5fa5">Student</th>
           <th style="color:var(--acc)">Pro</th>
-          <th style="color:#2a5fa5">Team</th>
         </tr>
       </thead>
       <tbody>
         <tr><td class="ct-head" colspan="4">Analysis</td></tr>
-        <tr><td>Teardowns per month</td><td class="ct-val">5</td><td class="ct-val" style="color:var(--acc)">Unlimited</td><td class="ct-val" style="color:#2a5fa5">Unlimited</td></tr>
+        <tr><td>Teardowns per month</td><td class="ct-val">5</td><td class="ct-val" style="color:#2a5fa5">15</td><td class="ct-val" style="color:var(--acc)">Unlimited</td></tr>
         <tr><td>Full 8-tab visual report</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
         <tr><td>Radar + bubble + funnel charts</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
         <tr><td>RICE prioritisation</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
         <tr><td>Mini PRD generator</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Competitor deep-dive (5 vs 2)</td><td class="ct-val">2</td><td class="ct-val" style="color:var(--acc)">5</td><td class="ct-val" style="color:#2a5fa5">5</td></tr>
+        <tr><td>Competitor deep-dive</td><td class="ct-val">2</td><td class="ct-val" style="color:#2a5fa5">5</td><td class="ct-val" style="color:var(--acc)">5</td></tr>
         <tr><td class="ct-head" colspan="4">Exports &amp; Sharing</td></tr>
         <tr><td>PDF export</td><td class="ct-check">✓</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
         <tr><td>Share links</td><td class="ct-cross">—</td><td class="ct-check">✓</td><td class="ct-check">✓</td></tr>
-        <tr><td>Custom branding on exports</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
-        <tr><td>Notion &amp; Slack export</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
-        <tr><td class="ct-head" colspan="4">Team &amp; Collaboration</td></tr>
-        <tr><td>Team seats</td><td class="ct-val">1</td><td class="ct-val" style="color:var(--acc)">1</td><td class="ct-val" style="color:#2a5fa5">10</td></tr>
-        <tr><td>Shared report library</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
-        <tr><td>Role-based access</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
-        <tr><td>Collaborative annotations</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
         <tr><td class="ct-head" colspan="4">Platform</td></tr>
-        <tr><td>API access</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-val" style="color:#2a5fa5">500 calls/mo</td></tr>
-        <tr><td>Support</td><td class="ct-val">Community</td><td class="ct-val">Email</td><td class="ct-val" style="color:#2a5fa5">Priority + chat</td></tr>
-        <tr><td>Onboarding call</td><td class="ct-cross">—</td><td class="ct-cross">—</td><td class="ct-check">✓</td></tr>
+        <tr><td>Support</td><td class="ct-val">Community</td><td class="ct-val">Email</td><td class="ct-val">Email</td></tr>
       </tbody>
     </table>
   </div>
@@ -1349,8 +1417,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <div class="faq-a">Absolutely. You can cancel your subscription at any time from your billing settings. You'll continue to have access until the end of your current billing period.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between Pro and Team? <span class="faq-arrow">&#8964;</span></div>
-      <div class="faq-a">Pro is for individual PMs — one seat, unlimited teardowns, all visualisations. Team adds 10 seats, a shared report library, collaborative annotations, role-based access, API access, and Slack/Notion integrations. Both are billed monthly or annually.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between Student and Pro? <span class="faq-arrow">&#8964;</span></div>
+      <div class="faq-a">Student plan is designed for PM aspirants, university students, and boot camp learners with 15 teardowns/mo, core interactive metrics, RICE frameworks, and PDF export. Pro plan is for active PMs needing unlimited teardowns, full features, and support.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Do you offer a free trial for Pro? <span class="faq-arrow">&#8964;</span></div>
@@ -1597,6 +1665,18 @@ function runTeardown() {
   const input = document.getElementById('pname').value.trim();
   if (!input) { document.getElementById('pname').focus(); showToast('Enter a product name or URL'); return; }
 
+  // Competitor Comparison Mode Interceptor
+  const match = input.match(/\s+vs\s+/i);
+  if (match) {
+    const parts = input.split(/\s+vs\s+/i);
+    const pA = parts[0].trim();
+    const pB = parts[1].trim();
+    if (pA && pB) {
+      runComparison(pA, pB);
+      return;
+    }
+  }
+
   _running = true;
   const btn = document.getElementById('run-btn');
   btn.disabled = true;
@@ -1605,20 +1685,56 @@ function runTeardown() {
   document.getElementById('az-report').style.display = 'none';
   const prog = document.getElementById('az-progress');
   const fill = document.getElementById('prog-fill');
-  const lbl  = document.getElementById('prog-label');
-  prog.style.display = 'block'; fill.style.width = '0%';
+  prog.style.display = 'block'; 
+  fill.style.width = '0%';
 
   const steps = [
-    [15,'Scanning product surface…',   200],
-    [32,'Mapping user personas…',       500],
-    [52,'Identifying competitors…',     900],
-    [68,'Decoding revenue model…',     1300],
-    [82,'Running SWOT framework…',     1700],
-    [95,'Assembling PM report…',       2100],
+    { elId: 'chk-step-1', text: 'Scanning product surface...', pct: 15 },
+    { elId: 'chk-step-2', text: 'Mapping user personas...', pct: 32 },
+    { elId: 'chk-step-3', text: 'Identifying competitors...', pct: 52 },
+    { elId: 'chk-step-4', text: 'Decoding revenue model...', pct: 68 },
+    { elId: 'chk-step-5', text: 'Running SWOT framework...', pct: 82 },
+    { elId: 'chk-step-6', text: 'Assembling PM report...', pct: 95 }
   ];
-  steps.forEach(([pct,text,delay]) =>
-    setTimeout(() => { fill.style.width=pct+'%'; lbl.textContent=text; }, delay)
-  );
+
+  steps.forEach(s => {
+    const el = document.getElementById(s.elId);
+    if (el) {
+      el.style.color = 'var(--muted)';
+      el.querySelector('.chk-bullet').innerHTML = '○';
+      el.querySelector('.chk-bullet').style.color = 'var(--dim)';
+    }
+  });
+
+  const updateStep = (index, status) => {
+    const step = steps[index];
+    if (!step) return;
+    const el = document.getElementById(step.elId);
+    if (!el) return;
+    
+    if (status === 'active') {
+      el.style.color = 'var(--ink)';
+      el.style.fontWeight = '600';
+      el.querySelector('.chk-bullet').innerHTML = '●';
+      el.querySelector('.chk-bullet').style.color = 'var(--acc)';
+    } else if (status === 'done') {
+      el.style.color = 'var(--acc2-t)';
+      el.style.fontWeight = 'normal';
+      el.querySelector('.chk-bullet').innerHTML = '✓';
+      el.querySelector('.chk-bullet').style.color = 'var(--acc2)';
+    }
+  };
+
+  window._updateTeardownStep = updateStep; // expose globally to allow server path access
+
+  updateStep(0, 'active');
+
+  setTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
+  setTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
+  setTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
+  setTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
+  setTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
+  setTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
 
   const q = input.toLowerCase().replace(/https?:\/\/(www\.)?/i,'').replace(/[^a-z0-9]/g,'');
   const isCurated = Object.keys(PRODUCT_DB).some(k => q===k || q.includes(k) || k.includes(q));
@@ -1629,8 +1745,8 @@ function runTeardown() {
     setTimeout(() => {
       try {
         const d = findProduct(input);
+        for(let i=0; i<6; i++) updateStep(i, 'done');
         fill.style.width = '100%';
-        lbl.textContent  = 'Report ready!';
         setTimeout(() => {
           prog.style.display = 'none';
           showReport(d);
@@ -1797,8 +1913,8 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       }
       const report = JSON.parse(cleanJson);
       
+      for(let i=0; i<6; i++) updateStep(i, 'done');
       fill.style.width = '100%';
-      lbl.textContent  = 'Report ready!';
       setTimeout(() => {
         prog.style.display = 'none';
         showReport(report);
@@ -1813,8 +1929,8 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       // Fallback gracefully to local inference
       try {
         const fallbackData = findProduct(input);
+        for(let i=0; i<6; i++) updateStep(i, 'done');
         fill.style.width = '100%';
-        lbl.textContent  = 'Report ready (Simulation)!';
         setTimeout(() => {
           prog.style.display = 'none';
           showReport(fallbackData);
@@ -1853,21 +1969,44 @@ function animateScore(score) {
 
 function renderScoreDims(d) {
   const dims = [
-    {label:'UX',        val:d.score_ux       ||Math.min(99,d.score+3), color:'#2a5fa5'},
-    {label:'Market',    val:d.score_market   ||Math.min(99,d.score-2), color:'#1a6b4a'},
-    {label:'Moat',      val:d.score_moat     ||Math.min(99,d.score-5), color:'#d4520a'},
-    {label:'Growth',    val:d.score_growth   ||Math.min(99,d.score+1), color:'#b45309'},
-    {label:'Revenue',   val:d.score_revenue  ||Math.min(99,d.score-4), color:'#7c3aed'},
-    {label:'Retention', val:d.score_retention||Math.min(99,d.score-1), color:'#be123c'},
+    {key:'ux',        label:'UX',        val:d.score_ux       ||Math.min(99,d.score+3), color:'#2a5fa5'},
+    {key:'market',    label:'Market',    val:d.score_market   ||Math.min(99,d.score-2), color:'#1a6b4a'},
+    {key:'moat',      label:'Moat',      val:d.score_moat     ||Math.min(99,d.score-5), color:'#d4520a'},
+    {key:'growth',    label:'Growth',    val:d.score_growth   ||Math.min(99,d.score+1), color:'#b45309'},
+    {key:'revenue',   label:'Revenue',   val:d.score_revenue  ||Math.min(99,d.score-4), color:'#7c3aed'},
+    {key:'retention', label:'Retention', val:d.score_retention||Math.min(99,d.score-1), color:'#be123c'},
   ];
   const el = document.getElementById('r-score-dims');
   if (!el) return;
-  el.innerHTML = dims.map(dim=>`
-    <div class="sdim">
-      <div class="sdim-label">${dim.label}</div>
-      <div class="sdim-bar-wrap"><div class="sdim-bar" style="width:0%;background:${dim.color}" data-w="${Math.min(dim.val,100)}"></div></div>
-      <div class="sdim-val">${Math.min(dim.val,100)}</div>
-    </div>`).join('');
+  
+  seedReportMetadata(d);
+
+  el.innerHTML = dims.map(dim=>{
+    const breakdown = d.score_breakdowns[dim.key] || [];
+    const breakdownHtml = breakdown.map(item => `
+      <div class="sdim-breakdown-item ${item.positive ? 'pos' : 'neg'}">
+        <span class="symbol">${item.positive ? '+' : '−'}</span>
+        <span class="text">${item.text}</span>
+        <span class="pts">(${item.pts > 0 ? '+' : ''}${item.pts})</span>
+      </div>
+    `).join('');
+
+    return `
+      <div class="sdim-wrapper" style="margin-bottom:8px;width:100%;">
+        <div class="sdim" data-key="${dim.key}" style="cursor:pointer;user-select:none;" onclick="toggleScoreExplainer(this)">
+          <div class="sdim-label" style="display:flex;align-items:center;gap:6px;">
+            <span class="sdim-chevron" style="font-size:10px;color:var(--dim);transition:transform 0.2s;display:inline-block;width:10px;">▶</span>
+            ${dim.label}
+          </div>
+          <div class="sdim-bar-wrap"><div class="sdim-bar" style="width:0%;background:${dim.color}" data-w="${Math.min(dim.val,100)}"></div></div>
+          <div class="sdim-val">${Math.min(dim.val,100)}</div>
+        </div>
+        <div class="sdim-breakdown-panel" style="display:none;padding:8px 12px;margin-top:4px;margin-left:16px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);font-size:12px;">
+          ${breakdownHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
   setTimeout(()=>{ el.querySelectorAll('.sdim-bar').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); },150);
 }
 
@@ -1885,12 +2024,38 @@ function renderRepTab(tab, d) {
   if (!el) return;
   const map = {overview:repOverview,personas:repPersonas,competitors:repCompetitors,
     swot:repSwot,journey:repJourney,metrics:repMetrics,rice:repRice,prd:repPrd};
-  el.innerHTML = (map[tab]||repOverview)(d);
+  
+  const input  = document.getElementById('pname')?.value?.trim() || '';
+  const domain = d.domain || resolveDomain(input || d.name);
+  const brandHeaderHtml = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;">
+      <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" style="width:14px;height:14px;border-radius:3px;" onerror="this.style.display='none'" />
+      ${d.name} &middot; PM Teardown &middot; ${tab}
+    </div>
+  `;
+
+  el.innerHTML = brandHeaderHtml + (map[tab]||repOverview)(d);
   setTimeout(()=>{ el.querySelectorAll('[data-bar]').forEach(b=>{b.style.width=b.dataset.bar+'%';}); },80);
 }
 
 function showReport(d) {
   _currentReport = d;
+
+  if (d.isComparison) {
+    renderComparisonMode(d);
+    return;
+  }
+
+  // Restore single-report layouts
+  document.querySelector('.score-banner').style.display = '';
+  document.getElementById('rep-tabs').style.display = '';
+  document.querySelector('.notes-section').style.display = '';
+
+  // Seed metadata (sources and breakdowns)
+  seedReportMetadata(d);
+
+  // Reset chat helper
+  resetChat();
 
   /* Logo */
   const input  = document.getElementById('pname').value.trim();
@@ -1982,6 +2147,16 @@ function repOverview(d) {
     ${dots}${labels}
   </svg>`;
 
+  const sources = d.sources || ['Company website', 'App Store reviews', 'G2 reviews', 'Reddit discussions'];
+  const sourcesHtml = `
+    <div class="ov-card" style="margin-top:12px;">
+      <div class="ov-label">📌 Sources & Citations</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+        \${sources.map(s => \`<span class="source-chip" style="display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);padding:4px 10px;border-radius:100px;font-size:12px;color:var(--muted);"><span style="color:var(--acc);">•</span> \${s}</span>\`).join('')}
+      </div>
+    </div>
+  `;
+
   return `<div class="tab-panel">
     <div class="overview-grid">
       <div class="radar-wrap"><div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;text-align:center">Product Score Radar</div>${radarSVG}</div>
@@ -1993,7 +2168,8 @@ function repOverview(d) {
       </div>
     </div>
     <div class="ov-card" style="margin-bottom:12px"><div class="ov-label">Competitors</div><div class="ov-comp-list" style="margin-top:6px">${comps.map(c=>`<span class="comp-chip">${c}</span>`).join('')}</div></div>
-    <div class="ov-card"><div class="ov-label">Recommended next features</div><div class="feat-pill-list" style="margin-top:8px">${feats}</div></div>
+    <div class="ov-card" style="margin-bottom:12px"><div class="ov-label">Recommended next features</div><div class="feat-pill-list" style="margin-top:8px">${feats}</div></div>
+    ${sourcesHtml}
   </div>`;
 }
 function repPersonas(d) {
@@ -2341,40 +2517,58 @@ function addToHistory(d) {
   const input  = document.getElementById('pname').value.trim();
   const domain = resolveDomain(input);
   const cols   = ['ic-o','ic-g','ic-b'];
-  const newReport = {
-    name: d.name,
-    score: d.score,
-    date: 'Just now',
-    ts: Date.now(),
-    domain,
-    col: cols[STATE.history.length % 3],
-    saved: false,
-    note: '',
-    // Include full details to cache report
-    tagline: d.tagline,
-    problem: d.problem,
-    users: d.users,
-    value: d.value,
-    revenue: d.revenue,
-    competitors: d.competitors,
-    strengths: d.strengths,
-    weaknesses: d.weaknesses,
-    opportunities: d.opportunities,
-    threats: d.threats,
-    score_ux: d.score_ux,
-    score_market: d.score_market,
-    score_moat: d.score_moat,
-    score_growth: d.score_growth,
-    score_revenue: d.score_revenue,
-    score_retention: d.score_retention,
-    persona_primary: d.persona_primary,
-    persona_secondary: d.persona_secondary,
-    journey: d.journey,
-    metrics: d.metrics,
-    rice: d.rice,
-    prd: d.prd,
-    features: d.features
-  };
+  let newReport;
+
+  if (d.isComparison) {
+    newReport = {
+      isComparison: true,
+      name: d.name,
+      score: d.score,
+      date: 'Just now',
+      ts: Date.now(),
+      domain: d.dA.domain || '',
+      col: cols[STATE.history.length % 3],
+      saved: false,
+      note: '',
+      dA: d.dA,
+      dB: d.dB
+    };
+  } else {
+    newReport = {
+      name: d.name,
+      score: d.score,
+      date: 'Just now',
+      ts: Date.now(),
+      domain,
+      col: cols[STATE.history.length % 3],
+      saved: false,
+      note: '',
+      // Include full details to cache report
+      tagline: d.tagline,
+      problem: d.problem,
+      users: d.users,
+      value: d.value,
+      revenue: d.revenue,
+      competitors: d.competitors,
+      strengths: d.strengths,
+      weaknesses: d.weaknesses,
+      opportunities: d.opportunities,
+      threats: d.threats,
+      score_ux: d.score_ux,
+      score_market: d.score_market,
+      score_moat: d.score_moat,
+      score_growth: d.score_growth,
+      score_revenue: d.score_revenue,
+      score_retention: d.score_retention,
+      persona_primary: d.persona_primary,
+      persona_secondary: d.persona_secondary,
+      journey: d.journey,
+      metrics: d.metrics,
+      rice: d.rice,
+      prd: d.prd,
+      features: d.features
+    };
+  }
 
   STATE.history.unshift(newReport);
   STATE.history = STATE.history.slice(0,20);
@@ -2496,7 +2690,7 @@ function filterList(q)    { document.querySelectorAll('#report-list .ti').forEac
 
 function reTeardown(name) {
   const existing = STATE.history.find(h => h.name.toLowerCase() === name.toLowerCase());
-  if (existing && existing.tagline) {
+  if (existing && (existing.tagline || existing.isComparison)) {
     document.getElementById('pname').value = existing.name;
     goToAnalyzer();
     document.getElementById('az-progress').style.display = 'none';
@@ -2876,7 +3070,7 @@ const views = {
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="r-btn r-btn-p" onclick="showToast('Redirecting to billing…')">Manage billing</button>
-        <button class="r-btn" onclick="showToast('Upgrade coming soon!','warn')">Upgrade to Team</button>
+        <button class="r-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Upgrade plan</button>
       </div>`;
   },
   settings() {
@@ -2946,13 +3140,13 @@ switchView('dashboard');
 const RAZORPAY_KEY = 'rzp_test_SyRjWkQSmF4vn4'; // ← replace with your key
 
 const PLANS = {
+  student: {
+    monthly: { amount: 19900, label: 'Student Monthly', desc: '15 teardowns/mo + core features', period: 'month' },
+    annual:  { amount: 13900, label: 'Student Annual',  desc: '15 teardowns/mo — 30% off',     period: 'year'  },
+  },
   pro: {
     monthly: { amount: 149900, label: 'Pro Monthly', desc: 'Unlimited teardowns + all features', period: 'month' },
     annual:  { amount: 104930, label: 'Pro Annual',  desc: 'Unlimited teardowns — 30% off',     period: 'year'  },
-  },
-  team: {
-    monthly: { amount: 399900, label: 'Team Monthly', desc: '10 seats + API + collaboration', period: 'month' },
-    annual:  { amount: 279930, label: 'Team Annual',  desc: '10 seats — 30% off',             period: 'year'  },
   },
 };
 
@@ -2968,9 +3162,20 @@ function toggleBilling() {
 }
 
 function updatePrices() {
-  const pro  = PLANS.pro[_billing];
-  const team = PLANS.team[_billing];
-  const fmt  = amt => '₹' + (amt/100).toLocaleString('en-IN');
+  const student = PLANS.student[_billing];
+  const pro     = PLANS.pro[_billing];
+  const fmt     = amt => '₹' + (amt/100).toLocaleString('en-IN');
+
+  // Student card
+  document.getElementById('student-amt').textContent = fmt(student.amount);
+  const studentOrig = document.getElementById('student-orig');
+  if (_billing === 'annual') {
+    studentOrig.textContent = '₹199'; studentOrig.style.display = 'block';
+    document.querySelector('#student-amt').closest('.pc-header').querySelector('.p-period').textContent = '/month · billed annually';
+  } else {
+    studentOrig.style.display = 'none';
+    document.querySelector('#student-amt').closest('.pc-header').querySelector('.p-period').textContent = '/month · billed monthly';
+  }
 
   // Pro card
   document.getElementById('pro-amt').textContent = fmt(pro.amount);
@@ -2981,16 +3186,6 @@ function updatePrices() {
   } else {
     proOrig.style.display = 'none';
     document.querySelector('#pro-amt').closest('.pc-header').querySelector('.p-period').textContent = '/month · billed monthly';
-  }
-  // Team card
-  document.getElementById('team-amt').textContent = fmt(team.amount);
-  const teamOrig = document.getElementById('team-orig');
-  if (_billing === 'annual') {
-    teamOrig.textContent = '₹5,599'; teamOrig.style.display = 'block';
-    document.querySelector('#team-amt').closest('.pc-header').querySelector('.p-period').textContent = '/month · billed annually';
-  } else {
-    teamOrig.style.display = 'none';
-    document.querySelector('#team-amt').closest('.pc-header').querySelector('.p-period').textContent = '/month · up to 10 members';
   }
 }
 
@@ -3017,7 +3212,7 @@ async function generateMockSignature(orderId, paymentId) {
 
 function startPayment(plan) {
   const p    = PLANS[plan][_billing];
-  const name = plan === 'pro' ? 'Pro' : 'Team';
+  const name = plan === 'pro' ? 'Pro' : (plan === 'student' ? 'Student' : 'Free');
 
   const options = {
     key:          RAZORPAY_KEY,
@@ -3064,7 +3259,7 @@ function startPayment(plan) {
 
 function showRazorpayDemo(plan) {
   /* Shown when key is not yet configured — gives visual feedback */
-  const name = plan === 'pro' ? 'Pro ₹1,499/mo' : 'Team ₹3,999/mo';
+  const name = plan === 'pro' ? 'Pro ₹1,499/mo' : (plan === 'student' ? 'Student ₹199/mo' : 'Free');
   const modal = document.createElement('div');
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;';
   modal.innerHTML = `
@@ -3119,8 +3314,8 @@ function onPaymentSuccess(plan, paymentId, orderId = 'order_123', signature = ''
         if (STATE.plan === 'Pro') {
           STATE.planPrice = '₹1,499/mo';
           STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        } else if (STATE.plan === 'Team') {
-          STATE.planPrice = '₹3,999/mo';
+        } else if (STATE.plan === 'Student') {
+          STATE.planPrice = '₹199/mo';
           STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
         showToast('🎉 Welcome to ' + STATE.plan + '! Payment verified successfully.', 'ok');
@@ -3136,9 +3331,9 @@ function onPaymentSuccess(plan, paymentId, orderId = 'order_123', signature = ''
     });
   } else {
     // Guest fallback
-    STATE.plan      = plan === 'pro' ? 'Pro' : 'Team';
-    STATE.planPrice = plan === 'pro' ? (_billing==='annual'?'₹1,049/mo':'₹1,499/mo') : (_billing==='annual'?'₹2,799/mo':'₹3,999/mo');
-    STATE.credits   = plan === 'pro' ? 500 : 9999;
+    STATE.plan      = plan === 'pro' ? 'Pro' : 'Student';
+    STATE.planPrice = plan === 'pro' ? (_billing==='annual'?'₹1,049/mo':'₹1,499/mo') : (_billing==='annual'?'₹139/mo':'₹199/mo');
+    STATE.credits   = plan === 'pro' ? 500 : 15;
     STATE.maxCreds  = STATE.credits;
 
     showToast('🎉 Welcome to ' + STATE.plan + '! (Guest simulation)', 'ok');
@@ -3192,6 +3387,13 @@ function updateUserBox() {
       <button class="r-btn r-btn-p" style="padding:4px 8px;font-size:11px;width:100%;justify-content:center;" onclick="openAuthModal()">Log In / Sign Up</button>
     `;
   }
+
+  // Show/Hide Team tab depending on developer email
+  const teamNavs = document.querySelectorAll('[data-view="team"]');
+  const isDeveloper = STATE.userEmail && STATE.userEmail.toLowerCase().includes('developer');
+  teamNavs.forEach(nav => {
+    nav.style.display = isDeveloper ? 'flex' : 'none';
+  });
 }
 
 function handleAuthSubmit(e, action) {
@@ -3243,8 +3445,8 @@ function handleAuthSubmit(e, action) {
     } else if (STATE.plan === 'Pro') {
       STATE.planPrice = '₹1,499/mo';
       STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } else if (STATE.plan === 'Team') {
-      STATE.planPrice = '₹3,999/mo';
+    } else if (STATE.plan === 'Student') {
+      STATE.planPrice = '₹199/mo';
       STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
 
@@ -3297,7 +3499,639 @@ function handleLogout() {
   renderView(document.querySelector('.p-nav.on')?.dataset.view || 'dashboard');
 }
 
+const BREAKDOWN_POOL = {
+  ux: {
+    pos: [
+      { text: 'Clean onboarding', pts: 15 },
+      { text: 'Fast navigation', pts: 10 },
+      { text: 'Intuitive interface layout', pts: 12 },
+      { text: 'Low-latency page transitions', pts: 8 },
+      { text: 'Consistent design system tokens', pts: 10 }
+    ],
+    neg: [
+      { text: 'Weak search option', pts: -8 },
+      { text: 'Poor accessibility standards', pts: -7 },
+      { text: 'High friction checkout flow', pts: -6 },
+      { text: 'Cluttered mobile dashboard', pts: -5 }
+    ]
+  },
+  market: {
+    pos: [
+      { text: 'Strong market demand & TAM', pts: 15 },
+      { text: 'High organic viral growth', pts: 12 },
+      { text: 'Clear customer pain solved', pts: 14 },
+      { text: 'Expanding industry tailwinds', pts: 10 }
+    ],
+    neg: [
+      { text: 'Fierce incumbent competition', pts: -8 },
+      { text: 'High customer acquisition cost', pts: -7 },
+      { text: 'Long enterprise sales cycle', pts: -6 },
+      { text: 'Low buyer willingness to pay', pts: -5 }
+    ]
+  },
+  moat: {
+    pos: [
+      { text: 'High switching costs', pts: 15 },
+      { text: 'Strong network effects', pts: 14 },
+      { text: 'Proprietary technology/AI', pts: 12 },
+      { text: 'Exclusive brand equity', pts: 10 }
+    ],
+    neg: [
+      { text: 'Low copy-cat entry barrier', pts: -8 },
+      { text: 'Commoditized core service', pts: -7 },
+      { text: 'Open-source alternatives', pts: -6 },
+      { text: 'Weak intellectual property', pts: -5 }
+    ]
+  },
+  growth: {
+    pos: [
+      { text: 'Viral user invite loops', pts: 15 },
+      { text: 'Strong organic SEO engine', pts: 12 },
+      { text: 'Product-led self-serve tier', pts: 14 },
+      { text: 'High referral program traction', pts: 10 }
+    ],
+    neg: [
+      { text: 'High paid ad spend dependency', pts: -8 },
+      { text: 'Low free-to-paid conversion', pts: -7 },
+      { text: 'Poor onboarding activation', pts: -6 },
+      { text: 'Limited upsell/cross-sell channels', pts: -5 }
+    ]
+  },
+  revenue: {
+    pos: [
+      { text: 'Predictable recurring revenue', pts: 15 },
+      { text: 'Strong upsell expansion model', pts: 12 },
+      { text: 'High gross margins (>80%)', pts: 14 },
+      { text: 'Optimized multi-tier pricing', pts: 10 }
+    ],
+    neg: [
+      { text: 'High pricing plan confusion', pts: -8 },
+      { text: 'High customer churn erosion', pts: -7 },
+      { text: 'Heavy discount dependencies', pts: -6 },
+      { text: 'Single revenue stream risk', pts: -5 }
+    ]
+  },
+  retention: {
+    pos: [
+      { text: 'High daily habit usage loops', pts: 15 },
+      { text: 'Low annual account churn', pts: 14 },
+      { text: 'High team/collaborative hooks', pts: 12 },
+      { text: 'Proprietary user data lock-in', pts: 10 }
+    ],
+    neg: [
+      { text: 'High seasonal usage dropoffs', pts: -8 },
+      { text: 'Weak user reactivation alerts', pts: -7 },
+      { text: 'Lack of sticky integrations', pts: -6 },
+      { text: 'Clumsy notification fatigue', pts: -5 }
+    ]
+  }
+};
+
+function getDeterministicRandom(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return () => {
+    hash = (hash * 16807) % 2147483647;
+    return (hash - 1) / 2147483646;
+  };
+}
+
+function generateScoreBreakdown(dimKey, score, seed) {
+  const rand = getDeterministicRandom(seed + dimKey);
+  const pool = BREAKDOWN_POOL[dimKey] || BREAKDOWN_POOL.ux;
+  
+  const posCount = score >= 85 ? 3 : (score >= 70 ? 2 : 1);
+  const negCount = score >= 85 ? 1 : (score >= 70 ? 2 : 3);
+  
+  const selected = [];
+  
+  const posPool = [...pool.pos];
+  for (let i = 0; i < posCount && posPool.length > 0; i++) {
+    const idx = Math.floor(rand() * posPool.length);
+    selected.push({ ...posPool[idx], positive: true });
+    posPool.splice(idx, 1);
+  }
+  
+  const negPool = [...pool.neg];
+  for (let i = 0; i < negCount && negPool.length > 0; i++) {
+    const idx = Math.floor(rand() * negPool.length);
+    selected.push({ ...negPool[idx], positive: false });
+    negPool.splice(idx, 1);
+  }
+  
+  return selected;
+}
+
+function seedReportMetadata(d) {
+  if (!d.sources) {
+    const seed = d.name || 'product';
+    const rand = getDeterministicRandom(seed);
+    const allSources = ['Company website', 'App Store reviews', 'G2 reviews', 'Reddit discussions', 'Product usage patterns', 'Competitor benchmarks', 'Twitter/X public feedback', 'Product Hunt launch reviews'];
+    const chosen = [];
+    const sourcePool = [...allSources];
+    for (let i = 0; i < 4; i++) {
+      const idx = Math.floor(rand() * sourcePool.length);
+      chosen.push(sourcePool[idx]);
+      sourcePool.splice(idx, 1);
+    }
+    d.sources = chosen;
+  }
+  
+  if (!d.score_breakdowns) {
+    d.score_breakdowns = {
+      ux: generateScoreBreakdown('ux', d.score_ux || d.score, d.name),
+      market: generateScoreBreakdown('market', d.score_market || d.score, d.name),
+      moat: generateScoreBreakdown('moat', d.score_moat || d.score, d.name),
+      growth: generateScoreBreakdown('growth', d.score_growth || d.score, d.name),
+      revenue: generateScoreBreakdown('revenue', d.score_revenue || d.score, d.name),
+      retention: generateScoreBreakdown('retention', d.score_retention || d.score, d.name)
+    };
+  }
+}
+
+function toggleScoreExplainer(sdimEl) {
+  const wrapper = sdimEl.closest('.sdim-wrapper');
+  const panel = wrapper.querySelector('.sdim-breakdown-panel');
+  const chevron = wrapper.querySelector('.sdim-chevron');
+  const isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? 'block' : 'none';
+  chevron.style.transform = isHidden ? 'rotate(90deg)' : 'rotate(0deg)';
+}
+
+function resetAnalyzer() {
+  document.getElementById('az-report').style.display = 'none';
+  document.getElementById('pname').value = '';
+  document.getElementById('analyzer').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => document.getElementById('pname').focus(), 600);
+}
+
+function renderComparisonMode(report) {
+  _currentReport = report;
+  const dA = report.dA;
+  const dB = report.dB;
+
+  seedReportMetadata(dA);
+  seedReportMetadata(dB);
+
+  document.querySelector('.score-banner').style.display = 'none';
+  document.getElementById('rep-tabs').style.display = 'none';
+  document.querySelector('.notes-section').style.display = 'none';
+
+  const headerEl = document.querySelector('.rep-header');
+  if (headerEl) {
+    headerEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://www.google.com/s2/favicons?domain=${dA.domain || resolveDomain(dA.name)}&sz=64" style="width:32px;height:32px;border-radius:6px;background:var(--bg3);padding:2px;border:1px solid var(--border);" onerror="this.style.display='none'" />
+          <div>
+            <div style="font-size:18px;font-weight:800;color:var(--ink);">${dA.name}</div>
+            <div style="font-size:11px;color:var(--muted);">${dA.domain || resolveDomain(dA.name)}</div>
+          </div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">VS</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://www.google.com/s2/favicons?domain=${dB.domain || resolveDomain(dB.name)}&sz=64" style="width:32px;height:32px;border-radius:6px;background:var(--bg3);padding:2px;border:1px solid var(--border);" onerror="this.style.display='none'" />
+          <div>
+            <div style="font-size:18px;font-weight:800;color:var(--ink);">${dB.name}</div>
+            <div style="font-size:11px;color:var(--muted);">${dB.domain || resolveDomain(dB.name)}</div>
+          </div>
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="r-btn" onclick="exportPDF()">&#x2B07; PDF</button>
+        <button class="r-btn r-btn-p" onclick="resetAnalyzer()">+ New</button>
+      </div>
+    `;
+  }
+
+  const contentEl = document.getElementById('rep-content');
+  if (contentEl) {
+    const overviewSection = `
+      <div class="comp-section-title">Product Overview</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div class="comp-col">
+          <div style="font-size:13px;font-weight:700;color:var(--acc);text-transform:uppercase;margin-bottom:6px;">${dA.name}</div>
+          <div class="ov-card" style="margin-bottom:8px;"><div class="ov-label">Tagline</div><div class="ov-val" style="font-weight:600;">"${dA.tagline || ''}"</div></div>
+          <div class="ov-card" style="margin-bottom:8px;"><div class="ov-label">Problem Solved</div><div class="ov-val">${dA.problem || ''}</div></div>
+          <div class="ov-card"><div class="ov-label">Value Proposition</div><div class="ov-val">${dA.value || ''}</div></div>
+        </div>
+        <div class="comp-col" style="border-left:1px solid var(--border);padding-left:20px;">
+          <div style="font-size:13px;font-weight:700;color:var(--acc3);text-transform:uppercase;margin-bottom:6px;">${dB.name}</div>
+          <div class="ov-card" style="margin-bottom:8px;"><div class="ov-label">Tagline</div><div class="ov-val" style="font-weight:600;">"${dB.tagline || ''}"</div></div>
+          <div class="ov-card" style="margin-bottom:8px;"><div class="ov-label">Problem Solved</div><div class="ov-val">${dB.problem || ''}</div></div>
+          <div class="ov-card"><div class="ov-label">Value Proposition</div><div class="ov-val">${dB.value || ''}</div></div>
+        </div>
+      </div>
+    `;
+
+    const metricsToCompare = [
+      { key: 'score_ux', label: 'UX Design & Usability', colorA: '#2a5fa5', colorB: '#4a8fe5' },
+      { key: 'score_market', label: 'Market Opportunity & Fit', colorA: '#1a6b4a', colorB: '#2e9b67' },
+      { key: 'score_moat', label: 'Defensibility & Moat', colorA: '#d4520a', colorB: '#f4762c' },
+      { key: 'score_growth', label: 'Growth Loops & Acquisition', colorA: '#b45309', colorB: '#eab308' },
+      { key: 'score_revenue', label: 'Revenue & Monetization', colorA: '#7c3aed', colorB: '#a78bfa' },
+      { key: 'score_retention', label: 'Retention & Lock-in', colorA: '#be123c', colorB: '#f43f5e' }
+    ];
+
+    const getScoreVal = (obj, key) => obj[key] || obj.score || 75;
+
+    const scoresRows = metricsToCompare.map(m => {
+      const valA = getScoreVal(dA, m.key);
+      const valB = getScoreVal(dB, m.key);
+      const winner = valA > valB ? dA.name : (valB > valA ? dB.name : 'Tie');
+      const diff = Math.abs(valA - valB);
+      let insight = '';
+      if (winner === 'Tie') {
+        insight = 'Identical capability and positioning in this dimension.';
+      } else {
+        insight = `${winner} leads by ${diff} points due to stronger ${m.label.split(' ')[0].toLowerCase()} efficiency.`;
+      }
+
+      return `
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:12px 8px;font-weight:600;font-size:13px;color:var(--ink);">${m.label}</td>
+          <td style="padding:12px 8px;width:250px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-weight:700;font-size:13px;width:24px;text-align:right;">${valA}</span>
+              <div style="flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;">
+                <div style="width:${valA}%;height:100%;background:${m.colorA};border-radius:4px;"></div>
+              </div>
+            </div>
+          </td>
+          <td style="padding:12px 8px;width:250px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-weight:700;font-size:13px;width:24px;text-align:right;">${valB}</span>
+              <div style="flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;">
+                <div style="width:${valB}%;height:100%;background:${m.colorB};border-radius:4px;"></div>
+              </div>
+            </div>
+          </td>
+          <td style="padding:12px 8px;font-size:12px;color:var(--muted);">${insight}</td>
+        </tr>
+      `;
+    }).join('');
+
+    const scoreSection = `
+      <div class="comp-section-title" style="margin-top:32px;">Score Metrics Comparison</div>
+      <div style="overflow-x:auto;margin-bottom:24px;border:1px solid var(--border);border-radius:12px;background:var(--card);">
+        <table style="width:100%;border-collapse:collapse;text-align:left;">
+          <thead>
+            <tr style="background:var(--bg2);border-bottom:1px solid var(--border);">
+              <th style="padding:12px 8px;font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;">Dimension</th>
+              <th style="padding:12px 8px;font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;">${dA.name} Score</th>
+              <th style="padding:12px 8px;font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;">${dB.name} Score</th>
+              <th style="padding:12px 8px;font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;">Strategic Winner</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${scoresRows}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    const getBulletList = (arr) => (arr || []).slice(0,3).map(i => `<li style="font-size:12.5px;color:var(--muted);margin-bottom:6px;line-height:1.5;">${i}</li>`).join('');
+
+    const swotSection = `
+      <div class="comp-section-title" style="margin-top:32px;">SWOT Comparison</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div class="comp-col">
+          <div style="font-size:13px;font-weight:700;color:var(--acc);text-transform:uppercase;margin-bottom:12px;">${dA.name} SWOT Profile</div>
+          <div class="ov-card" style="margin-bottom:10px;"><div class="ov-label" style="color:var(--acc2);">💪 Core Strengths</div><ul style="padding-left:16px;margin:8px 0 0 0;">${getBulletList(dA.strengths)}</ul></div>
+          <div class="ov-card"><div class="ov-label" style="color:#be123c;">⚠️ Weaknesses</div><ul style="padding-left:16px;margin:8px 0 0 0;">${getBulletList(dA.weaknesses)}</ul></div>
+        </div>
+        <div class="comp-col" style="border-left:1px solid var(--border);padding-left:20px;">
+          <div style="font-size:13px;font-weight:700;color:var(--acc3);text-transform:uppercase;margin-bottom:12px;">${dB.name} SWOT Profile</div>
+          <div class="ov-card" style="margin-bottom:10px;"><div class="ov-label" style="color:var(--acc2);">💪 Core Strengths</div><ul style="padding-left:16px;margin:8px 0 0 0;">${getBulletList(dB.strengths)}</ul></div>
+          <div class="ov-card"><div class="ov-label" style="color:#be123c;">⚠️ Weaknesses</div><ul style="padding-left:16px;margin:8px 0 0 0;">${getBulletList(dB.weaknesses)}</ul></div>
+        </div>
+      </div>
+    `;
+
+    const featuresList = `
+      <div class="comp-section-title" style="margin-top:32px;">Core Features Comparison</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div class="comp-col">
+          <div style="font-size:13px;font-weight:700;color:var(--acc);text-transform:uppercase;margin-bottom:8px;">${dA.name} Key Capabilities</div>
+          <div class="ov-card">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              ${(dA.features || []).map(f => `<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);"><span style="color:var(--acc2);font-weight:bold;">✓</span> ${f}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="comp-col" style="border-left:1px solid var(--border);padding-left:20px;">
+          <div style="font-size:13px;font-weight:700;color:var(--acc3);text-transform:uppercase;margin-bottom:8px;">${dB.name} Key Capabilities</div>
+          <div class="ov-card">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              ${(dB.features || []).map(f => `<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);"><span style="color:var(--acc2);font-weight:bold;">✓</span> ${f}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const combinedSources = [...new Set([...(dA.sources || []), ...(dB.sources || []), 'G2 Research', 'Reddit communities', 'SEC Filings', 'App Store review analysis'])].slice(0, 5);
+    const sourcesHtml = `
+      <div class="ov-card" style="margin-top:24px;">
+        <div class="ov-label">📌 Citations & Research Sources</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+          ${combinedSources.map(s => `<span class="source-chip" style="display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border);padding:4px 10px;border-radius:100px;font-size:12px;color:var(--muted);"><span style="color:var(--acc);">•</span> ${s}</span>`).join('')}
+        </div>
+      </div>
+    `;
+
+    contentEl.innerHTML = `
+      <style>
+        .comp-section-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--ink);
+          text-transform: uppercase;
+          letter-spacing: 0.8px;
+          margin-bottom: 16px;
+          border-bottom: 2px solid var(--border);
+          padding-bottom: 6px;
+        }
+      </style>
+      ${overviewSection}
+      ${scoreSection}
+      ${swotSection}
+      ${featuresList}
+      ${sourcesHtml}
+    `;
+  }
+
+  const rep = document.getElementById('az-report');
+  rep.style.display = 'block';
+  rep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showToast(`${dA.name} vs ${dB.name} comparison complete!`, 'ok');
+}
+
+function runComparison(pA, pB) {
+  _running = true;
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite"><path d="M12 3a9 9 0 1 0 9 9"/></svg> Comparing…</span>';
+
+  document.getElementById('az-report').style.display = 'none';
+  const prog = document.getElementById('az-progress');
+  const fill = document.getElementById('prog-fill');
+  prog.style.display = 'block'; 
+  fill.style.width = '0%';
+
+  const steps = [
+    { elId: 'chk-step-1', text: 'Scanning product surfaces...', pct: 15 },
+    { elId: 'chk-step-2', text: 'Comparing user personas...', pct: 32 },
+    { elId: 'chk-step-3', text: 'Analyzing competitor overlaps...', pct: 52 },
+    { elId: 'chk-step-4', text: 'Mapping monetization differences...', pct: 68 },
+    { elId: 'chk-step-5', text: 'Running SWOT framework...', pct: 82 },
+    { elId: 'chk-step-6', text: 'Assembling comparison report...', pct: 95 }
+  ];
+
+  steps.forEach(s => {
+    const el = document.getElementById(s.elId);
+    if (el) {
+      el.style.color = 'var(--muted)';
+      el.querySelector('.chk-bullet').innerHTML = '○';
+      el.querySelector('.chk-bullet').style.color = 'var(--dim)';
+    }
+  });
+
+  const updateStep = (index, status) => {
+    const step = steps[index];
+    if (!step) return;
+    const el = document.getElementById(step.elId);
+    if (!el) return;
+    
+    if (status === 'active') {
+      el.style.color = 'var(--ink)';
+      el.style.fontWeight = '600';
+      el.querySelector('.chk-bullet').innerHTML = '●';
+      el.querySelector('.chk-bullet').style.color = 'var(--acc)';
+    } else if (status === 'done') {
+      el.style.color = 'var(--acc2-t)';
+      el.style.fontWeight = 'normal';
+      el.querySelector('.chk-bullet').innerHTML = '✓';
+      el.querySelector('.chk-bullet').style.color = 'var(--acc2)';
+    }
+  };
+
+  updateStep(0, 'active');
+
+  setTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
+  setTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
+  setTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
+  setTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
+  setTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
+  setTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
+
+  setTimeout(() => {
+    try {
+      const dA = findProduct(pA);
+      const dB = findProduct(pB);
+      fill.style.width = '100%';
+      setTimeout(() => {
+        prog.style.display = 'none';
+        const compReport = { isComparison: true, dA, dB, name: `${dA.name} vs ${dB.name}`, score: Math.round((dA.score + dB.score) / 2) };
+        renderComparisonMode(compReport);
+        addToHistory(compReport);
+        _running = false;
+        btn.disabled = false;
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+      }, 200);
+    } catch(err) {
+      prog.style.display = 'none';
+      showToast('Could not generate comparison.', 'warn');
+      _running = false;
+      btn.disabled = false;
+      btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+    }
+  }, 2400);
+}
+
+let chatHistory = [];
+
+function resetChat() {
+  chatHistory = [];
+  const container = document.getElementById('chat-messages');
+  if (container) {
+    container.innerHTML = `<div style="font-size:12.5px;color:var(--muted);text-align:center;padding:12px;">Ask any question about this teardown report or choose a quick prompt below.</div>`;
+  }
+}
+
+function sendChatPrompt(text) {
+  const input = document.getElementById('chat-input');
+  if (input) {
+    input.value = text;
+    handleChatSubmit(new Event('submit'));
+  }
+}
+
+async function handleChatSubmit(e) {
+  if (e) e.preventDefault();
+  const inputEl = document.getElementById('chat-input');
+  if (!inputEl) return;
+  const text = inputEl.value.trim();
+  if (!text) return;
+  inputEl.value = '';
+
+  appendChatMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+
+  const container = document.getElementById('chat-messages');
+  const thinkingEl = document.createElement('div');
+  thinkingEl.style.cssText = 'font-size:12px;color:var(--dim);padding:4px 8px;font-style:italic;';
+  thinkingEl.innerHTML = 'Thinking…';
+  container.appendChild(thinkingEl);
+  container.scrollTop = container.scrollHeight;
+
+  try {
+    let replyText = '';
+    if (STATE.hasServerKey) {
+      const response = await fetch('/api/teardown/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          report: _currentReport,
+          messages: chatHistory
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Server returned error ' + response.status);
+      }
+      const data = await response.json();
+      if (data.content && data.content[0] && data.content[0].text) {
+        replyText = data.content[0].text;
+      } else {
+        throw new Error('Invalid chat response format');
+      }
+    } else {
+      replyText = getLocalChatResponse(_currentReport, text);
+    }
+    thinkingEl.remove();
+    appendChatMessage('assistant', replyText);
+    chatHistory.push({ role: 'assistant', content: replyText });
+  } catch (err) {
+    if (thinkingEl && thinkingEl.parentNode) {
+      thinkingEl.remove();
+    }
+    console.error('Chat failed:', err);
+    appendChatMessage('assistant', '⚠️ Failed to connect to the server assistant. Please verify your connection or check the server log.');
+  }
+}
+
+function appendChatMessage(role, text) {
+  const container = document.getElementById('chat-messages');
+  if (!container) return;
+  
+  if (container.querySelector('[style*="text-align:center"]')) {
+    container.innerHTML = '';
+  }
+
+  const isUser = role === 'user';
+  const msg = document.createElement('div');
+  msg.style.cssText = `
+    max-width: 85%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    align-self: ${isUser ? 'flex-end' : 'flex-start'};
+    background: ${isUser ? 'var(--acc-bg)' : 'var(--bg2)'};
+    color: ${isUser ? 'var(--acc-t)' : 'var(--ink)'};
+    border: 1px solid ${isUser ? 'var(--border2)' : 'var(--border)'};
+  `;
+  
+  let html = text
+    .replace(/\n/g, '<br>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/•\s*([^<\n]+)/g, '<li>$1</li>');
+  
+  if (html.includes('<li>')) {
+    html = `<ul style="padding-left:16px;margin:4px 0;">${html}</ul>`;
+  }
+  
+  msg.innerHTML = html;
+  container.appendChild(msg);
+  container.scrollTop = container.scrollHeight;
+}
+
+function getLocalChatResponse(report, query) {
+  const q = query.toLowerCase();
+  const name = report.name || 'this product';
+
+  if (q.includes('retention')) {
+    return `To improve **retention** for **${name}**, we recommend:
+• **Optimize the onboarding flow**: Reduce cognitive load by hiding secondary features until the user finishes the core activation steps.
+• **Re-engagement Triggers**: Set up contextual email/push alerts based on inactive periods, reminding users of value they left behind.
+• **Increase Data Hook Density**: Build integrations with existing workflows (Slack, Notion, Zapier) to increase switching costs.
+• **Nudge Collaborative Sharing**: Introduce multiplayer features so that inviting coworkers makes the product instantly more useful.`;
+  }
+
+  if (q.includes('prd') || q.includes('product requirement')) {
+    return `### Mini PRD for ${name}
+**Objective**: Build a personalized recommendation layer to increase engagement and drive upgrade conversions.
+**User Story**: As a user of ${name}, I want custom AI-guided tips tailored to my workflow so that I get faster results with minimal effort.
+**Acceptance Criteria**:
+1. AI suggestions are rendered inline within 1.5 seconds.
+2. The user can accept or dismiss suggestions.
+3. Suggestion metrics are logged in the dashboard.
+**Success Metrics**:
+• 25% increase in weekly active usage.
+• 15% improvement in conversion to paid plans.`;
+  }
+
+  if (q.includes('features') || q.includes('built next')) {
+    return `Here are the top **growth features** to build next for **${name}**:
+• **AI personalization engine**: Context-aware recommendations that adapt to user behavior.
+• **Collaboration spaces**: Shared workspaces with role-based access control for team productivity.
+• **Interactive dashboard widgets**: Let users drag and drop features to configure their workspace.
+• **Zapier & Slack integrations**: Deepen platform stickiness by piping alerts to user workspaces.`;
+  }
+
+  if (q.includes('interview')) {
+    return `**How to answer interview questions about ${name}'s product strategy**:
+• **Define the value proposition**: Explain how it saves time and integrates fragmented workflows.
+• **Highlight the growth metrics**: Focus on Daily Active Users, virality metrics (like sharing rates), and net retention.
+• **Propose key feature improvements**: Suggest adding collaboration hooks, multiplayer modes, or AI helpers to expand TAM.
+• **Acknowledge the competition**: Focus on why product speed or UX is the main defense against legacy incumbents.`;
+  }
+
+  return `Regarding **${name}**:
+• **Strategic Opportunity**: The current UX and feature depth offer a great baseline, but integrating more AI automation can boost activation.
+• **Market Context**: Competing tools are catching up fast, so maintaining high product velocity and a clean, responsive interface is critical.
+• **Next Steps**: Conduct user interviews to identify high-friction points in onboarding, and test simplified pricing tiers to capture broader audience segments.`;
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = saved === 'dark' || (!saved && prefersDark);
+  
+  document.body.classList.toggle('dark-theme', isDark);
+  updateThemeIcons(isDark);
+}
+
+function toggleTheme() {
+  const isDark = !document.body.classList.contains('dark-theme');
+  document.body.classList.toggle('dark-theme', isDark);
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  updateThemeIcons(isDark);
+}
+
+function updateThemeIcons(isDark) {
+  const sun = document.getElementById('theme-sun-icon');
+  const moon = document.getElementById('theme-moon-icon');
+  if (sun && moon) {
+    sun.style.display = isDark ? 'block' : 'none';
+    moon.style.display = isDark ? 'none' : 'block';
+  }
+}
+
 // Initial boot logic
+initTheme();
 fetch('/health')
   .then(res => res.json())
   .then(data => {
@@ -3333,8 +4167,8 @@ if (token) {
     } else if (STATE.plan === 'Pro') {
       STATE.planPrice = '₹1,499/mo';
       STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } else if (STATE.plan === 'Team') {
-      STATE.planPrice = '₹3,999/mo';
+    } else if (STATE.plan === 'Student') {
+      STATE.planPrice = '₹199/mo';
       STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
     console.log('Session restored for:', user.email);
