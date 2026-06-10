@@ -247,6 +247,13 @@ nav{
 .ov-card:hover {
   border-color: var(--border2);
 }
+.notes-section {
+  border: 1.5px solid var(--acc) !important;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.notes-section:focus-within {
+  box-shadow: 0 0 0 3px var(--acc-bg) !important;
+}
 .ov-label {
   font-size: 10px;
   font-weight: 700;
@@ -648,21 +655,131 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 
 /* 1. Reduce hero section tallness and padding */
 .hero {
-  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 5vw, 2rem) 0.25rem !important;
+  padding: clamp(0.5rem, 2vw, 1.25rem) clamp(1rem, 5vw, 2rem) 0.1rem !important;
 }
 .hero h1 {
   font-size: clamp(1.8rem, 5.5vw, 3.2rem) !important;
-  margin-bottom: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
   line-height: 1.15 !important;
 }
 .hero p {
-  margin-bottom: 1.25rem !important;
+  margin-bottom: 1rem !important;
 }
 .hero-badge {
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.75rem !important;
 }
 .hero-stats {
   margin-top: 1.5rem !important;
+}
+
+/* Premium Glassmorphic Teaser Card */
+.hero-teaser {
+  cursor: pointer;
+  margin: 1rem auto 0;
+  max-width: 480px;
+  text-align: left;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: block;
+}
+.hero-teaser:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  border-color: var(--acc);
+  background: var(--bg3);
+}
+.dark-theme .hero-teaser {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+}
+.dark-theme .hero-teaser:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: var(--acc) !important;
+}
+.hero-teaser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.hero-teaser-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-teaser-logo-icon {
+  font-size: 16px;
+}
+.hero-teaser-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--fg);
+}
+.hero-teaser-tag {
+  background: rgba(229, 9, 20, 0.1);
+  color: #e50914;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.dark-theme .hero-teaser-tag {
+  background: rgba(229, 9, 20, 0.2) !important;
+  color: #ff453a !important;
+}
+.hero-teaser-score {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(46, 204, 113, 0.1);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.dark-theme .hero-teaser-score {
+  background: rgba(46, 204, 113, 0.15) !important;
+  border-color: rgba(46, 204, 113, 0.4) !important;
+}
+.hero-teaser-score-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: #2ecc71;
+}
+.hero-teaser-score-lbl {
+  font-size: 7.5px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.hero-teaser-body {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.hero-teaser-bold {
+  color: var(--fg);
+  font-weight: 600;
+}
+.hero-teaser-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--acc);
+}
+.hero-teaser-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
 }
 
 /* 2. Elevated primary buttons & inputs */
@@ -771,15 +888,20 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   flex: 1 !important;
   display: flex !important;
   flex-direction: column !important;
+  justify-content: space-between !important;
 }
 .pc-body .p-feats {
   flex: 1 !important;
+  margin-bottom: 20px !important;
+}
+.pc-body .p-btn {
+  margin-top: auto !important;
 }
 .pc.pop {
   border: 3px solid var(--acc) !important;
   border-top: 6px solid var(--acc) !important;
-  transform: scale(1.08) translateY(-12px) !important;
-  box-shadow: 0 24px 48px rgba(212, 82, 10, 0.25) !important;
+  transform: scale(1.03) translateY(-6px) !important;
+  box-shadow: 0 24px 48px rgba(212, 82, 10, 0.2) !important;
   z-index: 10 !important;
 }
 .p-btn-pro {
@@ -818,6 +940,39 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   }
 }
 
+/* Empty State Interactive Cards styles */
+.empty-card {
+  background: var(--bg2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  padding: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+}
+.empty-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--acc) !important;
+  background: var(--bg3) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+}
+.dark-theme .empty-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+.empty-card-link {
+  font-size: 11px !important;
+  color: var(--acc) !important;
+  font-weight: 600 !important;
+  margin-top: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+.empty-card:hover .empty-card-link {
+  color: #b84508 !important;
+}
+
 /* 6. Sticky header styling for reports */
 .rep-header {
   position: sticky !important;
@@ -833,12 +988,51 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 body.dark-theme .rep-header {
   background: var(--card) !important;
 }
+@media (max-width: 768px) {
+  .rep-header {
+    position: static !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    padding: 10px 0 !important;
+  }
+}
 @media print {
   .rep-header {
     position: static !important;
     box-shadow: none !important;
     border-bottom: none !important;
   }
+}
+
+/* Grouped tabs styles */
+.rep-tabs {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 20px !important;
+  border-bottom: 1.5px solid var(--border) !important;
+  padding-bottom: 8px !important;
+  margin-top: 14px !important;
+  margin-bottom: 20px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.rep-tabs::-webkit-scrollbar {
+  display: none !important;
+}
+.rep-tab {
+  padding: 6px 12px !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+  border: 1px solid transparent !important;
+}
+.rep-tab.on {
+  background: var(--bg3) !important;
+  border-color: var(--border2) !important;
+  color: var(--acc) !important;
+  font-weight: 700 !important;
 }
 
 /* 7. Loading Step Animation */
@@ -1189,7 +1383,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 
 <!-- NAV -->
 <nav>
-  <div class="logo"><div class="logo-mark">T</div> TeardownAI</div>
+  <div class="logo" onclick="resetPage()" style="cursor:pointer;"><div class="logo-mark">T</div> TeardownAI</div>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#how">How it works</a>
@@ -1230,10 +1424,32 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Free first teardown</span>
     <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Results in under 30 seconds</span>
   </div>
+
+  <!-- Interactive Sample Teaser Card -->
+  <div class="hero-teaser" onclick="loadSample('Netflix')" title="Click to load Netflix teardown report">
+    <div class="hero-teaser-header">
+      <div class="hero-teaser-logo">
+        <span class="hero-teaser-logo-icon">🎬</span>
+        <span class="hero-teaser-title">Netflix Teardown</span>
+        <span class="hero-teaser-tag">Sample</span>
+      </div>
+      <div class="hero-teaser-score">
+        <span class="hero-teaser-score-num">87</span>
+        <span class="hero-teaser-score-lbl">SCORE</span>
+      </div>
+    </div>
+    <div class="hero-teaser-body">
+      <span class="hero-teaser-bold">Top Insight:</span> Netflix wins on retention but faces rising content acquisition costs.
+    </div>
+    <div class="hero-teaser-footer">
+      <span class="hero-teaser-cta">⚡ Click to load full interactive report</span>
+      <span>View Report →</span>
+    </div>
+  </div>
 </div>
 
 <!-- ANALYZER -->
-<div id="analyzer" style="padding:clamp(2.5rem,6vw,4rem) clamp(1rem,4vw,2rem) 0;max-width:900px;margin:0 auto;">
+<div id="analyzer" style="padding:clamp(0.5rem,2vw,1rem) clamp(1rem,4vw,2rem) 0;max-width:900px;margin:0 auto;">
   <div class="kicker">Live demo</div>
   <div class="sec-title">Analyze any product right now</div>
   <div class="sec-sub">Paste any product name, company, or URL. Our research engine generates a full PM teardown instantly — no sign-up needed.</div>
@@ -1253,24 +1469,23 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
           <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Stripe')">Stripe</button>
           <button class="ftag" style="cursor:pointer;" onclick="loadSample('Figma')">Figma</button>
           <button class="ftag" style="cursor:pointer;" onclick="loadSample('Airbnb')">Airbnb</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Spotify')">Spotify</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Netflix')">Netflix</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Linear')">Linear</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Loom')">Loom</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Slack')">Slack</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Swiggy')">Swiggy</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Zomato')">Zomato</button>
-          <button class="ftag more-picks" style="cursor:pointer;display:none;" onclick="loadSample('Razorpay')">Razorpay</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Spotify')">Spotify</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Netflix')">Netflix</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Linear')">Linear</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Loom')">Loom</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Slack')">Slack</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Swiggy')">Swiggy</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Zomato')">Zomato</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Razorpay')">Razorpay</button>
           <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
           <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
           <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
-          <button class="ftag toggle-picks-btn" onclick="toggleQuickPicks(this)" style="cursor:pointer;background:var(--bg3);border-color:var(--border2);color:var(--ink);font-weight:600;">Show More +</button>
         </div>
       </div>
       <div class="az-inputs">
         <input class="inp" id="pname" placeholder="Any product, company, or URL (e.g. Notion, tesla.com, Linear)…" autocomplete="off"/>
         <button class="run-btn" id="run-btn" onclick="runTeardown()">
-          <span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg></span></i> Analyze
+          <span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg></span> Generate Teardown
         </button>
       </div>
       <div id="az-progress" style="display:none;margin:20px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
@@ -1307,21 +1522,24 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <div style="font-size:36px;margin-bottom:14px;">📊</div>
         <h3 style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;">Ready to Analyze</h3>
         <p style="font-size:13px;color:var(--muted);max-width:340px;margin:0 auto 24px;line-height:1.6;">Paste a product name or URL above to generate a comprehensive 10-module teardown report.</p>
-        <div class="empty-features-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;max-width:640px;margin:0 auto;text-align:left;">
-          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div class="empty-features-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;max-width:640px;margin:0 auto;text-align:left;">
+          <div class="empty-card" onclick="loadSample('Notion')" title="Click to view sample Notion Personas">
             <div style="font-size:18px;margin-bottom:6px;">🎯</div>
             <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">User Personas</div>
             <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Target audiences, goals, and pain points mapped out.</div>
+            <div class="empty-card-link">View Notion Sample →</div>
           </div>
-          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+          <div class="empty-card" onclick="loadSample('Stripe')" title="Click to view sample Stripe SWOT Matrix">
             <div style="font-size:18px;margin-bottom:6px;">⚖️</div>
             <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">SWOT Matrix</div>
             <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Strategic strengths, weaknesses, and opportunities.</div>
+            <div class="empty-card-link">View Stripe Sample →</div>
           </div>
-          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;">
+          <div class="empty-card" onclick="loadSample('Figma')" title="Click to view sample Figma Competitor Map">
             <div style="font-size:18px;margin-bottom:6px;">🗺️</div>
             <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;color:var(--ink);">Competitor Map</div>
             <div style="font-size:11.5px;color:var(--muted);line-height:1.45;">Interactive chart mapping UX vs. Market fit.</div>
+            <div class="empty-card-link">View Figma Sample →</div>
           </div>
         </div>
       </div>
@@ -1336,12 +1554,13 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
             <div>
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                 <span class="report-name" id="r-name"></span>
-                <span class="badge">Analysis complete</span>
+                <span class="badge" id="r-badge">Analysis complete</span>
               </div>
               <div id="r-domain" style="font-size:12px;color:var(--dim);margin-top:2px;"></div>
             </div>
           </div>
           <div class="report-actions">
+            <button class="r-btn" onclick="focusNotes()">✍ Notes</button>
             <button class="r-btn" onclick="exportPDF()">&#x2B07; PDF</button>
             <button class="r-btn" onclick="shareReport()">&#x2197; Share</button>
             <button class="r-btn r-btn-p" onclick="resetAnalyzer()">+ New</button>
@@ -1351,22 +1570,43 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <!-- SCORE BANNER -->
         <div class="score-banner">
           <div class="score-card-left">
+            <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;">PM Score</div>
             <div class="score-big" id="r-score-num">0</div>
-            <div class="score-label">Overall Score</div>
+            <div class="score-label">out of 100</div>
+            <div class="score-benchmark-box" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);width:100%;text-align:center;font-size:10px;line-height:1.4;color:var(--muted);">
+              <div style="font-weight:700;color:var(--ink);margin-bottom:3px;text-transform:uppercase;font-size:9px;letter-spacing:0.5px;">Benchmarks</div>
+              <div style="white-space:nowrap;">Top SaaS: <span style="font-weight:600;color:var(--acc2);">90+</span></div>
+              <div style="white-space:nowrap;">Avg Startup: <span style="font-weight:600;color:var(--ink);">65–75</span></div>
+            </div>
           </div>
           <div class="score-dims" id="r-score-dims"></div>
         </div>
 
         <!-- TABS -->
         <div class="rep-tabs" id="rep-tabs">
-          <button class="rep-tab on" data-tab="overview">Overview</button>
-          <button class="rep-tab" data-tab="personas">Personas</button>
-          <button class="rep-tab" data-tab="competitors">Competitors</button>
-          <button class="rep-tab" data-tab="swot">SWOT</button>
-          <button class="rep-tab" data-tab="journey">User Journey</button>
-          <button class="rep-tab" data-tab="metrics">Metrics</button>
-          <button class="rep-tab" data-tab="rice">RICE</button>
-          <button class="rep-tab" data-tab="prd">Mini PRD</button>
+          <div style="display:flex;flex-direction:column;gap:4px;padding-right:16px;border-right:1.5px solid var(--border);">
+            <span style="font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.5px;">❶ Core Research</span>
+            <div style="display:flex;gap:4px;">
+              <button class="rep-tab on" data-tab="overview">Overview</button>
+              <button class="rep-tab" data-tab="personas">Personas</button>
+              <button class="rep-tab" data-tab="swot">SWOT</button>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding-right:16px;border-right:1.5px solid var(--border);padding-left:4px;">
+            <span style="font-size:9px;font-weight:700;color:var(--acc3);text-transform:uppercase;letter-spacing:0.5px;">❷ Competitive & Strategy</span>
+            <div style="display:flex;gap:4px;">
+              <button class="rep-tab" data-tab="competitors">Competitors</button>
+              <button class="rep-tab" data-tab="journey">User Journey</button>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding-left:4px;">
+            <span style="font-size:9px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:0.5px;">❸ Execution Outputs</span>
+            <div style="display:flex;gap:4px;">
+              <button class="rep-tab" data-tab="metrics">Metrics</button>
+              <button class="rep-tab" data-tab="rice">RICE</button>
+              <button class="rep-tab" data-tab="prd">Mini PRD</button>
+            </div>
+          </div>
         </div>
 
         <!-- MOBILE TABS DROPDOWN -->
@@ -1417,8 +1657,8 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track" aria-hidden="true">
-    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
-    <span class="ticker-item"><strong>Notion</strong> analyzed 2 min ago &nbsp; <strong>Linear</strong> analyzed 8 min ago &nbsp; <strong>Figma</strong> analyzed 14 min ago &nbsp; <strong>Loom</strong> analyzed 22 min ago &nbsp; <strong>Stripe</strong> analyzed 31 min ago &nbsp; <strong>Slack</strong> analyzed 44 min ago &nbsp; </span>
+    <span class="ticker-item">🔥 Popular teardowns today: <strong>Notion</strong>, <strong>Linear</strong>, <strong>Figma</strong>, <strong>Loom</strong>, <strong>Stripe</strong>, <strong>Slack</strong>, <strong>Airbnb</strong>, <strong>Netflix</strong> &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="ticker-item">🔥 Popular teardowns today: <strong>Notion</strong>, <strong>Linear</strong>, <strong>Figma</strong>, <strong>Loom</strong>, <strong>Stripe</strong>, <strong>Slack</strong>, <strong>Airbnb</strong>, <strong>Netflix</strong> &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
   </div>
 </div>
 
@@ -2428,17 +2668,33 @@ function loadSample(name) {
   setTimeout(runTeardown, 300);
 }
 
-function toggleQuickPicks(btn) {
-  const hidden = document.querySelectorAll('.more-picks');
-  const isCollapsed = btn.textContent.includes('Show More');
-  hidden.forEach(el => {
-    el.style.display = isCollapsed ? 'inline-block' : 'none';
-  });
-  btn.textContent = isCollapsed ? 'Show Less -' : 'Show More +';
+window._teardownTimeouts = [];
+function clearTeardownTimeouts() {
+  if (window._teardownTimeouts) {
+    window._teardownTimeouts.forEach(clearTimeout);
+    window._teardownTimeouts = [];
+  }
+}
+function addTeardownTimeout(fn, delay) {
+  if (!window._teardownTimeouts) {
+    window._teardownTimeouts = [];
+  }
+  const id = setTimeout(fn, delay);
+  window._teardownTimeouts.push(id);
+  return id;
 }
 
 function runTeardown() {
+  clearTeardownTimeouts();
   if (_running) return;
+
+  // Enforce Credit Check for Free/Student tiers
+  if (STATE.plan !== 'Pro' && STATE.credits <= 0) {
+    showToast('Out of credits! Please upgrade your plan or log in to continue.', 'warn');
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
   const input = document.getElementById('pname').value.trim();
   if (!input) { document.getElementById('pname').focus(); showToast('Enter a product name or URL'); return; }
 
@@ -2514,12 +2770,12 @@ function runTeardown() {
 
   updateStep(0, 'active');
 
-  setTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
-  setTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
-  setTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
-  setTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
-  setTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
-  setTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
+  addTeardownTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
+  addTeardownTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
+  addTeardownTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
+  addTeardownTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
+  addTeardownTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
+  addTeardownTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
 
   const q = input.toLowerCase().replace(/https?:\/\/(www\.)?/i,'').replace(/[^a-z0-9]/g,'');
   const isCurated = Object.keys(PRODUCT_DB).some(k => q===k || q.includes(k) || k.includes(q));
@@ -2527,7 +2783,7 @@ function runTeardown() {
   // Determine if we should call the server API or use local database
   if (isCurated || !STATE.hasServerKey) {
     // Curated or Offline Mode (Instant Local Database / Mock Inference)
-    setTimeout(() => {
+    addTeardownTimeout(() => {
       try {
         const d = findProduct(input);
         for(let i=0; i<6; i++) updateStep(i, 'done');
@@ -2538,14 +2794,14 @@ function runTeardown() {
           addToHistory(d);
           _running = false;
           btn.disabled = false;
-          btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+          btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
         }, 200);
       } catch(err) {
         prog.style.display = 'none';
         showToast('Could not generate report — please try again.', 'warn');
         _running = false;
         btn.disabled = false;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
       }
     }, 2400);
   } else {
@@ -2710,7 +2966,7 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
         addToHistory(report);
         _running = false;
         btn.disabled = false;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
       }, 200);
     })
     .catch(err => {
@@ -2731,7 +2987,7 @@ Ensure all numerical scores and ratings are realistic (0-100). Competitor arrays
       } finally {
         _running = false;
         btn.disabled = false;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
       }
     });
   }
@@ -2829,6 +3085,7 @@ function renderRepTab(tab, d) {
 }
 
 function showReport(d) {
+  clearTeardownTimeouts();
   _currentReport = d;
 
   const empty = document.getElementById('az-empty-state');
@@ -2854,6 +3111,32 @@ function showReport(d) {
   const domain = resolveDomain(input);
   document.getElementById('r-name').textContent   = d.name||'';
   document.getElementById('r-domain').textContent = domain;
+
+  const badgeEl = document.getElementById('r-badge');
+  if (badgeEl) {
+    const score = d.score || 0;
+    if (score >= 90) {
+      badgeEl.textContent = 'Excellent (' + score + ')';
+      badgeEl.style.background = 'var(--acc2-bg)';
+      badgeEl.style.color = 'var(--acc2-t)';
+      badgeEl.style.borderColor = 'rgba(26, 107, 74, 0.2)';
+    } else if (score >= 75) {
+      badgeEl.textContent = 'Strong (' + score + ')';
+      badgeEl.style.background = 'var(--acc3-bg)';
+      badgeEl.style.color = 'var(--acc3-t)';
+      badgeEl.style.borderColor = 'rgba(42, 95, 165, 0.2)';
+    } else if (score >= 60) {
+      badgeEl.textContent = 'Average (' + score + ')';
+      badgeEl.style.background = 'var(--acc-bg)';
+      badgeEl.style.color = 'var(--acc-t)';
+      badgeEl.style.borderColor = 'rgba(212, 82, 10, 0.2)';
+    } else {
+      badgeEl.textContent = 'Needs Work (' + score + ')';
+      badgeEl.style.background = 'rgba(190, 18, 60, 0.08)';
+      badgeEl.style.color = '#be123c';
+      badgeEl.style.borderColor = 'rgba(190, 18, 60, 0.2)';
+    }
+  }
   const logoEl = document.getElementById('r-logo');
   const fallEl = document.getElementById('r-logo-fallback');
   logoEl.classList.remove('loaded'); logoEl.style.display='none'; fallEl.style.display='none';
@@ -2939,7 +3222,9 @@ function repOverview(d) {
     ${dots}${labels}
   </svg>`;
 
-  const sources = d.sources || ['Company website', 'App Store reviews', 'G2 reviews', 'Reddit discussions'];
+  const sources = (d.sources && d.sources.filter(Boolean).length > 0)
+    ? d.sources.filter(Boolean)
+    : ['OpenAI', 'Crunchbase', 'Company website', 'App Store reviews'];
   const sourcesHtml = `
     <div class="ov-card" style="margin-top:12px;">
       <div class="ov-label">📌 Sources & Citations</div>
@@ -3649,7 +3934,16 @@ function saveSetting(k)   { if(k==='name'){STATE.userName=document.getElementByI
 function clearHistory()   { STATE.history=[]; showToast('History cleared'); renderView('settings'); }
 
 function exportPDF() {
+  showToast('Preparing report for PDF export...', 'ok');
   window.print();
+}
+
+function focusNotes() {
+  const textarea = document.getElementById('report-notes-textarea');
+  if (textarea) {
+    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    textarea.focus();
+  }
 }
 
 function shareReport() {
@@ -4293,16 +4587,32 @@ function toggleAuthTab(tab) {
 function updateUserBox() {
   const box = document.getElementById('sidebar-user-box');
   if (!box) return;
+
+  let warningHtml = '';
+  if (STATE.plan !== 'Pro') {
+    if (STATE.credits <= 2 && STATE.credits > 0) {
+      warningHtml = `<div style="margin-top: 4px; padding: 4px 8px; background: rgba(229, 9, 20, 0.08); border: 1px solid rgba(229, 9, 20, 0.2); border-radius: 6px; color: #e50914; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">⚠️ Low Credits: ${STATE.credits} left</div>`;
+    } else if (STATE.credits === 0) {
+      warningHtml = `<div style="margin-top: 4px; padding: 4px 8px; background: rgba(229, 9, 20, 0.1); border: 1px solid rgba(229, 9, 20, 0.3); border-radius: 6px; color: #e50914; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">⚠️ 0 Credits left. Upgrade needed</div>`;
+    } else {
+      warningHtml = `<div style="color:var(--dim);font-size:10px;margin-top:2px;">Credits remaining: <strong>${STATE.credits}</strong></div>`;
+    }
+  } else {
+    warningHtml = `<div style="color:var(--acc2);font-size:10px;font-weight:600;margin-top:2px;">Plan: Pro (Unlimited)</div>`;
+  }
+
   if (STATE.user) {
     box.innerHTML = `
       <div style="font-weight:600;color:var(--ink);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.name}</div>
       <div style="color:var(--dim);font-size:10px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.email}</div>
-      <button onclick="handleLogout()" style="background:none;border:none;color:var(--acc);font-size:11px;cursor:pointer;text-align:left;font-weight:600;padding:0;margin-top:4px;">Log Out</button>
+      ${warningHtml}
+      <button onclick="handleLogout()" style="background:none;border:none;color:var(--acc);font-size:11px;cursor:pointer;text-align:left;font-weight:600;padding:0;margin-top:6px;">Log Out</button>
     `;
   } else {
     box.innerHTML = `
       <div style="color:var(--muted);font-weight:500;">Running as Guest</div>
-      <button class="r-btn r-btn-p" style="padding:4px 8px;font-size:11px;width:100%;justify-content:center;" onclick="openAuthModal()">Log In / Sign Up</button>
+      ${warningHtml}
+      <button class="r-btn r-btn-p" style="padding:4px 8px;font-size:11px;width:100%;justify-content:center;margin-top:6px;" onclick="openAuthModal()">Log In / Sign Up</button>
     `;
   }
 
@@ -4510,8 +4820,11 @@ function getDeterministicRandom(str) {
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
+  hash = Math.abs(hash) || 1;
   return () => {
     hash = (hash * 16807) % 2147483647;
+    if (hash < 0) hash = Math.abs(hash);
+    if (hash === 0) hash = 1;
     return (hash - 1) / 2147483646;
   };
 }
@@ -4554,7 +4867,10 @@ function seedReportMetadata(d) {
       chosen.push(sourcePool[idx]);
       sourcePool.splice(idx, 1);
     }
-    d.sources = chosen;
+    d.sources = chosen.filter(Boolean);
+    if (!d.sources || d.sources.length === 0) {
+      d.sources = ['OpenAI', 'Crunchbase', 'Company website', 'App Store reviews'];
+    }
   }
   
   if (!d.score_breakdowns) {
@@ -4585,6 +4901,11 @@ function resetAnalyzer() {
   document.getElementById('pname').value = '';
   document.getElementById('analyzer').scrollIntoView({behavior:'smooth'});
   setTimeout(() => document.getElementById('pname').focus(), 600);
+}
+
+function resetPage() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  resetAnalyzer();
 }
 
 function renderComparisonMode(report) {
@@ -4752,7 +5073,7 @@ function renderComparisonMode(report) {
       </div>
     `;
 
-    const combinedSources = [...new Set([...(dA.sources || []), ...(dB.sources || []), 'G2 Research', 'Reddit communities', 'SEC Filings', 'App Store review analysis'])].slice(0, 5);
+    const combinedSources = [...new Set([...(dA.sources || []), ...(dB.sources || []), 'G2 Research', 'Reddit communities', 'SEC Filings', 'App Store review analysis'])].filter(Boolean).slice(0, 5);
     const sourcesHtml = `
       <div class="ov-card" style="margin-top:24px;">
         <div class="ov-label">📌 Citations & Research Sources</div>
@@ -4790,6 +5111,7 @@ function renderComparisonMode(report) {
 }
 
 function runComparison(pA, pB) {
+  clearTeardownTimeouts();
   _running = true;
   const empty = document.getElementById('az-empty-state');
   if (empty) empty.style.display = 'none';
@@ -4847,14 +5169,14 @@ function runComparison(pA, pB) {
 
   updateStep(0, 'active');
 
-  setTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
-  setTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
-  setTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
-  setTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
-  setTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
-  setTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
+  addTeardownTimeout(() => { updateStep(0, 'done'); updateStep(1, 'active'); fill.style.width = '15%'; }, 300);
+  addTeardownTimeout(() => { updateStep(1, 'done'); updateStep(2, 'active'); fill.style.width = '32%'; }, 700);
+  addTeardownTimeout(() => { updateStep(2, 'done'); updateStep(3, 'active'); fill.style.width = '52%'; }, 1200);
+  addTeardownTimeout(() => { updateStep(3, 'done'); updateStep(4, 'active'); fill.style.width = '68%'; }, 1600);
+  addTeardownTimeout(() => { updateStep(4, 'done'); updateStep(5, 'active'); fill.style.width = '82%'; }, 2000);
+  addTeardownTimeout(() => { updateStep(5, 'done'); fill.style.width = '95%'; }, 2300);
 
-  setTimeout(() => {
+  addTeardownTimeout(() => {
     try {
       const dA = findProduct(pA);
       const dB = findProduct(pB);
@@ -4866,14 +5188,14 @@ function runComparison(pA, pB) {
         addToHistory(compReport);
         _running = false;
         btn.disabled = false;
-        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+        btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
       }, 200);
     } catch(err) {
       prog.style.display = 'none';
       showToast('Could not generate comparison.', 'warn');
       _running = false;
       btn.disabled = false;
-      btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Analyze</span>';
+      btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg> Generate Teardown</span>';
     }
   }, 2400);
 }
@@ -5016,7 +5338,10 @@ Promise.all(bootPromises).then(() => {
         <input class="inp" id="login-email" type="email" placeholder="you@example.com" required autocomplete="username"/>
       </div>
       <div style="margin-bottom:20px;">
-        <label class="auth-lbl">Password</label>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <label class="auth-lbl" style="margin-bottom:0;">Password</label>
+          <a href="#" onclick="event.preventDefault(); showToast('Password reset link sent to your email (simulated).', 'ok');" style="font-size:11px; color:var(--acc); text-decoration:none; font-weight:600; text-transform:none;">Forgot password?</a>
+        </div>
         <input class="inp" id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password"/>
       </div>
       <button class="auth-submit-btn" type="submit">Log In</button>
