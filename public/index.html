@@ -659,8 +659,57 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 
 /* ─── UI & DESIGN ITERATION OVERRIDES ─── */
 
-/* 1. Reduce hero section tallness and padding */
+/* Logo mark neutralize */
+.logo-mark {
+  background: var(--ink) !important;
+}
+
+/* 1. Blueprint Grid & Glow Spotlight Signature */
+.hero-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg) !important;
+  background-image: 
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  background-position: center top !important;
+  padding-bottom: 1rem !important;
+}
+body.dark-theme .hero-wrapper {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) !important;
+}
+.hero-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--bg)) !important;
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-spotlight {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(214, 82, 10, 0.09) 0%, rgba(214, 82, 10, 0) 70%) !important;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+}
+body.dark-theme .hero-spotlight {
+  background: radial-gradient(circle, rgba(244, 118, 44, 0.13) 0%, rgba(244, 118, 44, 0) 70%) !important;
+}
 .hero {
+  position: relative;
+  z-index: 3;
   padding: clamp(0.5rem, 2vw, 1.25rem) clamp(1rem, 5vw, 2rem) 0.1rem !important;
 }
 .hero h1 {
@@ -678,17 +727,17 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   margin-top: 1.5rem !important;
 }
 
-/* Premium Glassmorphic Teaser Card */
+/* Premium Glassmorphic Teaser Card (Borderless & Clean Accent) */
 .hero-teaser {
   cursor: pointer;
   margin: 1rem auto 0;
   max-width: 480px;
   text-align: left;
   background: var(--bg2);
-  border: 1px solid var(--border);
+  border: none !important;
   border-radius: 12px;
   padding: 12px 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   display: block;
@@ -946,10 +995,10 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   }
 }
 
-/* Empty State Interactive Cards styles */
+/* Empty State Interactive Cards styles (Clean Blue Info Accent) */
 .empty-card {
   background: var(--bg2) !important;
-  border: 1px solid var(--border) !important;
+  border: none !important;
   border-radius: 8px !important;
   padding: 14px !important;
   cursor: pointer !important;
@@ -958,17 +1007,16 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
 }
 .empty-card:hover {
   transform: translateY(-2px) !important;
-  border-color: var(--acc) !important;
   background: var(--bg3) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04) !important;
 }
 .dark-theme .empty-card:hover {
   background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
 }
 .empty-card-link {
   font-size: 11px !important;
-  color: var(--acc) !important;
+  color: var(--acc3) !important;
   font-weight: 600 !important;
   margin-top: 10px !important;
   display: flex !important;
@@ -976,7 +1024,125 @@ footer{padding:clamp(1.2rem,3vw,1.75rem) clamp(1rem,4vw,2.5rem);display:flex;ali
   gap: 4px !important;
 }
 .empty-card:hover .empty-card-link {
-  color: #b84508 !important;
+  color: var(--acc3-t) !important;
+}
+
+/* Borderless Dashboard Theme Override (30-40% border reduction - Vercel/Linear feel) */
+.ov-card, .persona-card, .sw, .rc, .ti, .jv-card, .prd-vis-block, .comp-chart-panel, .sdim-breakdown-panel {
+  border: none !important;
+  background: var(--bg2) !important;
+  box-shadow: none !important;
+}
+.sdim-breakdown-panel {
+  background: var(--bg3) !important;
+}
+.ov-card:hover, .persona-card:hover, .jv-card:hover {
+  background: var(--bg3) !important;
+}
+.persona-card.persona-p {
+  border-left: 4px solid var(--acc3) !important;
+}
+.persona-card.persona-s {
+  border-left: 4px solid var(--acc2) !important;
+}
+.score-card-left {
+  border: none !important;
+  box-shadow: none !important;
+  background: var(--card) !important;
+}
+.new-btn {
+  border-color: var(--border) !important;
+}
+.new-btn:hover {
+  border-color: var(--acc3) !important;
+}
+
+/* Accent Reduction: Tab Active, Sidebar Active, Mobile Pill Active, Warning Card Neutralize */
+.rep-tab.on {
+  color: var(--acc3) !important;
+  border-bottom-color: var(--acc3) !important;
+}
+.p-nav.on {
+  background: var(--acc3-bg) !important;
+  color: var(--acc3-t) !important;
+}
+.mob-pill.on {
+  background: var(--acc3-bg) !important;
+  color: var(--acc3-t) !important;
+  border-color: rgba(42, 95, 165, 0.2) !important;
+}
+.plan-card {
+  background: var(--bg2) !important;
+  border-color: var(--border) !important;
+}
+.plan-name {
+  color: var(--ink) !important;
+}
+.product-logo-fallback {
+  background: var(--bg3) !important;
+  color: var(--muted) !important;
+  border-color: var(--border) !important;
+}
+.ptag-pain {
+  background: rgba(190, 18, 60, 0.08) !important;
+  color: #be123c !important;
+  border: 1px solid rgba(190, 18, 60, 0.2) !important;
+}
+
+/* Modern scannable feature grid */
+.feat-grid2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 24px 32px !important;
+  margin-top: 2rem !important;
+}
+.feat-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: var(--muted) !important;
+}
+.feat-check {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  background: var(--acc2-bg) !important;
+  color: var(--acc2-t) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+  border: 1px solid rgba(26, 107, 74, 0.2) !important;
+}
+.feat-item strong {
+  color: var(--ink) !important;
+}
+
+/* Interactive affordance for clickable score dimensions */
+.sdim {
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  margin-left: -12px !important;
+  margin-right: -12px !important;
+}
+.sdim:hover {
+  background: var(--bg3) !important;
+}
+.sdim-chevron {
+  transition: transform 0.2s ease, color 0.2s ease !important;
+}
+.sdim-wrapper.open .sdim-chevron {
+  transform: rotate(90deg) !important;
+}
+.sdim:hover .sdim-chevron {
+  color: var(--acc3) !important;
 }
 
 /* 6. Sticky header styling for reports */
@@ -1395,7 +1561,18 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 
 <!-- NAV -->
 <nav>
-  <div class="logo" onclick="resetPage()" style="cursor:pointer;"><div class="logo-mark">T</div> TeardownAI</div>
+  <div class="logo" onclick="resetPage()" style="cursor:pointer;display:flex;align-items:center;gap:10px;">
+    <div class="logo-mark" style="background: none !important; border: 1.5px solid var(--ink) !important; display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;">
+      <!-- schematic blueprint background lines inside the square -->
+      <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.35;">
+        <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+        <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6" stroke-dasharray="8 8" />
+      </svg>
+      <span style="font-family: var(--fh); font-weight: 800; font-size: 15px; color: var(--ink); position: relative; z-index: 1;">T</span>
+    </div>
+    TeardownAI
+  </div>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#how">How it works</a>
@@ -1423,38 +1600,24 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 </div>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-badge"><span class="ico" style="font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="currentColor" opacity=".3"/><path d="M12 2l1.5 3.5L17 7l-3.5 1.5L12 12l-1.5-3.5L7 7l3.5-1.5z"/></svg></span></i> Real AI · Real PM insights · Real fast</div>
+<div class="hero-wrapper">
+  <div class="hero-spotlight"></div>
+  <div class="hero">
+  <div class="hero-badge"><span class="ico" style="font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="currentColor" opacity=".3"/><path d="M12 2l1.5 3.5L17 7l-3.5 1.5L12 12l-1.5-3.5L7 7l3.5-1.5z"/></svg></span> Real AI · Real PM insights</div>
   <h1>Teardown any product like a Senior PM.</h1>
-  <p>Get deep, AI-powered product insights in under 30 seconds. Paste any URL or product name to get instant SWOT, personas, and roadmap suggestions.</p>
+  <p>Instant AI-powered product SWOT, user personas, and roadmaps in under 30 seconds.</p>
   <div class="hero-btns">
     <button class="btn-ink" onclick="goToAnalyzer()"><span class="ico" style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span> Try Live Demo</button>
   </div>
-  <div class="hero-trust-signals" style="display:flex;gap:20px;justify-content:center;margin-top:18px;font-size:13px;color:var(--muted);font-weight:600;flex-wrap:wrap;align-items:center;">
-    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> No sign-up required</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Free first teardown</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:var(--acc2);font-weight:bold;font-size:15px;">✓</span> Results in under 30 seconds</span>
-  </div>
 
-  <!-- Interactive Sample Teaser Card -->
-  <div class="hero-teaser" onclick="loadSample('Netflix')" title="Click to load Netflix teardown report">
-    <div class="hero-teaser-header">
-      <div class="hero-teaser-logo">
-        <span class="hero-teaser-logo-icon">🎬</span>
-        <span class="hero-teaser-title">Netflix Teardown</span>
-        <span class="hero-teaser-tag">Sample</span>
-      </div>
-      <div class="hero-teaser-score">
-        <span class="hero-teaser-score-num">87</span>
-        <span class="hero-teaser-score-lbl">SCORE</span>
-      </div>
-    </div>
-    <div class="hero-teaser-body">
-      <span class="hero-teaser-bold">Top Insight:</span> Netflix wins on retention but faces rising content acquisition costs.
-    </div>
-    <div class="hero-teaser-footer">
-      <span class="hero-teaser-cta">⚡ Click to load full interactive report →</span>
-    </div>
+  <div class="hero-stats" style="margin-top: 2rem;">
+    <div class="stat"><span class="stat-n">14,000+</span> teardowns generated</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">5,400+</span> PMs &amp; founders</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">&lt;30s</span> analysis time</div>
+    <div class="dot"></div>
+    <div class="stat"><span class="stat-n">Any</span> product or URL</div>
   </div>
 
   <!-- Trust Logos Strip -->
@@ -1468,6 +1631,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       <span style="font-size: 18px; font-weight: 700; color: var(--ink); font-family: var(--fh); letter-spacing: -0.2px;">Notion</span>
     </div>
   </div>
+</div>
 </div>
 
 <!-- ANALYZER -->
@@ -1489,19 +1653,11 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <div style="display:flex;gap:7px;flex-wrap:wrap;" id="quick-picks">
           <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Notion')">Notion</button>
           <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Stripe')">Stripe</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Figma')">Figma</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Airbnb')">Airbnb</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Spotify')">Spotify</button>
+          <button class="ftag trending-tag" style="cursor:pointer;" onclick="loadSample('Figma')">Figma</button>
           <button class="ftag" style="cursor:pointer;" onclick="loadSample('Netflix')">Netflix</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Airbnb')">Airbnb</button>
           <button class="ftag" style="cursor:pointer;" onclick="loadSample('Linear')">Linear</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Loom')">Loom</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Slack')">Slack</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Swiggy')">Swiggy</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Zomato')">Zomato</button>
-          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Razorpay')">Razorpay</button>
-          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Notion vs Confluence')">Notion vs Confluence</button>
-          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Zomato vs Swiggy')">Zomato vs Swiggy</button>
-          <button class="ftag vs-tag" style="cursor:pointer;" onclick="loadSample('Figma vs Canva')">Figma vs Canva</button>
+          <button class="ftag" style="cursor:pointer;" onclick="loadSample('Spotify')">Spotify</button>
         </div>
       </div>
       <div class="az-inputs">
@@ -1512,7 +1668,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>
       <div id="az-progress" style="display:none;margin:20px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.02)">
         <div class="prog-track" style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:16px;">
-          <div class="prog-fill" id="prog-fill" style="width:0%;height:100%;background:linear-gradient(90deg, var(--acc), var(--acc3));transition:width 0.3s ease;"></div>
+          <div class="prog-fill" id="prog-fill" style="width:0%;height:100%;background:linear-gradient(90deg, var(--acc2), var(--acc3));transition:width 0.3s ease;"></div>
         </div>
         <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
@@ -1541,7 +1697,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
       </div>
       <!-- EMPTY STATE -->
       <div id="az-empty-state" style="margin-top:24px;background:var(--card);border:1.5px dashed var(--border2);border-radius:12px;padding:40px 24px;text-align:center;">
-        <div style="font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:inline-block;padding:3px 10px;background:var(--acc-bg);border-radius:100px;">💡 Pick a sample below to preview</div>
+        <div style="font-size:11px;font-weight:700;color:var(--acc3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:inline-block;padding:3px 10px;background:var(--acc3-bg);border-radius:100px;border:1px solid rgba(42,95,165,0.15)">💡 Pick a sample below to preview</div>
         <h3 style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;">Ready to Analyze</h3>
         <p style="font-size:13px;color:var(--muted);max-width:340px;margin:0 auto 24px;line-height:1.6;">Paste a product name or URL above to generate a comprehensive 10-module teardown report.</p>
         <div class="empty-features-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;max-width:640px;margin:0 auto;text-align:left;">
@@ -1607,7 +1763,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
         <!-- TABS -->
         <div class="rep-tabs" id="rep-tabs">
           <div style="display:flex;flex-direction:column;gap:4px;padding-right:16px;border-right:1.5px solid var(--border);">
-            <span style="font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.5px;">❶ Core Research</span>
+            <span style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">❶ Core Research</span>
             <div style="display:flex;gap:4px;">
               <button class="rep-tab on" data-tab="overview">Overview</button>
               <button class="rep-tab" data-tab="personas">Personas</button>
@@ -1672,15 +1828,7 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
     </div>
   </div>
 
-  <div class="hero-stats">
-    <div class="stat"><span class="stat-n">14,000+</span> teardowns generated</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">5,400+</span> PMs &amp; founders</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">&lt;30s</span> analysis time</div>
-    <div class="dot"></div>
-    <div class="stat"><span class="stat-n">Any</span> product or URL</div>
-  </div>
+<!-- Stats row moved to Hero section -->
 
 <!-- TICKER -->
 <div class="ticker">
@@ -2053,147 +2201,47 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 </style>
   <div class="feat-grid2">
     <div class="feat-label">Core analysis modules</div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-o" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 13a3.5 3.5 0 0 0-3.5 3.5v1a3.5 3.5 0 0 0 7 0V12a5 5 0 1 0-10 0v1.5"/><path d="M7 13H4.5A2.5 2.5 0 0 0 2 15.5v0A2.5 2.5 0 0 0 4.5 18H5"/><path d="M9 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">AI-powered</span>
-      </div>
-      <h3 class="fc2-title">Product Overview Generator</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>User Segments</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core Features</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Value Proposition</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Problem Statement</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Claude-powered</span><span class="ftag">Any URL or name</span><span class="ftag">&lt;30s turnaround</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>Product Overview</strong> — Clear breakdown of value proposition, target users, and key features.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-b" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div>
-        <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Persona engine</span>
-      </div>
-      <h3 class="fc2-title">User Persona Mapping</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Primary ICP Profiling</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Daily Workflows</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Pain Points &amp; Triggers</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Willingness to Pay</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">ICP detection</span><span class="ftag">Interview-ready</span><span class="ftag">PRD-compatible</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>User Personas</strong> — Rich profile mapping of primary and secondary ICP segments with pain points.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-g" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="8" rx="1"/><rect x="9" y="8" width="4" height="12" rx="1"/><rect x="15" y="4" width="4" height="16" rx="1"/></svg></div>
-        <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">Market intel</span>
-      </div>
-      <h3 class="fc2-title">Competitive Landscape Analysis</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Direct Market Competitors</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Strengths &amp; Weaknesses</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Feature-Comparison Matrix</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Market Threat Levels</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Battle-card ready</span><span class="ftag">Market positioning</span><span class="ftag">Win/loss signals</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>Competitor Map</strong> — Interactive positioning matrix comparing direct competitors on UX and market fit.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-o" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 4.418-3.582 8-8 8S4 16.418 4 12V7l8-4z"/></svg></div>
-        <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">Strategic framework</span>
-      </div>
-      <h3 class="fc2-title">Full SWOT Analysis</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Defensible Core Strengths</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Product Experience Weaknesses</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Churn &amp; Retention Risks</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>External Market Opportunities</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Strategic</span><span class="ftag">Interview-ready</span><span class="ftag">Board-level quality</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>SWOT Matrix</strong> — Complete framework outlining defensible strengths and churn risks.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-b" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M2 12h2M20 12h2M9 8V6M15 8V6M9 18v-2M15 18v-2"/></svg></div>
-        <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Monetisation</span>
-      </div>
-      <h3 class="fc2-title">Revenue Model Decoder</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>SaaS, Transaction, or Ads model</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Conversion Trigger Points</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Upsell Levers</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>NRR Expansion Hooks</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Monetisation</span><span class="ftag">Pricing intel</span><span class="ftag">NRR levers</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>Revenue Model</strong> — Deep analysis of monetization models, conversion triggers, and NRR expansion.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-g" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7"/><path d="M9 4v13M15 7v13"/></svg></div>
-        <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">User journey</span>
-      </div>
-      <h3 class="fc2-title">User Journey Mapping</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Activation &amp; Aha! Moment</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Friction Bottlenecks</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Habit-Forming Loops</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Churn Drop-off Risks</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Full lifecycle</span><span class="ftag">Drop-off points</span><span class="ftag">Retention hooks</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>User Journey</strong> — Detailed lifecycle visualization tracing activation friction and drop-off risks.</div>
     </div>
     <div class="feat-divider"></div>
     <div class="feat-label">Extended PM modules</div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-o" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">KPI framework</span>
-      </div>
-      <h3 class="fc2-title">Product Metrics Recommendation</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>North Star Metric</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Core Retention Drivers</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acquisition &amp; Conversion L1s</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Feature Health L2s</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">North Star</span><span class="ftag">AARRR-aligned</span><span class="ftag">Stage-appropriate</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>Success Metrics</strong> — Custom metrics, North Star definition, and prioritized KPI suggestions.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-b" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 13a3.5 3.5 0 0 0-3.5 3.5v1a3.5 3.5 0 0 0 7 0V12a5 5 0 1 0-10 0v1.5"/><path d="M7 13H4.5A2.5 2.5 0 0 0 2 15.5v0A2.5 2.5 0 0 0 4.5 18H5"/><path d="M9 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <span class="fc2-badge ic-b" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6d0f0">Growth strategy</span>
-      </div>
-      <h3 class="fc2-title">Growth Opportunity Scanner</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acquisition Channels</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Difficulty &amp; Effort Ratings</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Churn Recovery Plans</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Nudges &amp; Experiments</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">Acquisition</span><span class="ftag">Retention</span><span class="ftag">Monetisation</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>Growth Scanner</strong> — Targeted roadmap of experiments, acquisition channels, and retention loops.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-g" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 17l2-4 2 4M9 15h4"/></svg></div>
-        <span class="fc2-badge ic-g" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #b6deca">Prioritisation</span>
-      </div>
-      <h3 class="fc2-title">RICE Feature Prioritisation</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Reach &amp; Impact Scoring</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Confidence Adjustment</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Engineering Effort Estimate</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Sorted Feature Backlog</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">RICE framework</span><span class="ftag">PM-standard</span><span class="ftag">Prioritised output</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>RICE Prioritisation</strong> — Ranked backlog of roadmap features scored by reach, impact, confidence, and effort.</div>
     </div>
-    <div class="fc2 card">
-      <div class="fc2-top">
-        <div class="fc-icon ic-o" style="width:44px;height:44px;border-radius:12px;font-size:22px"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"/></svg></div>
-        <span class="fc2-badge ic-o" style="font-size:11px;padding:3px 10px;border-radius:100px;font-weight:700;border:1px solid #f5c3a8">PRD generation</span>
-      </div>
-      <h3 class="fc2-title">Mini PRD Generator</h3>
-      <ul class="fc2-checks" style="margin-top:8px;margin-bottom:16px;">
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>User Stories (As a... I want...)</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Objective &amp; Success Metrics</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Acceptance Criteria</li>
-        <li><span class="fcheck"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>KPI Tracking Specs</li>
-      </ul>
-      <div class="fc-tags" style="margin-top:auto"><span class="ftag">PM-standard</span><span class="ftag">Ready to share</span><span class="ftag">Interview gold</span></div>
+    <div class="feat-item">
+      <span class="feat-check">✓</span>
+      <div><strong>PRD Generator</strong> — Shareable requirements doc complete with user stories and acceptance criteria.</div>
     </div>
   </div>
 </div>
@@ -2511,7 +2559,18 @@ function iconFallback(e,l){var s=document.createElement('span');s.textContent=l;
 <footer class="rich-footer">
   <div class="footer-grid">
     <div class="footer-col brand-col">
-      <div class="logo" style="font-size:16px;margin-bottom:12px;"><div class="logo-mark" style="width:24px;height:24px;font-size:12px">T</div> TeardownAI</div>
+      <div class="logo" style="font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+        <div class="logo-mark" style="background: none !important; border: 1.5px solid var(--ink) !important; display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; width: 24px; height: 24px; border-radius: 5px; flex-shrink: 0;">
+          <!-- schematic blueprint background lines inside the square -->
+          <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.35;">
+            <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+            <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+            <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6" stroke-dasharray="8 8" />
+          </svg>
+          <span style="font-family: var(--fh); font-weight: 800; font-size: 13px; color: var(--ink); position: relative; z-index: 1;">T</span>
+        </div>
+        TeardownAI
+      </div>
       <p style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px;">Teardown any product like a Senior PM. Get instant product teardowns, SWOT analysis, competitor maps, and user personas generated by AI.</p>
       <div style="font-size:12px;color:var(--dim)">© 2025 TeardownAI</div>
     </div>
@@ -3085,8 +3144,8 @@ function renderScoreDims(d) {
   const dims = [
     {key:'ux',        label:'UX',        val:d.score_ux       ||Math.min(99,d.score+3), color:'#2a5fa5'},
     {key:'market',    label:'Market',    val:d.score_market   ||Math.min(99,d.score-2), color:'#1a6b4a'},
-    {key:'moat',      label:'Moat',      val:d.score_moat     ||Math.min(99,d.score-5), color:'#d4520a'},
-    {key:'growth',    label:'Growth',    val:d.score_growth   ||Math.min(99,d.score+1), color:'#b45309'},
+    {key:'moat',      label:'Moat',      val:d.score_moat     ||Math.min(99,d.score-5), color:'#6366f1'},
+    {key:'growth',    label:'Growth',    val:d.score_growth   ||Math.min(99,d.score+1), color:'#10b981'},
     {key:'revenue',   label:'Revenue',   val:d.score_revenue  ||Math.min(99,d.score-4), color:'#7c3aed'},
     {key:'retention', label:'Retention', val:d.score_retention||Math.min(99,d.score-1), color:'#be123c'},
   ];
@@ -3253,8 +3312,8 @@ function repOverview(d) {
   const dims = [
     {label:'UX',       val:d.score_ux||d.score,   color:'#2a5fa5'},
     {label:'Market',   val:d.score_market||d.score,color:'#1a6b4a'},
-    {label:'Moat',     val:d.score_moat||d.score,  color:'#d4520a'},
-    {label:'Growth',   val:d.score_growth||d.score,color:'#b45309'},
+    {label:'Moat',     val:d.score_moat||d.score,  color:'#6366f1'},
+    {label:'Growth',   val:d.score_growth||d.score,color:'#10b981'},
     {label:'Revenue',  val:d.score_revenue||d.score,color:'#7c3aed'},
     {label:'Retention',val:d.score_retention||d.score,color:'#be123c'},
   ];
@@ -3395,7 +3454,7 @@ function repCompetitors(d) {
 
   return `<div class="tab-panel">
     <div class="comp-layout">
-      <div class="comp-chart-panel" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
+      <div class="comp-chart-panel" style="background:var(--bg2);border:none;border-radius:12px;padding:16px;margin-bottom:14px;">
         <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Competitive Positioning Map</div>
         ${bubbleSVG}
       </div>
@@ -3444,7 +3503,7 @@ function repSwot(d) {
   </svg>`;
 
   return `<div class="tab-panel">
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
+    <div style="background:var(--bg2);border:none;border-radius:12px;padding:16px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Impact / Likelihood Matrix</div>
       ${matrixSVG}
     </div>
@@ -3464,7 +3523,7 @@ function repJourney(d) {
     {stage:'Retention', title:'Core habit loop',      desc:'Regular return driven by habit triggers.',   actions:['Return visit','Use core feature']},
     {stage:'Referral',  title:'Viral moment',         desc:'Satisfied users share with peers.',          actions:['Invite friend','Share output']},
   ];
-  const colors   = ['#d4520a','#b84508','#d4a017','#1a6b4a','#2a5fa5'];
+  const colors   = ['#2a5fa5', '#3b82f6', '#10b981', '#1a6b4a', '#6366f1'];
   const funnelPcts = [100,72,55,38,24];
 
   /* Funnel */
@@ -3496,7 +3555,7 @@ function repJourney(d) {
     </div>`).join('');
 
   return `<div class="tab-panel">
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;">
+    <div style="background:var(--bg2);border:none;border-radius:12px;padding:16px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px">Conversion Funnel</div>
       <div class="funnel-wrap">${funnelRows}</div>
     </div>
@@ -3559,7 +3618,7 @@ function repRice(d) {
   const items = d.rice||(d.features||[]).slice(0,5).map((f,i)=>({feature:f,reach:9-i,impact:i<2?3:2,confidence:90-i*5,effort:i<2?2:3}));
   const scored = items.map(r=>({...r,score:Math.round((r.reach*r.impact*(r.confidence/100))/r.effort*10)})).sort((a,b)=>b.score-a.score);
   const maxScore = scored[0]?.score||1;
-  const colors = ['#1a6b4a','#2a5fa5','#d4a017','#d4520a','#6b6860'];
+  const colors = ['#1a6b4a','#2a5fa5','#7c3aed','#6366f1','#6b6860'];
 
   /* Horizontal score bars */
   const barRows = scored.map((r,i)=>{
@@ -3587,8 +3646,8 @@ function repRice(d) {
   }).join('');
 
   return `<div class="tab-panel">
-    <div style="font-size:13px;color:var(--muted);margin-bottom:14px;padding:10px 14px;background:var(--acc-bg);border:1px solid #f5c3a8;border-radius:8px;">
-      <strong style="color:var(--acc-t)">RICE Formula:</strong> (Reach × Impact × Confidence%) ÷ Effort &nbsp;—&nbsp; Higher score = build first
+    <div style="font-size:13px;color:var(--acc3-t);margin-bottom:14px;padding:10px 14px;background:var(--acc3-bg);border:1px solid rgba(42,95,165,0.15);border-radius:8px;">
+      <strong style="color:var(--acc3-t)">RICE Formula:</strong> (Reach × Impact × Confidence%) ÷ Effort &nbsp;—&nbsp; Higher score = build first
     </div>
     <div class="rice-visual">${barRows}</div>
   </div>`;
@@ -3625,7 +3684,7 @@ function repPrd(d) {
     <div class="prd-vis-block">
       <div class="prd-vis-label">User Story</div>
       <div class="prd-story-parts">
-        <div class="prd-story-part"><span class="prd-story-tag" style="background:var(--acc-bg);color:var(--acc-t)">AS A</span><span style="font-size:13px;color:var(--ink)">${asA}</span></div>
+        <div class="prd-story-part"><span class="prd-story-tag" style="background:var(--bg3);color:var(--muted)">AS A</span><span style="font-size:13px;color:var(--ink)">${asA}</span></div>
         <div class="prd-story-part"><span class="prd-story-tag" style="background:var(--acc2-bg);color:var(--acc2-t)">I WANT</span><span style="font-size:13px;color:var(--ink)">${iWant}</span></div>
         <div class="prd-story-part"><span class="prd-story-tag" style="background:var(--acc3-bg);color:var(--acc3-t)">SO THAT</span><span style="font-size:13px;color:var(--ink)">${soThat}</span></div>
       </div>
@@ -4275,10 +4334,10 @@ const views = {
       </div>
 
       <!-- Portfolio Strategic Diagnostics (Wow Moment) -->
-      <div style="background: linear-gradient(135deg, var(--acc-bg), var(--acc3-bg)); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 4px 25px rgba(212,82,10,0.03);">
-        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, var(--acc) 10%, transparent 60%); opacity: 0.15; pointer-events: none;"></div>
+      <div style="background: linear-gradient(135deg, var(--acc3-bg), var(--bg2)); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 4px 25px rgba(42,95,165,0.03);">
+        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, var(--acc3) 10%, transparent 60%); opacity: 0.15; pointer-events: none;"></div>
         
-        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--acc); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--acc3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           Portfolio Strategic Diagnostics
         </div>
@@ -4401,14 +4460,14 @@ const views = {
   billing() {
     const used=STATE.maxCreds-STATE.credits, pct=Math.round((used/STATE.maxCreds)*100);
     return `<div class="p-title">Billing &amp; Plan</div>
-      <div style="background:var(--acc-bg);border:1px solid #f5c3a8;border-radius:10px;padding:16px 18px;margin-bottom:14px">
+      <div style="background:var(--acc3-bg);border:1px solid rgba(42,95,165,0.15);border-radius:10px;padding:16px 18px;margin-bottom:14px">
         <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px">Current plan</div>
-        <div style="font-size:20px;font-weight:700;color:var(--acc);margin-bottom:2px">${STATE.plan} — ${STATE.planPrice}</div>
+        <div style="font-size:20px;font-weight:700;color:var(--acc3);margin-bottom:2px">${STATE.plan} — ${STATE.planPrice}</div>
         <div style="font-size:13px;color:var(--muted)">Renews ${STATE.planRenew} · ${STATE.credits} credits left</div>
       </div>
       <div class="metrics" style="margin-bottom:14px">
         <div class="m-card"><div class="m-num">${used}</div><div class="m-lbl">Used</div>
-          <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--acc);border-radius:2px"></div></div>
+          <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--acc3);border-radius:2px"></div></div>
         </div>
         <div class="m-card"><div class="m-num">${STATE.credits}</div><div class="m-lbl">Remaining</div></div>
         <div class="m-card"><div class="m-num">${STATE.maxCreds}</div><div class="m-lbl">Monthly quota</div></div>
@@ -5023,10 +5082,9 @@ function seedReportMetadata(d) {
 function toggleScoreExplainer(sdimEl) {
   const wrapper = sdimEl.closest('.sdim-wrapper');
   const panel = wrapper.querySelector('.sdim-breakdown-panel');
-  const chevron = wrapper.querySelector('.sdim-chevron');
   const isHidden = panel.style.display === 'none';
   panel.style.display = isHidden ? 'block' : 'none';
-  chevron.style.transform = isHidden ? 'rotate(90deg)' : 'rotate(0deg)';
+  wrapper.classList.toggle('open', isHidden);
 }
 
 function resetAnalyzer() {
