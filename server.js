@@ -12,6 +12,33 @@ const express  = require('express');
 const cors     = require('cors');
 const fetch    = require('node-fetch');
 const path     = require('path');
+const fs       = require('fs');
+
+// Load .env file manually if it exists
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  try {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    envContent.split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#')) {
+        const index = trimmed.indexOf('=');
+        if (index > -1) {
+          const key = trimmed.substring(0, index).trim();
+          let val = trimmed.substring(index + 1).trim();
+          if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+            val = val.substring(1, val.length - 1);
+          }
+          if (key) {
+            process.env[key] = val;
+          }
+        }
+      }
+    });
+  } catch (e) {
+    console.error('Error reading .env file:', e.message);
+  }
+}
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -19,9 +46,10 @@ const KEY      = process.env.ANTHROPIC_API_KEY || '';
 const RZP_KEY  = process.env.RAZORPAY_KEY_ID     || 'rzp_test_SyRjWkQSmF4vn4';   // from dashboard.razorpay.com → Settings → API Keys
 const RZP_SEC  = process.env.RAZORPAY_KEY_SECRET || '369647Ya8uijAO1Z5gxbI2Nl';   // keep secret — never send to browser
 
-if (!KEY) {
-  console.warn('⚠️  ANTHROPIC_API_KEY not set — /api/analyze will return 500');
+if (!KEY || KEY.includes('YOUR_KEY_HERE')) {
+  console.warn('⚠️  ANTHROPIC_API_KEY not set or is placeholder — /api/analyze will return 500');
 }
+
 
 // Allow requests from any origin (your hosted frontend)
 app.use(cors());
@@ -59,7 +87,6 @@ app.post('/api/analyze', async (req, res) => {
 });
 
 // ── Database and Auth Implementation ──
-const fs = require('fs');
 const DB_FILE = path.join(__dirname, 'database.json');
 
 // Helper to load/save database
