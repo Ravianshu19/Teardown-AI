@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TeardownAI — Workspace Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="index.css">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;display:flex;align-items:center;gap:10px;">
+    <div class="logo-mark" style="background: none !important; border: 1.5px solid var(--ink) !important; display: inline-flex; align-items: center; justify-content: center; position: relative; overflow: hidden; width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;">
+      <svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.35;">
+        <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+        <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" stroke-width="6" stroke-dasharray="10 6" />
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6" stroke-dasharray="8 8" />
+      </svg>
+      <span style="font-family: var(--fh); font-weight: 800; font-size: 15px; color: var(--ink); position: relative; z-index: 1;">T</span>
+    </div>
+    TeardownAI
+  </div>
+  <div class="nav-links">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="portal.html" class="active" style="color: var(--ink); font-weight: 700;">Portal</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle-btn" class="ti-btn" style="padding: 6px; border-radius: 8px; margin-right: 8px; cursor: pointer; background: var(--bg2); border: 1px solid var(--border); color: var(--muted); display: inline-flex; align-items: center; justify-content: center;" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+      <svg id="theme-sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="7.07"/></svg>
+      <svg id="theme-moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="btn-nav" onclick="handleLogoutClick()">Log Out</button>
+    <button class="hamburger" id="ham" aria-label="Menu" aria-expanded="false" onclick="toggleMobNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mob-nav" id="mob-nav">
+  <button class="mob-link" onclick="window.location.href='index.html#features'"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="currentColor" opacity=".3"/><path d="M12 2l1.5 3.5L17 7l-3.5 1.5L12 12l-1.5-3.5L7 7l3.5-1.5z"/></svg></span> Features</button>
+  <button class="mob-link" onclick="window.location.href='index.html#how'"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-8a3.5 3.5 0 0 1 0-7H12"/></svg></span> How it works</button>
+  <button class="mob-link" onclick="window.location.href='index.html#pricing'"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3H7a2 2 0 0 0-2 2v4a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l4-4a2 2 0 0 0 0-2.828l-8-8A2 2 0 0 0 11 3z"/><circle cx="9" cy="9" r="1" fill="currentColor"/></svg></span> Pricing</button>
+  <div class="mob-divider"></div>
+  <div style="display: flex; gap: 8px; flex-direction: column; padding: 0 14px;" id="mob-views-container">
+    <button class="mob-pill on" onclick="switchView('dashboard')">Dashboard</button>
+    <button class="mob-pill" onclick="switchView('reports')">My Reports</button>
+    <button class="mob-pill" onclick="switchView('team')">Team</button>
+    <button class="mob-pill" onclick="switchView('billing')">Billing</button>
+  </div>
+  <div class="mob-divider"></div>
+  <button class="mob-cta" onclick="handleLogoutClick()">Log Out</button>
+</div>
+
+<!-- PORTAL BODY -->
+<div class="section" id="portal" style="padding-bottom:1.5rem; margin-top: 2rem;">
+  <div class="kicker">Client portal</div>
+  <div class="sec-title">Your all-in-one workspace</div>
+  <div class="sec-sub">Manage teardowns, track history, collaborate with your team, and monitor usage.</div>
+</div>
+
+<div class="portal-wrap">
+  <div class="portal-shell">
+    <div class="p-topbar" id="p-topbar">
+      <div class="p-tab on" data-view="dashboard">Dashboard</div>
+      <div class="p-tab" data-view="reports">My Reports</div>
+      <div class="p-tab" data-view="team" style="display:none;">Team</div>
+      <div class="p-tab" data-view="billing">Billing</div>
+    </div>
+    <div class="p-body">
+      <div class="p-sidebar" id="p-sidebar" style="display:flex;flex-direction:column;justify-content:flex-start;gap:2px;">
+        <div class="p-nav-lbl">Menu</div>
+        <div class="p-nav on" data-view="dashboard"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span> Dashboard</div>
+        <div class="p-nav" data-view="reports"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="11" y2="17"/></svg></span> My reports</div>
+        <div class="p-nav" data-view="saved"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span> Saved</div>
+        <div class="p-nav" data-view="team" style="display:none;"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"/></svg></span> Team</div>
+        <div class="p-nav" data-view="history"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 1 0 .5-3M3 4v4h4"/></svg></span> History</div>
+        <div class="p-nav" data-view="exports"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M11.5 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v5"/><path d="M15 18h6M18 15l3 3-3 3"/></svg></span> Exports</div>
+        <div class="p-nav" data-view="billing"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span> Billing</div>
+        <div class="p-nav" data-view="settings"><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Settings</div>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--border);font-size:12px;display:flex;flex-direction:column;gap:6px;" id="sidebar-user-box">
+          <!-- Populated dynamically by javascript -->
+        </div>
+      </div>
+      <div class="p-main" id="p-main">
+        <!-- Dyn contents -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="margin-top: 4rem; padding: 2rem; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; align-items: center;">
+  <div>&copy; 2025 TeardownAI. All rights reserved.</div>
+  <div style="display:flex; gap:16px;">
+    <a href="index.html">Home</a>
+    <a href="index.html#pricing">Pricing</a>
+  </div>
+</footer>
+
+<script>
+// State Management
+const STATE = {
+  user: null,
+  userEmail: '',
+  userName: '',
+  plan: 'Free',
+  credits: 10,
+  maxCreds: 10,
+  history: [],
+  team: [],
+  planPrice: 'Free',
+  planRenew: 'Never'
+};
+
+const PLUS = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
+// Toast System
+function showToast(msg, type) {
+  const t = document.createElement('div');
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.style.animation = 'tout .25s ease forwards';
+    setTimeout(() => t.remove(), 250);
+  }, 3000);
+}
+
+// Sidebar User Box rendering
+function updateUserBox() {
+  const box = document.getElementById('sidebar-user-box');
+  if (!box) return;
+
+  let warningHtml = '';
+  if (STATE.plan !== 'Pro') {
+    if (STATE.credits <= 2 && STATE.credits > 0) {
+      warningHtml = `<div style="margin-top: 4px; padding: 4px 8px; background: rgba(229, 9, 20, 0.08); border: 1px solid rgba(229, 9, 20, 0.2); border-radius: 6px; color: #e50914; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">⚠️ Low Credits: ${STATE.credits} left</div>`;
+    } else if (STATE.credits === 0) {
+      warningHtml = `<div style="margin-top: 4px; padding: 4px 8px; background: rgba(229, 9, 20, 0.1); border: 1px solid rgba(229, 9, 20, 0.3); border-radius: 6px; color: #e50914; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">⚠️ 0 Credits left. Upgrade needed</div>`;
+    } else {
+      warningHtml = `<div style="color:var(--dim);font-size:10px;margin-top:2px;">Credits remaining: <strong>${STATE.credits}</strong></div>`;
+    }
+  } else {
+    warningHtml = `<div style="color:var(--acc2);font-size:10px;font-weight:600;margin-top:2px;">Plan: Pro (Unlimited)</div>`;
+  }
+
+  if (STATE.user) {
+    box.innerHTML = `
+      <div style="font-weight:600;color:var(--ink);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.name}</div>
+      <div style="color:var(--dim);font-size:10px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">${STATE.user.email}</div>
+      ${warningHtml}
+      <button onclick="handleLogout()" style="background:none;border:none;color:var(--acc);font-size:11px;cursor:pointer;text-align:left;font-weight:600;padding:0;margin-top:6px;">Log Out</button>
+    `;
+  } else {
+    box.innerHTML = `
+      <div style="color:var(--muted);font-weight:500;">Running as Guest</div>
+      ${warningHtml}
+      <button class="r-btn r-btn-p" style="padding:4px 8px;font-size:11px;width:100%;justify-content:center;margin-top:6px;" onclick="window.location.href='index.html?auth=true'">Log In / Sign Up</button>
+    `;
+  }
+
+  const teamNavs = document.querySelectorAll('[data-view="team"]');
+  const isDeveloper = STATE.userEmail && STATE.userEmail.toLowerCase().includes('developer');
+  teamNavs.forEach(nav => {
+    nav.style.display = isDeveloper ? 'flex' : 'none';
+  });
+}
+
+function handleLogout() {
+  localStorage.removeItem('auth_token');
+  showToast('Logged out successfully!', 'ok');
+  setTimeout(() => { window.location.href = 'index.html'; }, 800);
+}
+function handleLogoutClick() { handleLogout(); }
+
+// Theme management
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = saved === 'dark' || (!saved && prefersDark);
+  document.body.classList.toggle('dark-theme', isDark);
+  updateThemeIcons(isDark);
+}
+function toggleTheme() {
+  const isDark = !document.body.classList.contains('dark-theme');
+  document.body.classList.toggle('dark-theme', isDark);
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  updateThemeIcons(isDark);
+}
+function updateThemeIcons(isDark) {
+  const sun = document.getElementById('theme-sun-icon');
+  const moon = document.getElementById('theme-moon-icon');
+  if (sun && moon) {
+    sun.style.display = isDark ? 'block' : 'none';
+    moon.style.display = isDark ? 'none' : 'block';
+  }
+}
+
+// Mobile nav
+const _mobNav = document.getElementById('mob-nav');
+const _ham = document.getElementById('ham');
+function toggleMobNav() {
+  _mobNav.classList.toggle('open');
+  _ham.classList.toggle('open');
+}
+function closeMobNav() {
+  _mobNav.classList.remove('open');
+  _ham.classList.remove('open');
+}
+
+// Redirect view actions
+function reTeardown(name) {
+  window.location.href = 'index.html?q=' + encodeURIComponent(name);
+}
+function reTeardownAndExport(name){
+  window.location.href = 'index.html?q=' + encodeURIComponent(name) + '&export=true';
+}
+
+function exportPDF() {
+  showToast('Generating PDF...', 'ok');
+  setTimeout(() => { window.print(); }, 800);
+}
+
+// Helper methods from index.html
+function totalTeardowns() { return STATE.history.length; }
+function weekTeardowns() {
+  const w = Date.now() - 7*24*3600*1000;
+  return STATE.history.filter(h => h.ts > w).length;
+}
+function savedCount() { return STATE.history.filter(h => h.saved).length; }
+
+function scoreColor(s) {
+  if (s >= 80) return 'var(--acc2)';
+  if (s >= 60) return 'var(--acc3)';
+  return '#be123c';
+}
+
+function iconFallback(img, init) {
+  img.onerror = null;
+  const span = document.createElement('span');
+  span.textContent = init;
+  span.style.cssText = 'font-size:12px;font-weight:700;';
+  img.parentNode.replaceChild(span, img);
+}
+
+function filterList(q) {
+  const query = q.toLowerCase();
+  document.querySelectorAll('#report-list .ti').forEach(el => {
+    const name = el.querySelector('.ti-name').textContent.toLowerCase();
+    el.style.display = name.includes(query) ? 'flex' : 'none';
+  });
+}
+
+function sortReports(by) {
+  if (by === 'score') STATE.history.sort((a,b) => b.score - a.score);
+  else if (by === 'name') STATE.history.sort((a,b) => a.name.localeCompare(b.name));
+  else STATE.history.sort((a,b) => b.ts - a.ts);
+  renderView('reports');
+}
+
+function toggleSave(idx) {
+  const item = STATE.history[idx];
+  if (!item) return;
+  item.saved = !item.saved;
+  
+  const token = localStorage.getItem('auth_token');
+  fetch('/api/reports', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(item)
+  })
+  .then(res => res.json())
+  .then(() => {
+    showToast(item.saved ? 'Report saved!' : 'Report unsaved', 'ok');
+    renderView(document.querySelector('.p-nav.on')?.dataset.view || 'dashboard');
+  })
+  .catch(err => showToast(err.message, 'warn'));
+}
+
+function deleteEntry(idx) {
+  const item = STATE.history[idx];
+  if (!item) return;
+  
+  const token = localStorage.getItem('auth_token');
+  fetch(`/api/reports/${item.id}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  .then(res => res.json())
+  .then(() => {
+    STATE.history.splice(idx, 1);
+    showToast('Report deleted', 'ok');
+    renderView(document.querySelector('.p-nav.on')?.dataset.view || 'dashboard');
+  })
+  .catch(err => showToast(err.message, 'warn'));
+}
+
+function inviteMember() {
+  const inp = document.getElementById('invite-email');
+  const email = inp.value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email.', 'warn');
+    return;
+  }
+  const token = localStorage.getItem('auth_token');
+  fetch('/api/team/invite', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ email })
+  })
+  .then(res => {
+    if (!res.ok) return res.json().then(d => { throw new Error(d.error) });
+    return res.json();
+  })
+  .then(data => {
+    STATE.team = data.team;
+    showToast('Teammate invited successfully!', 'ok');
+    renderView('team');
+  })
+  .catch(err => showToast(err.message, 'warn'));
+}
+
+function removeTeamMember(idx) {
+  const m = STATE.team[idx];
+  if (!m) return;
+  const token = localStorage.getItem('auth_token');
+  fetch(`/api/team/${encodeURIComponent(m.name)}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  .then(res => res.json())
+  .then(data => {
+    STATE.team = data.team;
+    showToast('Team member removed', 'ok');
+    renderView('team');
+  })
+  .catch(err => showToast(err.message, 'warn'));
+}
+
+function toggleBilling() {
+  _billing = _billing === 'monthly' ? 'annual' : 'monthly';
+  const tog = document.getElementById('billing-toggle');
+  tog.classList.toggle('annual', _billing === 'annual');
+  document.getElementById('tog-monthly').classList.toggle('on', _billing === 'monthly');
+  document.getElementById('tog-annual').classList.toggle('on', _billing === 'annual');
+  updatePrices();
+}
+
+function updatePrices() {
+  const plans = ['student', 'pro'];
+  plans.forEach(p => {
+    const info = PLANS[p][_billing];
+    const card = document.getElementById(`plan-${p}`);
+    if (card) {
+      card.querySelector('.p-amt').innerHTML = `₹${(info.amount/100).toLocaleString('en-IN')}<sub>/${info.period}</sub>`;
+      card.querySelector('.p-desc').textContent = info.desc;
+    }
+  });
+}
+
+function buyPlan(pName) {
+  const planInfo = PLANS[pName][_billing];
+  const token = localStorage.getItem('auth_token');
+  if (!token) {
+    showToast('Please log in to upgrade.', 'warn');
+    return;
+  }
+  
+  showToast('Initiating checkout (Razorpay simulated)...', 'ok');
+  
+  // Simulated success since key is test
+  setTimeout(() => {
+    // Generate mock payment IDs
+    const razorpay_order_id = 'order_' + Math.random().toString(36).substring(2, 10);
+    const razorpay_payment_id = 'pay_' + Math.random().toString(36).substring(2, 10);
+    const razorpay_signature = 'sig_mock_signature';
+    
+    verifyPayment(razorpay_payment_id, razorpay_order_id, razorpay_signature, pName);
+  }, 1500);
+}
+
+function verifyPayment(paymentId, orderId, signature, plan) {
+  const token = localStorage.getItem('auth_token');
+  fetch('/api/verify-payment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      razorpay_order_id: orderId,
+      razorpay_payment_id: paymentId,
+      razorpay_signature: signature,
+      plan: plan
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.verified) {
+      STATE.plan = data.plan;
+      STATE.credits = data.credits;
+      STATE.maxCreds = data.maxCreds;
+      
+      if (STATE.plan === 'Pro') {
+        STATE.planPrice = '₹1,499/mo';
+        STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } else if (STATE.plan === 'Student') {
+        STATE.planPrice = '₹199/mo';
+        STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      
+      showToast(`Upgraded to ${data.plan} successfully!`, 'ok');
+      updateUserBox();
+      renderView('billing');
+    } else {
+      showToast('Payment verification failed.', 'warn');
+    }
+  })
+  .catch(err => showToast(err.message, 'warn'));
+}
+
+const PLANS = {
+  student: {
+    monthly: { amount: 19900, label: 'Student Monthly', desc: '15 teardowns/mo + core features', period: 'month' },
+    annual:  { amount: 13900, label: 'Student Annual',  desc: '15 teardowns/mo — 30% off',     period: 'year'  },
+  },
+  pro: {
+    monthly: { amount: 149900, label: 'Pro Monthly', desc: 'Unlimited teardowns + all features', period: 'month' },
+    annual:  { amount: 104930, label: 'Pro Annual',  desc: 'Unlimited teardowns — 30% off',     period: 'year'  },
+  },
+};
+let _billing = 'monthly';
+</script>
+<script>
+// Load Views logic
+
+const views = {
+  dashboard() {
+    const total=totalTeardowns(), week=weekTeardowns(), saved=savedCount();
+    
+    // Calculate Portfolio Diagnostics
+    let topStrength = 'UX';
+    let weakestArea = 'Growth';
+    let suggestedFocus = 'Improve onboarding activation loops';
+    
+    const validReports = STATE.history.filter(h => h.score_ux !== undefined);
+    if (validReports.length > 0) {
+      const avgUX = validReports.reduce((sum, r) => sum + r.score_ux, 0) / validReports.length;
+      const avgMarket = validReports.reduce((sum, r) => sum + r.score_market, 0) / validReports.length;
+      const avgMoat = validReports.reduce((sum, r) => sum + (r.score_moat !== undefined ? r.score_moat : r.score), 0) / validReports.length;
+      const avgGrowth = validReports.reduce((sum, r) => sum + (r.score_growth !== undefined ? r.score_growth : r.score), 0) / validReports.length;
+      const avgRev = validReports.reduce((sum, r) => sum + (r.score_revenue !== undefined ? r.score_revenue : r.score), 0) / validReports.length;
+      const avgRet = validReports.reduce((sum, r) => sum + (r.score_retention !== undefined ? r.score_retention : r.score), 0) / validReports.length;
+      
+      const dims = [
+        { name: 'UX', val: avgUX, focus: 'Optimize key friction points in onboarding flow' },
+        { name: 'Market', val: avgMarket, focus: 'Expand target personas and address new segments' },
+        { name: 'Moat', val: avgMoat, focus: 'Strengthen core product defensibility and IP' },
+        { name: 'Growth', val: avgGrowth, focus: 'Improve onboarding activation loops' },
+        { name: 'Revenue', val: avgRev, focus: 'Experiment with upsell triggers and packaging' },
+        { name: 'Retention', val: avgRet, focus: 'Invest in habit-forming core retention hooks' }
+      ];
+      
+      dims.sort((a, b) => b.val - a.val);
+      topStrength = `${dims[0].name} (${Math.round(dims[0].val)}/100)`;
+      weakestArea = `${dims[5].name} (${Math.round(dims[5].val)}/100)`;
+      suggestedFocus = dims[5].focus;
+    } else {
+      topStrength = 'N/A';
+      weakestArea = 'N/A';
+      suggestedFocus = 'Generate a teardown report to unlock strategic diagnostics';
+    }
+    const pct=Math.round(((STATE.maxCreds-STATE.credits)/STATE.maxCreds)*100);
+    const today=STATE.history.filter(h=>h.ts>Date.now()-86400000).length;
+    
+    // Sparkline activity
+    const days=Array.from({length:7},(_,i)=>{
+      const d=new Date();d.setDate(d.getDate()-6+i);
+      const lbl=d.toLocaleDateString('en',{weekday:'short'});
+      const cnt=STATE.history.filter(h=>{const hd=new Date(h.ts);return hd.toDateString()===d.toDateString();}).length;
+      return{lbl,cnt};
+    });
+    const maxDay=Math.max(...days.map(d=>d.cnt),1);
+    const sparks=days.map(d=>{
+      const h=Math.max(Math.round((d.cnt/maxDay)*40),2);
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1">
+        <div style="width:100%;background:${d.cnt>0?'var(--acc)':'var(--bg3)'};border-radius:3px 3px 0 0;height:${h}px"></div>
+        <span style="font-size:10px;color:var(--dim)">${d.lbl}</span>
+      </div>`;
+    }).join('');
+
+    // Chart 1: PM Score Trend (Bar Chart)
+    const trendReports = STATE.history.slice(0, 5).reverse();
+    let trendSVG = '';
+    if (trendReports.length > 0) {
+      const W=360, H=140, PL=36, PB=26, PT=14, PR=10;
+      const iW=W-PL-PR, iH=H-PB-PT;
+      const barW = Math.round(iW / trendReports.length) - 16;
+      const scX = i => PL + i * Math.round(iW / trendReports.length) + 8;
+      const scY = v => PT + iH - (v/100)*iH;
+      
+      const bars = trendReports.map((r, i) => {
+        const x = scX(i);
+        const y = scY(r.score);
+        const h = Math.max(scY(0) - y, 2);
+        return `<g>
+          <rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="var(--acc)" rx="3"/>
+          <text x="${x + barW/2}" y="${y - 4}" text-anchor="middle" font-size="8" font-weight="700" fill="var(--ink)">${r.score}</text>
+          <text x="${x + barW/2}" y="${H - 12}" text-anchor="middle" font-size="8" fill="var(--dim)">${r.name.slice(0, 8)}</text>
+        </g>`;
+      }).join('');
+      
+      const yLabels = [0, 50, 100].map(v => `<text x="${PL - 6}" y="${scY(v) + 3}" text-anchor="end" font-size="8" fill="var(--dim)">${v}</text>`).join('');
+      const grid = [50].map(v => `<line x1="${PL}" y1="${scY(v)}" x2="${PL+iW}" y2="${scY(v)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="2"/>`).join('');
+
+      trendSVG = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <line x1="${PL}" y1="${scY(0)}" x2="${PL+iW}" y2="${scY(0)}" stroke="var(--border2)" stroke-width="1"/>
+        <line x1="${PL}" y1="${PT}" x2="${PL}" y2="${scY(0)}" stroke="var(--border2)" stroke-width="1"/>
+        ${grid}${bars}${yLabels}
+      </svg>`;
+    } else {
+      trendSVG = `<div style="height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;">Generate teardowns to view trends</div>`;
+    }
+
+    // Chart 2: Portfolio Strength (Radar Chart)
+    let radarSVG = '';
+    if (validReports.length > 0) {
+      const ux = Math.round(validReports.reduce((sum, r) => sum + r.score_ux, 0) / validReports.length);
+      const market = Math.round(validReports.reduce((sum, r) => sum + r.score_market, 0) / validReports.length);
+      const moat = Math.round(validReports.reduce((sum, r) => sum + r.score_moat, 0) / validReports.length);
+      const growth = Math.round(validReports.reduce((sum, r) => sum + r.score_growth, 0) / validReports.length);
+      const revenue = Math.round(validReports.reduce((sum, r) => sum + r.score_revenue, 0) / validReports.length);
+      const retention = Math.round(validReports.reduce((sum, r) => sum + r.score_retention, 0) / validReports.length);
+      
+      const cx = 110, cy = 90, rMax = 56;
+      const dims = [
+        { name: 'UX', val: ux, angle: 0 },
+        { name: 'Market', val: market, angle: 60 },
+        { name: 'Moat', val: moat, angle: 120 },
+        { name: 'Growth', val: growth, angle: 180 },
+        { name: 'Revenue', val: revenue, angle: 240 },
+        { name: 'Retention', val: retention, angle: 300 }
+      ];
+      
+      const getPolyPoints = r => dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        return `${cx + r * Math.cos(rad)},${cy + r * Math.sin(rad)}`;
+      }).join(' ');
+
+      const grid1 = getPolyPoints(rMax);
+      const grid2 = getPolyPoints(rMax * 0.66);
+      const grid3 = getPolyPoints(rMax * 0.33);
+
+      const dataPoints = dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        const dist = (d.val / 100) * rMax;
+        return `${cx + dist * Math.cos(rad)},${cy + dist * Math.sin(rad)}`;
+      }).join(' ');
+
+      const gridLines = dims.map(d => {
+        const rad = (d.angle - 90) * Math.PI / 180;
+        const x = cx + rMax * Math.cos(rad);
+        const y = cy + rMax * Math.sin(rad);
+        const lx = cx + (rMax + 10) * Math.cos(rad);
+        const ly = cy + (rMax + 6) * Math.sin(rad);
+        const anchor = Math.abs(d.angle - 180) < 10 || d.angle === 0 ? 'middle' : (d.angle > 180 ? 'end' : 'start');
+        
+        return `<g>
+          <line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--border)" stroke-width="1"/>
+          <text x="${lx}" y="${ly}" text-anchor="${anchor}" font-size="7" font-weight="600" fill="var(--muted)">${d.name} (${d.val})</text>
+        </g>`;
+      }).join('');
+
+      radarSVG = `<svg viewBox="0 0 220 180" style="width:100%;max-width:220px;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="${grid1}" fill="none" stroke="var(--border2)" stroke-width="1"/>
+        <polygon points="${grid2}" fill="none" stroke="var(--border)" stroke-dasharray="2" stroke-width="1"/>
+        <polygon points="${grid3}" fill="none" stroke="var(--border)" stroke-dasharray="2" stroke-width="1"/>
+        <polygon points="${dataPoints}" fill="rgba(212,82,10,.15)" stroke="var(--acc)" stroke-width="1.5"/>
+        ${gridLines}
+      </svg>`;
+    } else {
+      radarSVG = `<div style="height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;">Generate teardowns to map averages</div>`;
+    }
+
+    const recent=STATE.history.slice(0,5).map(h=>tiRow(h)).join('');
+    return `
+      <div class="p-title">Dashboard</div>
+      <div class="metrics" style="margin-bottom:14px">
+        <div class="m-card"><div class="m-num">${total}</div><div class="m-lbl">Total teardowns</div><div style="font-size:10px;color:var(--acc2);margin-top:4px;font-weight:600">+${today} today</div></div>
+        <div class="m-card"><div class="m-num">${week}</div><div class="m-lbl">This week</div><div style="font-size:10px;color:var(--acc3);margin-top:4px;font-weight:600">${STATE.history.length} in session</div></div>
+        <div class="m-card"><div class="m-num">${saved}</div><div class="m-lbl">Saved</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Star to save</div></div>
+        <div class="m-card"><div class="m-num">${STATE.credits}</div><div class="m-lbl">Credits left</div>
+          <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${100-pct}%;background:var(--acc);border-radius:2px"></div></div>
+        </div>
+      </div>
+
+      <!-- Portfolio Strategic Diagnostics (Wow Moment) -->
+      <div style="background: linear-gradient(135deg, var(--acc3-bg), var(--bg2)); border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 4px 25px rgba(42,95,165,0.03);">
+        <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, var(--acc3) 10%, transparent 60%); opacity: 0.15; pointer-events: none;"></div>
+        
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--acc3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Portfolio Strategic Diagnostics
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px;" class="dash-charts-grid">
+          <div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(26, 107, 74, 0.06); border-radius: 8px; border: 1px solid rgba(26, 107, 74, 0.15);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--muted);">Top Strength</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--acc2); display: inline-flex; align-items: center; gap: 4px;">💪 ${topStrength}</span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(190, 18, 60, 0.06); border-radius: 8px; border: 1px solid rgba(190, 18, 60, 0.15);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--muted);">Weakest Area</span>
+                <span style="font-size: 12px; font-weight: 700; color: #be123c; display: inline-flex; align-items: center; gap: 4px;">⚠️ ${weakestArea}</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 10px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Suggested Focus</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.45;">${suggestedFocus}</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Visual Dashboard Charts Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;" class="dash-charts-grid">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">PM Score Trend</div>
+          ${trendSVG}
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;">
+          <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;align-self:flex-start;">Portfolio Strength Focus</div>
+          ${radarSVG}
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px">7-Day Activity</div>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:52px">${sparks}</div>
+      </div>
+      <div class="p-title" style="margin-bottom:10px">Recent teardowns</div>
+      <div class="tlist">${recent||'<div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">No teardowns yet. Run your first analysis!</div>'}</div>
+      <button class="new-btn" onclick="goToAnalyzer()">${PLUS} New teardown</button>`;
+  },
+  reports() {
+    const rows=STATE.history.length?STATE.history.map(h=>tiRow(h)).join(''):'<div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">No reports yet.</div>';
+    return `
+      <div class="p-title">All Reports <span style="font-size:13px;font-weight:400;color:var(--muted)">(${STATE.history.length})</span></div>
+      <div class="p-input-row">
+        <input class="inp" placeholder="Search…" oninput="filterList(this.value)" style="max-width:200px;padding:8px 12px;font-size:13px"/>
+        <select onchange="sortReports(this.value)" style="padding:8px 12px;font-size:13px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);outline:none;cursor:pointer">
+          <option value="date">Newest first</option><option value="score">Highest score</option><option value="name">A–Z</option>
+        </select>
+      </div>
+      <div class="tlist" id="report-list">${rows}</div>`;
+  },
+  saved() {
+    const s=STATE.history.filter(h=>h.saved);
+    return `
+      <div class="p-title">Saved <span style="font-size:13px;font-weight:400;color:var(--muted)">(${s.length})</span></div>
+      <div class="tlist">${s.length?s.map(h=>tiRow(h)).join(''):'<div style="color:var(--muted);font-size:13px;padding:28px;text-align:center"><div style="font-size:28px;margin-bottom:8px">⭐</div><div>No saved reports yet.</div><div style="font-size:12px;margin-top:4px">Click the star on any teardown.</div></div>'}</div>
+      <button class="new-btn" onclick="goToAnalyzer()">${PLUS} New teardown</button>`;
+  },
+  team() {
+    const rows=STATE.team.map((m,i)=>{
+      const isYou=i===0;
+      const actions=isYou?'<span class="badge">Admin</span>':`<div class="ti-btns">
+        <button class="ti-btn" onclick="showToast('Invite resent to ${m.name.split(' ')[0]}','ok')"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2 4 12 13 22 4"/></svg></button>
+        <button class="ti-btn" style="color:#be123c" onclick="removeTeamMember(${i})"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+      </div>`;
+      return `<div class="ti"><div class="ti-l"><div class="ti-icon ${m.col}" style="font-size:12px;font-weight:700">${m.initials}</div>
+        <div class="ti-info"><div class="ti-name">${m.name}${isYou?' (You)':''}</div><div class="ti-date">${m.tears} teardowns · ${m.lastActive}</div></div></div>
+        <div class="ti-r">${actions}</div></div>`;
+    }).join('');
+    return `
+      <div class="p-title">Team <span style="font-size:13px;font-weight:400;color:var(--muted)">(${STATE.team.length})</span></div>
+      <div class="tlist" style="margin-bottom:12px">${rows}</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Invite member</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input class="inp" id="invite-email" placeholder="colleague@company.com" style="flex:1;min-width:160px;padding:8px 12px;font-size:13px"/>
+          <button class="r-btn r-btn-p" onclick="inviteMember()">Send invite</button>
+        </div>
+      </div>`;
+  },
+  history() {
+    const all=[...STATE.history].sort((a,b)=>b.ts-a.ts);
+    const groups={};
+    all.forEach(h=>{
+      const lbl=new Date(h.ts).toDateString()===new Date().toDateString()?'Today':
+        new Date(h.ts).toDateString()===new Date(Date.now()-86400000).toDateString()?'Yesterday':h.date;
+      if(!groups[lbl])groups[lbl]=[];
+      groups[lbl].push(h);
+    });
+    const sections=Object.entries(groups).map(([lbl,items])=>`
+      <div style="margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;padding:8px 0 6px">${lbl}</div>
+        <div class="tlist">${items.map(h=>tiRow(h)).join('')}</div>
+      </div>`).join('');
+    return `<div class="p-title">Activity History</div>${sections||'<div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">No activity yet.</div>'}`;
+  },
+  exports() {
+    const items=STATE.history.slice(0,5);
+    const cols=['ic-o','ic-g','ic-b'];
+    const rows=items.map((h,i)=>{
+      const init=(h.name||'?').charAt(0).toUpperCase();
+      const fav=h.domain?`<img src="https://www.google.com/s2/favicons?domain=${h.domain}&sz=32" style="width:18px;height:18px;object-fit:contain;border-radius:3px" onerror="iconFallback(this,'${init}')" alt="${h.name}"/>`:`<span style="font-size:12px;font-weight:700">${init}</span>`;
+      return `<div class="ti"><div class="ti-l"><div class="ti-icon ${cols[i%3]}" style="display:flex;align-items:center;justify-content:center">${fav}</div>
+        <div class="ti-info"><div class="ti-name">${h.name}_Teardown.html</div><div class="ti-date">${h.date} · ~260 KB</div></div></div>
+        <div class="ti-r"><div class="ti-btns">
+          <button class="ti-btn" onclick="reTeardown('${h.name}')"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          <button class="ti-btn" onclick="reTeardownAndExport('${h.name}')"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></button>
+        </div></div></div>`;
+    }).join('');
+    return `<div class="p-title">Exports</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:14px">Click download to open a print-ready report → Save as PDF.</div>
+      <div class="tlist">${rows||'<div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">No exports yet.</div>'}</div>
+      <button class="new-btn" onclick="goToAnalyzer()">${PLUS} New teardown</button>`;
+  },
+  billing() {
+    const used=STATE.maxCreds-STATE.credits, pct=Math.round((used/STATE.maxCreds)*100);
+    return `<div class="p-title">Billing &amp; Plan</div>
+      <div style="background:var(--acc3-bg);border:1px solid rgba(42,95,165,0.15);border-radius:10px;padding:16px 18px;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px">Current plan</div>
+        <div style="font-size:20px;font-weight:700;color:var(--acc3);margin-bottom:2px">${STATE.plan} — ${STATE.planPrice}</div>
+        <div style="font-size:13px;color:var(--muted)">Renews ${STATE.planRenew} · ${STATE.credits} credits left</div>
+      </div>
+      <div class="metrics" style="margin-bottom:14px">
+        <div class="m-card"><div class="m-num">${used}</div><div class="m-lbl">Used</div>
+          <div style="margin-top:6px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--acc3);border-radius:2px"></div></div>
+        </div>
+        <div class="m-card"><div class="m-num">${STATE.credits}</div><div class="m-lbl">Remaining</div></div>
+        <div class="m-card"><div class="m-num">${STATE.maxCreds}</div><div class="m-lbl">Monthly quota</div></div>
+        <div class="m-card"><div class="m-num" style="font-size:15px">Visa<br><span style="font-size:11px;font-weight:400;color:var(--muted)">···· 4242</span></div><div class="m-lbl">Payment</div></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="r-btn r-btn-p" onclick="showToast('Redirecting to billing…')">Manage billing</button>
+        <button class="r-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Upgrade plan</button>
+      </div>`;
+  },
+  settings() {
+    return `<div class="p-title">Account Settings</div>
+      <div class="tlist" style="gap:14px">
+        <div class="ti" style="flex-direction:column;align-items:flex-start;gap:10px;padding:16px">
+          <div style="font-size:13px;font-weight:600">Display name</div>
+          <div style="display:flex;gap:8px;width:100%;flex-wrap:wrap">
+            <input class="inp" id="set-name" value="${STATE.userName}" style="flex:1;min-width:140px;padding:8px 12px;font-size:13px"/>
+            <button class="r-btn r-btn-p" onclick="saveSetting('name')">Save</button>
+          </div>
+        </div>
+        <div class="ti" style="flex-direction:column;align-items:flex-start;gap:10px;padding:16px">
+          <div style="font-size:13px;font-weight:600">Email address</div>
+          <div style="display:flex;gap:8px;width:100%;flex-wrap:wrap">
+            <input class="inp" id="set-email" value="${STATE.userEmail}" style="flex:1;min-width:140px;padding:8px 12px;font-size:13px"/>
+            <button class="r-btn r-btn-p" onclick="saveSetting('email')">Update</button>
+          </div>
+        </div>
+        <div class="ti"><div class="ti-l"><div class="ti-info"><div class="ti-name">Email notifications</div><div class="ti-date">Notify when teardowns complete</div></div></div>
+          <div class="ti-r"><button class="ti-btn" onclick="toggleNotif()" style="width:auto;padding:4px 14px;font-size:12px;font-weight:600;background:${STATE.notifOn?'var(--acc2-bg)':'var(--bg2)'};color:${STATE.notifOn?'var(--acc2-t)':'var(--muted)'};border-color:${STATE.notifOn?'#b6deca':'var(--border)'}">${STATE.notifOn?'On':'Off'}</button></div>
+        </div>
+        <div class="ti"><div class="ti-l"><div class="ti-info"><div class="ti-name">Clear all history</div><div class="ti-date">Remove ${STATE.history.length} teardowns from this session</div></div></div>
+          <div class="ti-r"><button class="ti-btn" onclick="clearHistory()" style="color:#b45309;border-color:#fde68a">Clear</button></div>
+        </div>
+        <div class="ti"><div class="ti-l"><div class="ti-info"><div class="ti-name">Delete account</div><div class="ti-date">Permanently remove your data</div></div></div>
+          <div class="ti-r"><button class="ti-btn" onclick="showToast('Contact support to delete your account')" style="color:#be123c;border-color:#f5c3c3">Delete</button></div>
+        </div>
+      </div>`;
+  },
+};
+
+/* ── Portal nav ── */
+const ALL_VIEWS=['dashboard','reports','saved','team','history','exports','billing','settings'];
+function pillsHtml(active){
+  return `<div class="mob-pills">${ALL_VIEWS.map(v=>`<div class="mob-pill${v===active?' on':''}" onclick="switchView('${v}')">${v.charAt(0).toUpperCase()+v.slice(1)}</div>`).join('')}</div>`;
+}
+function renderView(view){
+  const el=document.getElementById('p-main');
+  if(!el)return;
+  el.innerHTML=pillsHtml(view)+(views[view]||views.dashboard)();
+}
+function switchView(view){
+  document.querySelectorAll('.p-tab').forEach(t=>t.classList.toggle('on',t.dataset.view===view));
+  document.querySelectorAll('.p-nav').forEach(n=>n.classList.toggle('on',n.dataset.view===view));
+  renderView(view);
+}
+
+// Wire top tabs
+document.getElementById('p-topbar').addEventListener('click',e=>{
+  const tab=e.target.closest('.p-tab');
+  if(tab) switchView(tab.dataset.view);
+});
+// Wire sidebar
+document.getElementById('p-sidebar').addEventListener('click',e=>{
+  const nav=e.target.closest('.p-nav');
+  if(nav) switchView(nav.dataset.view);
+});
+
+
+
+
+// Boot logic
+initTheme();
+const token = localStorage.getItem('auth_token');
+if (!token) {
+  showToast('Please sign in to access the portal.', 'warn');
+  setTimeout(() => { window.location.href = 'index.html?auth=true'; }, 1000);
+} else {
+  // Fetch session data
+  fetch('/api/session', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  .then(res => {
+    if (!res.ok) {
+      localStorage.removeItem('auth_token');
+      throw new Error('Session expired');
+    }
+    return res.json();
+  })
+  .then(data => {
+    STATE.user = { name: data.name, email: data.email };
+    STATE.userName = data.name;
+    STATE.userEmail = data.email;
+    STATE.plan = data.plan || 'Free';
+    STATE.credits = data.credits !== undefined ? data.credits : 10;
+    STATE.maxCreds = data.maxCreds || 10;
+    STATE.team = data.team || [];
+    
+    if (STATE.plan === 'Free') {
+      STATE.planPrice = 'Free';
+      STATE.planRenew = 'Never';
+    } else if (STATE.plan === 'Pro') {
+      STATE.planPrice = '₹1,499/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } else if (STATE.plan === 'Student') {
+      STATE.planPrice = '₹199/mo';
+      STATE.planRenew = new Date(Date.now() + 30 * 24 * 3600 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    
+    // Fetch reports
+    return fetch('/api/reports', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.reports) {
+      STATE.history = data.reports;
+    }
+    
+    updateUserBox();
+    
+    // Check url query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialView = urlParams.get('view') || 'dashboard';
+    switchView(initialView);
+  })
+  .catch(err => {
+    showToast(err.message, 'warn');
+    setTimeout(() => { window.location.href = 'index.html?auth=true'; }, 1000);
+  });
+}
+</script>
+</body>
+</html>
